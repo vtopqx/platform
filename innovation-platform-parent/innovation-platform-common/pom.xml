@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>innovation-platform-parent</artifactId>
+        <groupId>cn.innovation.platform</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>innovation-platform-common</artifactId>
+    <packaging>pom</packaging>
+
+    <name>innovation-platform-common</name>
+    <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>innovation-platform-common-core</module>
+    <module>innovation-platform-common-web</module>
+    <module>innovation-platform-common-other</module>
+  </modules>
+</project>

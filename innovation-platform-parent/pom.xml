@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.innovation.platform</groupId>
+	<artifactId>innovation-platform-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>${project.artifactId}</name>
+	<url>http://www.baidu.com</url>
+
+	<organization>
+		<name>Richinfo</name>
+		<url>http://www.richinfo.cn</url>
+	</organization>
+
+	 <!-- 使用aliyun镜像 -->
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.3.11.RELEASE</spring.version>
+        <commons-io.version>2.5</commons-io.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <isOpenSign>true</isOpenSign>
+                <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
+                <message.handle.duration>180</message.handle.duration>
+                
+                <!-- 数据库 -->
+                <jdbc.initialSize>2</jdbc.initialSize>
+                <jdbc.maxActive>50</jdbc.maxActive>
+                <jdbc.minIdle>2</jdbc.minIdle>
+                <jdbc.maxWait>60000</jdbc.maxWait>
+                <validationQuery>SELECT 1</validationQuery>
+                <upms.jdbc.url>
+                    <![CDATA[jdbc:mysql://94.191.31.64:9906/innovation_platform?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull]]>
+                </upms.jdbc.url>
+                <upms.jdbc.username>root</upms.jdbc.username>
+                <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
+                <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>
+               
+            </properties>
+        </profile>
+        <profile>
+            <!-- integration test -->
+            <id>test</id>
+            <properties>
+                <isOpenSign>true</isOpenSign>
+                <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
+                <message.handle.duration>180</message.handle.duration>
+               
+                <!-- 数据库 -->
+                <jdbc.initialSize>2</jdbc.initialSize>
+                <jdbc.maxActive>50</jdbc.maxActive>
+                <jdbc.minIdle>2</jdbc.minIdle>
+                <jdbc.maxWait>60000</jdbc.maxWait>
+                <validationQuery>SELECT 1</validationQuery>
+               <upms.jdbc.url>
+                    <![CDATA[jdbc:mysql://94.191.31.64:9906/innovation_platform?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull]]>
+                </upms.jdbc.url>
+                <upms.jdbc.username>root</upms.jdbc.username>
+                <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
+                <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>
+            </properties>
+        </profile>
+
+        <profile>
+            <!--正式环境-->
+            <id>product</id>
+            <properties>
+                <isOpenSign>true</isOpenSign>
+                <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
+                <message.handle.duration>180</message.handle.duration>
+                
+                <!-- 数据库 -->
+                <jdbc.initialSize>2</jdbc.initialSize>
+                <jdbc.maxActive>50</jdbc.maxActive>
+                <jdbc.minIdle>2</jdbc.minIdle>
+                <jdbc.maxWait>60000</jdbc.maxWait>
+                <validationQuery>SELECT 1</validationQuery>
+				<upms.jdbc.url>
+                    <![CDATA[jdbc:mysql://94.191.31.64:9906/innovation_platform?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull]]>
+                </upms.jdbc.url>
+                <upms.jdbc.username>root</upms.jdbc.username>
+                <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
+                <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>                
+            </properties>
+        </profile>
+    </profiles>
+
+	<modules>
+		<module>innovation-platform-common</module>
+		<module>innovation-platform-gateway</module>
+		<module>innovation-platform-upms</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>dubbo</artifactId>
+				<version>2.5.10</version>
+			</dependency>
+
+			<!-- 测试相关 -->
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.13.0</version>
+			</dependency>
+
+			<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>3.4.5</version>
+			</dependency>
+
+			<!-- 缓存相关 -->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>1.8.9.RELEASE</version>
+			</dependency>
+
+			<!-- 数据库相关 -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.44</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>1.1.3</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
+				<version>2.1.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-mongodb</artifactId>
+				<version>1.10.9.RELEASE</version>
+			</dependency>
+
+			<!-- 工具类 -->
+			<dependency>
+				<groupId>com.xiaoleilu</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>3.1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>19.0</version>
+			</dependency>
+
+			<!-- Swagger2 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.7.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.7.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.101tec</groupId>
+				<artifactId>zkclient</artifactId>
+				<version>0.10</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>${project.name}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<configuration>
+					<uniqueVersion>false</uniqueVersion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.10</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<failOnError>true</failOnError>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<compilerArgument>-nowarn</compilerArgument>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

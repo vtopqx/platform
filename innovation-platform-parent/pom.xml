@@ -54,6 +54,15 @@
                 <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
                 <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>
                
+                <!-- Redis -->
+                <redis.host>94.191.31.64</redis.host>
+                <redis.port>7001</redis.port>
+                <redis.timeout>100000</redis.timeout>
+                <redis.pool.maxActive>1024</redis.pool.maxActive>
+                <redis.pool.maxIdle>200</redis.pool.maxIdle>
+                <redis.pool.maxWait>1000</redis.pool.maxWait>
+                <redis.pool.testOnBorrow>true</redis.pool.testOnBorrow>
+                <redis.pool.testOnReturn>true</redis.pool.testOnReturn>
             </properties>
         </profile>
         <profile>
@@ -76,6 +85,16 @@
                 <upms.jdbc.username>root</upms.jdbc.username>
                 <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
                 <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>
+            
+            	<!-- Redis -->
+                <redis.host>94.191.31.64</redis.host>
+                <redis.port>7001</redis.port>
+                <redis.timeout>100000</redis.timeout>
+                <redis.pool.maxActive>1024</redis.pool.maxActive>
+                <redis.pool.maxIdle>200</redis.pool.maxIdle>
+                <redis.pool.maxWait>1000</redis.pool.maxWait>
+                <redis.pool.testOnBorrow>true</redis.pool.testOnBorrow>
+                <redis.pool.testOnReturn>true</redis.pool.testOnReturn>
             </properties>
         </profile>
 
@@ -99,6 +118,16 @@
                 <upms.jdbc.username>root</upms.jdbc.username>
                 <upms.jdbc.password>l1pke6dEa4PyUJy3o27IKi1coaxEIQOFbpIlop0OYsucsMytTbQmBfViZ++EyL5gOW6C8Kj0StC/ryR8ovX9Xg==</upms.jdbc.password>
                 <upms.jdbc.publickey>MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKA1Ziv1WxT/Mr8RP2TqAHl2YpL/UN1uW79MPo9j5itnEPg6EsD3gsjZmg6NsPoNz5fS3kthSQ7r50MU/EshnNECAwEAAQ==</upms.jdbc.publickey>                
+           		
+           		<!-- Redis -->
+                <redis.host>94.191.31.64</redis.host>
+                <redis.port>7001</redis.port>
+                <redis.timeout>100000</redis.timeout>
+                <redis.pool.maxActive>1024</redis.pool.maxActive>
+                <redis.pool.maxIdle>200</redis.pool.maxIdle>
+                <redis.pool.maxWait>1000</redis.pool.maxWait>
+                <redis.pool.testOnBorrow>true</redis.pool.testOnBorrow>
+                <redis.pool.testOnReturn>true</redis.pool.testOnReturn>
             </properties>
         </profile>
     </profiles>

@@ -1,10 +1,12 @@
 package cn.innovation.platform.upms.service.impl;
 
-import java.util.List;
+import javax.annotation.Resource;
 
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
@@ -25,6 +27,9 @@ public class ApplicationRegisterInfoServiceImpl extends
 		ServiceImpl<ApplicationRegisterInfoMapper, ApplicationRegisterInfo> implements IApplicationRegisterInfoService {
 
 	private static final Log logger = LogFactory.get();
+	
+	@Resource
+	private RedisTemplate<String, ApplicationRegisterInfo> redisTemplate;
 
 
 	/**
@@ -33,13 +38,22 @@ public class ApplicationRegisterInfoServiceImpl extends
 	@Override
 	public ApplicationRegisterInfo getApplicationAccount(String consumerKey) {
 		logger.info("upms:查询应用注册信息!");
-		EntityWrapper<ApplicationRegisterInfo> wrapper = new EntityWrapper<ApplicationRegisterInfo>();
-		wrapper.where("consumer_key = {0}", consumerKey);
-		List<ApplicationRegisterInfo> list = this.selectList(wrapper);
-		if (list!=null && list.size()>0) {
-			return list.get(0);
+		long startTime = System.currentTimeMillis();
+		// 先查询redis中是否存在
+		ValueOperations<String, ApplicationRegisterInfo> ops = redisTemplate.opsForValue();
+		String key = "USER:" + consumerKey;
+		ApplicationRegisterInfo appInfo = ops.get(key);
+		if (appInfo == null) {
+			// 查询数据库验证
+			appInfo = this.selectById(consumerKey);
+			// 重新放到redis中
+			if (!StringUtils.isEmpty(appInfo)) {
+				ops.set(key, appInfo);
+			}
 		}
-		return null;
+		long endTime = System.currentTimeMillis();
+		logger.debug("查询应用创新平台权限，耗时{}", (endTime - startTime));
+		return appInfo;
 	}
 
 	/**

@@ -17,5 +17,6 @@
         <module>innovation-platform-common-core</module>
     <module>innovation-platform-common-web</module>
     <module>innovation-platform-common-other</module>
+    <module>innovation-platform-common-generator</module>
   </modules>
 </project>

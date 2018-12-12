@@ -136,7 +136,8 @@
 		<module>innovation-platform-common</module>
 		<module>innovation-platform-gateway</module>
 		<module>innovation-platform-upms</module>
-	</modules>
+    <module>innovation-platform-insurance</module>
+  </modules>
 
 	<dependencyManagement>
 		<dependencies>

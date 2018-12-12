@@ -14,5 +14,12 @@
 
 	<!-- 创新平台应用注册服务 -->
 	<dubbo:reference id="applicationRegisterInfoService" interface="cn.innovation.platform.upms.service.IApplicationRegisterInfoService" check="false" />
+	
+	<!-- 应用注册信息 -->
+	<dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.ITbAppInfoService" check="false" />
+	
+	<!-- 保险服务 -->
+	<dubbo:reference id="insuranceDamdataRecordsService" interface="cn.innovation.platform.insurance.service.ITbInsuranceDamdataRecordsService" check="false" />
+	
 		
 </beans>

@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<parent>
+		<groupId>cn.innovation.platform</groupId>
+		<artifactId>innovation-platform-insurance</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+    <artifactId>innovation-platform-insurance-rpc-service</artifactId>
+    <packaging>jar</packaging>
+
+    <name>innovation-platform-insurance-rpc-service</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.innovation.platform</groupId>
+            <artifactId>innovation-platform-common-other</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.innovation.platform</groupId>
+            <artifactId>innovation-platform-insurance-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.innovation.platform</groupId>
+            <artifactId>innovation-platform-insurance-dao</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.innovation.platform</groupId>
+            <artifactId>innovation-platform-insurance-rpc-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+
+        <!-- Zookeeper -->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- ActiveMQ -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.14.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+            <version>5.14.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <targetPath>${project.build.directory}/classes</targetPath>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+                <directory>src/main/resources/spring</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>spring-context.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <classesDirectory>target/classes/</classesDirectory>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.alibaba.dubbo.container.Main</mainClass>
+                            <!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+                            <useUniqueVersions>false</useUniqueVersions>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>.</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <type>jar</type>
+                            <includeTypes>jar</includeTypes>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

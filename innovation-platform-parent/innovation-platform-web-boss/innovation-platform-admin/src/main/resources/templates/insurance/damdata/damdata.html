@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="post-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								渠道：<input type="text" name="channel"/>
+							</li>
+							<li>
+								应用Key：<input type="text" name="appKey"/>
+							</li>
+							<li>
+								号码：<input type="text" name="mobile"/>
+							</li>
+							<li>
+								状态：<select name="status" th:with="type=${@dict.getType('sys_common_status')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+								</select>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="insurance:damdata:remove">
+		            <i class="fa fa-remove"></i> 删除
+		        </a>
+	        </div>
+	        
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var editFlag = [[${@permission.hasPermi('insurance:damdata:edit')}]];
+		var removeFlag = [[${@permission.hasPermi('insurance:damdata:remove')}]];
+		var datas = [[${@dict.getType('sys_common_status')}]];
+		var prefix = ctx + "insurance/damdata";
+
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        createUrl: prefix + "/add",
+		        updateUrl: prefix + "/edit/{id}",
+		        removeUrl: prefix + "/remove",
+		        exportUrl: prefix + "/export",
+		        sortName: "updateTime",
+		        modalName: "大坝保险申请记录",
+		        search: false,
+		        showExport: false,
+		        columns: [{
+		            checkbox: true
+		        },
+		        {
+		            field: 'id',
+		            title: '编号'
+		        },
+		        {
+		            field: 'appKey',
+		            title: '应用Key',
+		            sortable: true
+		        },
+		        {
+		            field: 'channel',
+		            title: '渠道',
+		            sortable: true
+		        },
+		        {
+		            field: 'name',
+		            title: '名称',
+		            sortable: true
+		        },
+		        {
+		            field: 'mobile',
+		            title: '号码',
+		            sortable: true
+		        },
+		        {
+		            field: 'sex',
+		            title: '性别',
+		            sortable: true
+		        },
+		        {
+		            field: 'age',
+		            title: '年龄',
+		            sortable: true
+		        },
+		        {
+		            field: 'hadCredit',
+		            title: '是否持卡',
+		            sortable: true
+		        },
+		        {
+		            field: 'applyCredit',
+		            title: '申请卡',
+		            sortable: true
+		        },
+		        {
+		            field: 'ip',
+		            title: 'IP地址',
+		            sortable: true
+		        },
+		        {
+		            field: 'referer',
+		            title: '用户来源',
+		            sortable: true
+		        },
+		        {
+		            field: 'status',
+		            title: '状态',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	return $.table.selectDictLabel(datas, value);
+		            }
+		        },
+		        {
+		            field: 'updateTime',
+		            title: '更新时间',
+		            sortable: true
+		        }]
+		    };
+		    $.table.init(options);
+		});
+	</script>
+</body>
+</html>

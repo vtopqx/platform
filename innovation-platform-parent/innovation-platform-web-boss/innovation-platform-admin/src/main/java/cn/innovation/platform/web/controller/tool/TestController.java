@@ -30,7 +30,7 @@ public class TestController extends BaseController
     private final static List<Test> testList = new ArrayList<>();
     {
         testList.add(new Test("1", "admin", "admin123"));
-        testList.add(new Test("2", "ry", "admin123"));
+        testList.add(new Test("2", "admin", "admin123"));
     }
 
     @ApiOperation("获取列表")

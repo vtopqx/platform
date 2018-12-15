@@ -27,7 +27,9 @@ import cn.innovation.platform.common.exception.ParamsSignValidErrorException;
 import cn.innovation.platform.common.exception.ServiceException;
 import cn.innovation.platform.common.utils.RcsoaplusSignHelper;
 import cn.innovation.platform.upms.common.model.ApplicationRegisterInfo;
+import cn.innovation.platform.upms.common.model.TbAppInfo;
 import cn.innovation.platform.upms.service.IApplicationRegisterInfoService;
+import cn.innovation.platform.upms.service.ITbAppInfoService;
 
 /**
  * @author 刘利民
@@ -38,7 +40,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
     private static final Log logger = LogFactory.get();
     
     @Resource
-	private IApplicationRegisterInfoService applicationRegisterInfoService;
+	private ITbAppInfoService appInfoService;
 
     private Boolean isOpenSign;
 
@@ -81,7 +83,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
                     sb.append("URI       : ").append(request.getRequestURI()).append("\n");
                     logger.debug("第三方平台的请求情况\n{}", sb.toString());
                     //获取redis缓存中注册信息
-					ApplicationRegisterInfo appInfo = null;
+                    String appSecret = "";
 					//开始验证参数
                     String consumerKey = params.getOrDefault("consumerKey", "").toString();
                     if (StrUtil.isBlank(consumerKey)) {
@@ -89,11 +91,11 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
 					} else {
 						// 验证consumerKey是否正确
 						long startTime = System.currentTimeMillis();
-						appInfo = applicationRegisterInfoService.getApplicationAccount(consumerKey);
+						appSecret = appInfoService.getApplicationAccount(consumerKey);
 						long endTime = System.currentTimeMillis();
 						logger.debug("调用upms服务获取应用创新平台权限，耗时{}",(endTime - startTime));
 						
-						if (StringUtils.isEmpty(appInfo)) {
+						if (StringUtils.isEmpty(appSecret)) {
 							throw new ServiceException(GlobalStatusCode.CODE_401.value(), "consumerKey验证不通过");
 						}
 					}
@@ -110,8 +112,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
                         throw new ServiceException(GlobalStatusCode.CODE_400.value(), "version不能为空");
                     }
                     //通过密钥进行签名验证
-                    String consumerSecret = appInfo.getConsumerSecret();;
-                    String sig = RcsoaplusSignHelper.genSig(params, consumerSecret.trim());
+                    String sig = RcsoaplusSignHelper.genSig(params, appSecret.trim());
                     String sig2 = params.get("signature").toString();
                     //检查是否开启签名验证，true代表开启，false代表关闭
                     if (isOpenSign && !sig.equals(sig2)) {

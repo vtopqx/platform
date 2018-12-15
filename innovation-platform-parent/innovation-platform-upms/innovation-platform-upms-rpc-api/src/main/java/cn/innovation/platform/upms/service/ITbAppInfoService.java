@@ -5,11 +5,18 @@ import com.baomidou.mybatisplus.service.IService;
 import cn.innovation.platform.upms.common.model.TbAppInfo;
 
 /**
- * @ClassName: ITbAppInfoService 
+ * @ClassName: ITbAppInfoService
  * @Description: 应用注册信息接口
- * @author mqx 
+ * @author mqx
  * @date 2018年12月11日 下午10:46:39
  */
 public interface ITbAppInfoService extends IService<TbAppInfo> {
+
+	/**
+	 * @Description: 查询应用注册信息
+	 * @param appKey 应用Key
+	 * @return
+	 */
+	public String getApplicationAccount(String appKey);
 
 }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.innovation.platform.system.mapper.InsuranceDamdataRecordsMapper">
+    
+    <resultMap type="InsuranceDamdataRecords" id="InsuranceDamdataRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="appKey"    column="app_key"    />
+        <result property="channel"    column="channel"    />
+        <result property="requestTime"    column="request_time"    />
+        <result property="sign"    column="sign"    />
+        <result property="name"    column="name"    />
+        <result property="sex"    column="sex"    />
+        <result property="birthDay"    column="birth_day"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="age"    column="age"    />
+        <result property="referer"    column="referer"    />
+        <result property="ip"    column="ip"    />
+        <result property="userAgent"    column="user_agent"    />
+        <result property="hadCredit"    column="had_credit"    />
+        <result property="applyCredit"    column="apply_credit"    />
+        <result property="status"    column="status"    />
+        <result property="result"    column="result"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+	
+	<sql id="selectInsuranceDamdataRecordsVo">
+        select id, app_key, channel, request_time, sign, name, sex, birth_day, mobile, age, referer, ip, user_agent, had_credit, apply_credit, status, result, create_time, update_time from tb_insurance_damdata_records
+    </sql>
+	
+    <select id="selectInsuranceDamdataRecordsList" parameterType="InsuranceDamdataRecords" resultMap="InsuranceDamdataRecordsResult">
+        <include refid="selectInsuranceDamdataRecordsVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="appKey != null  and appKey != '' "> and app_key = #{appKey}</if>
+             <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
+             <if test="requestTime != null  and requestTime != '' "> and request_time = #{requestTime}</if>
+             <if test="sign != null  and sign != '' "> and sign = #{sign}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
+             <if test="birthDay != null  and birthDay != '' "> and birth_day = #{birthDay}</if>
+             <if test="mobile != null  and mobile != '' "> and mobile = #{mobile}</if>
+             <if test="age != null  and age != '' "> and age = #{age}</if>
+             <if test="referer != null  and referer != '' "> and referer = #{referer}</if>
+             <if test="ip != null  and ip != '' "> and ip = #{ip}</if>
+             <if test="userAgent != null  and userAgent != '' "> and user_agent = #{userAgent}</if>
+             <if test="hadCredit != null  and hadCredit != '' "> and had_credit = #{hadCredit}</if>
+             <if test="applyCredit != null  and applyCredit != '' "> and apply_credit = #{applyCredit}</if>
+             <if test="status != null  and status != '' "> and status = #{status}</if>
+             <if test="result != null  and result != '' "> and result = #{result}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectInsuranceDamdataRecordsById" parameterType="Integer" resultMap="InsuranceDamdataRecordsResult">
+        <include refid="selectInsuranceDamdataRecordsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertInsuranceDamdataRecords" parameterType="InsuranceDamdataRecords">
+        insert into tb_insurance_damdata_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="appKey != null  and appKey != ''  ">app_key,</if>
+			<if test="channel != null  and channel != ''  ">channel,</if>
+			<if test="requestTime != null  and requestTime != ''  ">request_time,</if>
+			<if test="sign != null  and sign != ''  ">sign,</if>
+			<if test="name != null  and name != ''  ">name,</if>
+			<if test="sex != null  and sex != ''  ">sex,</if>
+			<if test="birthDay != null  and birthDay != ''  ">birth_day,</if>
+			<if test="mobile != null  and mobile != ''  ">mobile,</if>
+			<if test="age != null  and age != ''  ">age,</if>
+			<if test="referer != null  and referer != ''  ">referer,</if>
+			<if test="ip != null  and ip != ''  ">ip,</if>
+			<if test="userAgent != null  and userAgent != ''  ">user_agent,</if>
+			<if test="hadCredit != null  and hadCredit != ''  ">had_credit,</if>
+			<if test="applyCredit != null  and applyCredit != ''  ">apply_credit,</if>
+			<if test="status != null  and status != ''  ">status,</if>
+			<if test="result != null  and result != ''  ">result,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="updateTime != null  ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="appKey != null  and appKey != ''  ">#{appKey},</if>
+			<if test="channel != null  and channel != ''  ">#{channel},</if>
+			<if test="requestTime != null  and requestTime != ''  ">#{requestTime},</if>
+			<if test="sign != null  and sign != ''  ">#{sign},</if>
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="sex != null  and sex != ''  ">#{sex},</if>
+			<if test="birthDay != null  and birthDay != ''  ">#{birthDay},</if>
+			<if test="mobile != null  and mobile != ''  ">#{mobile},</if>
+			<if test="age != null  and age != ''  ">#{age},</if>
+			<if test="referer != null  and referer != ''  ">#{referer},</if>
+			<if test="ip != null  and ip != ''  ">#{ip},</if>
+			<if test="userAgent != null  and userAgent != ''  ">#{userAgent},</if>
+			<if test="hadCredit != null  and hadCredit != ''  ">#{hadCredit},</if>
+			<if test="applyCredit != null  and applyCredit != ''  ">#{applyCredit},</if>
+			<if test="status != null  and status != ''  ">#{status},</if>
+			<if test="result != null  and result != ''  ">#{result},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateInsuranceDamdataRecords" parameterType="InsuranceDamdataRecords">
+        update tb_insurance_damdata_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appKey != null  and appKey != ''  ">app_key = #{appKey},</if>
+            <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
+            <if test="requestTime != null  and requestTime != ''  ">request_time = #{requestTime},</if>
+            <if test="sign != null  and sign != ''  ">sign = #{sign},</if>
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="sex != null  and sex != ''  ">sex = #{sex},</if>
+            <if test="birthDay != null  and birthDay != ''  ">birth_day = #{birthDay},</if>
+            <if test="mobile != null  and mobile != ''  ">mobile = #{mobile},</if>
+            <if test="age != null  and age != ''  ">age = #{age},</if>
+            <if test="referer != null  and referer != ''  ">referer = #{referer},</if>
+            <if test="ip != null  and ip != ''  ">ip = #{ip},</if>
+            <if test="userAgent != null  and userAgent != ''  ">user_agent = #{userAgent},</if>
+            <if test="hadCredit != null  and hadCredit != ''  ">had_credit = #{hadCredit},</if>
+            <if test="applyCredit != null  and applyCredit != ''  ">apply_credit = #{applyCredit},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+            <if test="result != null  and result != ''  ">result = #{result},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteInsuranceDamdataRecordsById" parameterType="Integer">
+        delete from tb_insurance_damdata_records where id = #{id}
+    </delete>
+	
+    <delete id="deleteInsuranceDamdataRecordsByIds" parameterType="String">
+        delete from tb_insurance_damdata_records where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

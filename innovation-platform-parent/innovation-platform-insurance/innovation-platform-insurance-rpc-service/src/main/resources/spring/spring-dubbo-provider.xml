@@ -17,8 +17,8 @@
     <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000"/>
 
     <!-- 声明需要暴露的账户服务接口 -->
-
 	<!-- 大坝保险管理 -->
-	<dubbo:service interface="cn.innovation.platform.insurance.service.ITbInsuranceDamdataRecordsService" retries="0" ref="insuranceDamdataRecordsService" />
-
+	<dubbo:service interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" retries="0" ref="damdataRecordsService" />
+	<!-- 大坝保险管理 -->
+	<dubbo:service interface="cn.innovation.platform.insurance.service.IVinsunRecordsService" retries="0" ref="vinsunRecordsService" />
 </beans>

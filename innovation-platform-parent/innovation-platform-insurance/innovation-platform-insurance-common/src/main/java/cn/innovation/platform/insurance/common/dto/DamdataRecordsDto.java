@@ -1,39 +1,29 @@
-package cn.innovation.platform.insurance.common.model;
+package cn.innovation.platform.insurance.common.dto;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * <p>
- * 大坝保险申请记录表
- * </p>
- *
- * @author Administrator
- * @since 2018-12-11
+ * @ClassName: DamdataRecordsDto 
+ * @Description: 大坝保险申请记录
+ * @author mqx 
+ * @date 2018年12月16日 下午6:06:26
  */
-@TableName("tb_insurance_damdata_records")
-public class TbInsuranceDamdataRecords implements Serializable {
+public class DamdataRecordsDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 主键ID
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
 	/**
 	 * 请求记录编号
 	 */
-	@TableField("record_id")
 	private String recordId;
 	/**
 	 * 应用Key
 	 */
-	@TableField("app_key")
 	private String appKey;
 	/**
 	 * 渠道
@@ -42,7 +32,6 @@ public class TbInsuranceDamdataRecords implements Serializable {
 	/**
 	 * 请求时间，格式：yyyyMMddHHmmss
 	 */
-	@TableField("request_time")
 	private String requestTime;
 	/**
 	 * 签名（加密后的值填此处）
@@ -59,7 +48,6 @@ public class TbInsuranceDamdataRecords implements Serializable {
 	/**
 	 * 出生日期，格式：yyyy-MM-dd
 	 */
-	@TableField("birth_day")
 	private String birthDay;
 	/**
 	 * 手机号码
@@ -81,17 +69,14 @@ public class TbInsuranceDamdataRecords implements Serializable {
 	 * 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101
 	 * Firefox/29.0
 	 */
-	@TableField("user_agent")
 	private String userAgent;
 	/**
 	 * 是否持卡，选值：已有信用卡、无信用卡
 	 */
-	@TableField("had_credit")
 	private String hadCredit;
 	/**
 	 * 正在申请的信用卡(默认值:其他)
 	 */
-	@TableField("apply_credit")
 	private String applyCredit;
 	/**
 	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件)
@@ -104,12 +89,10 @@ public class TbInsuranceDamdataRecords implements Serializable {
 	/**
 	 * 数据创建时间
 	 */
-	@TableField("create_time")
 	private Date createTime;
 	/**
 	 * 数据更新时间
 	 */
-	@TableField("update_time")
 	private Date updateTime;
 
 	public Integer getId() {

@@ -2,7 +2,7 @@ package cn.innovation.platform.insurance.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-import cn.innovation.platform.insurance.common.model.TbInsuranceDamdataRecords;
+import cn.innovation.platform.insurance.common.model.DamdataRecords;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ import cn.innovation.platform.insurance.common.model.TbInsuranceDamdataRecords;
  * @author Administrator
  * @since 2018-12-11
  */
-public interface TbInsuranceDamdataRecordsMapper extends BaseMapper<TbInsuranceDamdataRecords> {
+public interface DamdataRecordsMapper extends BaseMapper<DamdataRecords> {
 
 }

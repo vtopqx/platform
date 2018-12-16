@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.innovation.platform.insurance.mapper.TbInsuranceDamdataRecordsMapper">
+<mapper namespace="cn.innovation.platform.insurance.mapper.DamdataRecordsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.innovation.platform.insurance.common.model.TbInsuranceDamdataRecords">
+    <resultMap id="BaseResultMap" type="cn.innovation.platform.insurance.common.model.DamdataRecords">
         <id column="id" property="id" />
-        <result column="record_id" property="recordId" />
         <result column="app_key" property="appKey" />
         <result column="channel" property="channel" />
         <result column="request_time" property="requestTime" />
@@ -28,7 +27,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, record_id AS recordId, app_key AS appKey, channel, request_time AS requestTime, sign, name, sex, birth_day AS birthDay, mobile, age, referer, ip, user_agent AS userAgent, had_credit AS hadCredit, apply_credit AS applyCredit, status, result, create_time AS createTime, update_time AS updateTime
+        id, app_key AS appKey, channel, request_time AS requestTime, sign, name, sex, birth_day AS birthDay, mobile, age, referer, ip, user_agent AS userAgent, had_credit AS hadCredit, apply_credit AS applyCredit, status, result, create_time AS createTime, update_time AS updateTime
     </sql>
 
 </mapper>

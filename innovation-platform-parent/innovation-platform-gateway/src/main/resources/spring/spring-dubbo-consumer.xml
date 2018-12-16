@@ -19,7 +19,8 @@
 	<dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.ITbAppInfoService" check="false" />
 	
 	<!-- 保险服务 -->
-	<dubbo:reference id="insuranceDamdataRecordsService" interface="cn.innovation.platform.insurance.service.ITbInsuranceDamdataRecordsService" check="false" />
+	<dubbo:reference id="damdataRecordsService" interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" check="false" />
+	<dubbo:reference id="vinsunRecordsService" interface="cn.innovation.platform.insurance.service.IVinsunRecordsService" check="false" />
 	
 		
 </beans>

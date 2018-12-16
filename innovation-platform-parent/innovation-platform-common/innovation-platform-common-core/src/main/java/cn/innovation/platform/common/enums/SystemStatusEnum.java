@@ -6,7 +6,7 @@ package cn.innovation.platform.common.enums;
  * @author mqx 
  * @date 2017年11月24日 上午9:04:52
  */
-public enum GlobalStatusCode {
+public enum SystemStatusEnum {
 	
 	CODE_200(200, "操作成功"), 
 	CODE_400(400, "参数语法格式错误"), 
@@ -26,7 +26,7 @@ public enum GlobalStatusCode {
 	private String remark;
 
 	// 构造方法
-	private GlobalStatusCode(int code, String remark) {
+	private SystemStatusEnum(int code, String remark) {
 		this.code = code;
 		this.remark = remark;
 	}

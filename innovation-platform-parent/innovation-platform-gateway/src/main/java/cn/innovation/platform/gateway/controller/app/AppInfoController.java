@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.innovation.platform.common.base.BaseResult;
-import cn.innovation.platform.common.enums.GlobalStatusCode;
+import cn.innovation.platform.common.enums.SystemStatusEnum;
 import cn.innovation.platform.upms.common.model.ApplicationRegisterInfo;
 import cn.innovation.platform.upms.service.IApplicationRegisterInfoService;
 import cn.innovation.platform.upms.service.ITbAppInfoService;
@@ -44,7 +44,7 @@ public class AppInfoController {
 	public BaseResult register(String consumerKey) {
 		// 查询该应用是否已经添加
 		ApplicationRegisterInfo info = applicationRegisterInfoService.getApplicationAccount(consumerKey);
-		BaseResult result = new BaseResult(GlobalStatusCode.CODE_200.value(), GlobalStatusCode.CODE_200.remark(), info);
+		BaseResult result = new BaseResult(SystemStatusEnum.CODE_200.value(), SystemStatusEnum.CODE_200.remark(), info);
 		return result;
 	}
 	

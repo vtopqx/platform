@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.innovation.platform.common.base.BaseResult;
-import cn.innovation.platform.insurance.service.ITbInsuranceDamdataRecordsService;
+import cn.innovation.platform.insurance.common.dto.DamdataRecordsDto;
+import cn.innovation.platform.insurance.service.IDamdataRecordsService;
 
 /**
  * <p>
@@ -19,10 +20,10 @@ import cn.innovation.platform.insurance.service.ITbInsuranceDamdataRecordsServic
  */
 @Controller
 @RequestMapping("/insurance")
-public class TbInsuranceDamdataRecordsController {
+public class DamdataController {
 	
 	@Resource
-	private ITbInsuranceDamdataRecordsService insuranceDamdataRecordsService;
+	private IDamdataRecordsService insuranceDamdataRecordsService;
 	
 
 	/**
@@ -33,7 +34,8 @@ public class TbInsuranceDamdataRecordsController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@ResponseBody
-	public BaseResult register(String consumerKey) {
+	public BaseResult register(DamdataRecordsDto dto) {
+		insuranceDamdataRecordsService.apply(dto);
 		return null;
 	}
 }

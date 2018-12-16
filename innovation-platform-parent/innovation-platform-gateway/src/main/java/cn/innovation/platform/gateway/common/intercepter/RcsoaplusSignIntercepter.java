@@ -22,7 +22,7 @@ import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 import com.xiaoleilu.hutool.util.StrUtil;
 
-import cn.innovation.platform.common.enums.GlobalStatusCode;
+import cn.innovation.platform.common.enums.SystemStatusEnum;
 import cn.innovation.platform.common.exception.ParamsSignValidErrorException;
 import cn.innovation.platform.common.exception.ServiceException;
 import cn.innovation.platform.common.utils.RcsoaplusSignHelper;
@@ -87,7 +87,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
 					//开始验证参数
                     String consumerKey = params.getOrDefault("consumerKey", "").toString();
                     if (StrUtil.isBlank(consumerKey)) {
-                        throw new ServiceException(GlobalStatusCode.CODE_400.value(), "consumerKey不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "consumerKey不能为空");
 					} else {
 						// 验证consumerKey是否正确
 						long startTime = System.currentTimeMillis();
@@ -96,20 +96,20 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
 						logger.debug("调用upms服务获取应用创新平台权限，耗时{}",(endTime - startTime));
 						
 						if (StringUtils.isEmpty(appSecret)) {
-							throw new ServiceException(GlobalStatusCode.CODE_401.value(), "consumerKey验证不通过");
+							throw new ServiceException(SystemStatusEnum.CODE_401.value(), "consumerKey验证不通过");
 						}
 					}
                     String signature = params.getOrDefault("signature", "").toString();
                     if (StrUtil.isBlank(signature)) {
-                        throw new ServiceException(GlobalStatusCode.CODE_400.value(), "signature不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "signature不能为空");
                     }
                     String requestId = params.getOrDefault("requestId", "").toString();
                     if (StrUtil.isBlank(requestId)) {
-                        throw new ServiceException(GlobalStatusCode.CODE_400.value(), "requestId不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "requestId不能为空");
                     }
                     String version = params.getOrDefault("version", "").toString();
                     if (StrUtil.isBlank(version)) {
-                        throw new ServiceException(GlobalStatusCode.CODE_400.value(), "version不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "version不能为空");
                     }
                     //通过密钥进行签名验证
                     String sig = RcsoaplusSignHelper.genSig(params, appSecret.trim());
@@ -121,11 +121,11 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
                     }
                 } else {
                     logger.error("Content-Type错误");
-                    throw new ServiceException(GlobalStatusCode.CODE_400.value(), "Content-Type错误");
+                    throw new ServiceException(SystemStatusEnum.CODE_400.value(), "Content-Type错误");
                 }
             } else {
                 logger.error("Content-Type为空");
-                throw new ServiceException(GlobalStatusCode.CODE_400.value(), "Content-Type为空");
+                throw new ServiceException(SystemStatusEnum.CODE_400.value(), "Content-Type为空");
             }
         }
         return true;

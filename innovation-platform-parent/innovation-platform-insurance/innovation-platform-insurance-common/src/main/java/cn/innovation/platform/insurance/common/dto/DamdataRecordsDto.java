@@ -3,10 +3,14 @@ package cn.innovation.platform.insurance.common.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 /**
- * @ClassName: DamdataRecordsDto 
+ * @ClassName: DamdataRecordsDto
  * @Description: 大坝保险申请记录
- * @author mqx 
+ * @author mqx
  * @date 2018年12月16日 下午6:06:26
  */
 public class DamdataRecordsDto implements Serializable {
@@ -18,12 +22,10 @@ public class DamdataRecordsDto implements Serializable {
 	 */
 	private Integer id;
 	/**
-	 * 请求记录编号
-	 */
-	private String recordId;
-	/**
 	 * 应用Key
 	 */
+	@NotNull(message = "appKey不能为空")
+	@Length(max = 64, message = "appKey长度超过限制")
 	private String appKey;
 	/**
 	 * 渠道
@@ -32,34 +34,50 @@ public class DamdataRecordsDto implements Serializable {
 	/**
 	 * 请求时间，格式：yyyyMMddHHmmss
 	 */
+	@NotNull(message = "requestTime不能为空")
+	@Length(max = 32, message = "requestTime长度超过限制")
 	private String requestTime;
 	/**
 	 * 签名（加密后的值填此处）
 	 */
+	@NotNull(message = "sign不能为空")
+	@Length(max = 128, message = "sign长度超过限制")
 	private String sign;
 	/**
 	 * 用户名，必须是2到8位的中文字符
 	 */
+	@NotNull(message = "name不能为空")
+	@Length(max = 32, message = "name长度超过限制")
 	private String name;
 	/**
 	 * 用户性别，1=男，0=女
 	 */
+	@NotNull(message = "sex不能为空")
+	@Length(max = 1, message = "sex长度超过限制")
 	private String sex;
 	/**
 	 * 出生日期，格式：yyyy-MM-dd
 	 */
+	@NotNull(message = "birthDay不能为空")
+	@Length(max = 16, message = "birthDay长度超过限制")
 	private String birthDay;
 	/**
 	 * 手机号码
 	 */
+	@NotNull(message = "mobile不能为空")
+	@Length(max = 16, message = "mobile长度超过限制")
 	private String mobile;
 	/**
 	 * 用户年龄
 	 */
+	@NotNull(message = "age不能为空")
+	@Length(max = 3, message = "age长度超过限制")
 	private String age;
 	/**
 	 * 用户来源地址，如：http://www.google.com
 	 */
+	@NotNull(message = "referer不能为空")
+	@Length(max = 2048, message = "referer长度超过限制")
 	private String referer;
 	/**
 	 * 用户IP
@@ -73,10 +91,14 @@ public class DamdataRecordsDto implements Serializable {
 	/**
 	 * 是否持卡，选值：已有信用卡、无信用卡
 	 */
+	@NotNull(message = "hadCredit不能为空")
+	@Length(max = 16, message = "hadCredit长度超过限制")
 	private String hadCredit;
 	/**
 	 * 正在申请的信用卡(默认值:其他)
 	 */
+	@NotNull(message = "applyCredit不能为空")
+	@Length(max = 32, message = "applyCredit长度超过限制")
 	private String applyCredit;
 	/**
 	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件)
@@ -101,14 +123,6 @@ public class DamdataRecordsDto implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getRecordId() {
-		return recordId;
-	}
-
-	public void setRecordId(String recordId) {
-		this.recordId = recordId;
 	}
 
 	public String getAppKey() {
@@ -255,13 +269,4 @@ public class DamdataRecordsDto implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "TbInsuranceDamdataRecords{" + ", id=" + id + ", recordId=" + recordId + ", appKey=" + appKey
-				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", name=" + name
-				+ ", sex=" + sex + ", birthDay=" + birthDay + ", mobile=" + mobile + ", age=" + age + ", referer="
-				+ referer + ", ip=" + ip + ", userAgent=" + userAgent + ", hadCredit=" + hadCredit + ", applyCredit="
-				+ applyCredit + ", status=" + status + ", result=" + result + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "}";
-	}
 }

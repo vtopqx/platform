@@ -20,5 +20,5 @@ public interface IDamdataRecordsService extends IService<DamdataRecords> {
 	 * @param dto
 	 *            参数对象
 	 */
-	public void apply(DamdataRecordsDto dto);
+	public String addApply(DamdataRecordsDto dto);
 }

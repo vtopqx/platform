@@ -3,6 +3,10 @@ package cn.innovation.platform.insurance.common.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 /**
  * @ClassName: VinsunRecordsDto
  * @Description: 畅思保险申请记录
@@ -20,6 +24,8 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 应用Key
 	 */
+	@NotNull(message = "appKey不能为空")
+	@Length(max = 64, message = "appKey长度超过限制")
 	private String appKey;
 	/**
 	 * 渠道
@@ -28,10 +34,14 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 请求时间，格式：yyyyMMddHHmmss
 	 */
+	@NotNull(message = "requestTime不能为空")
+	@Length(max = 32, message = "requestTime长度超过限制")
 	private String requestTime;
 	/**
 	 * MD5签名
 	 */
+	@NotNull(message = "sign不能为空")
+	@Length(max = 128, message = "sign长度超过限制")
 	private String sign;
 	/**
 	 * 商户ID
@@ -44,18 +54,26 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 用户名称
 	 */
+	@NotNull(message = "name不能为空")
+	@Length(max = 32, message = "name长度超过限制")
 	private String name;
 	/**
 	 * 用户性别，1=男，0=女
 	 */
+	@NotNull(message = "sex不能为空")
+	@Length(max = 1, message = "sex长度超过限制")
 	private String sex;
 	/**
 	 * 用户生日（如：1987-01-26）
 	 */
+	@NotNull(message = "birth不能为空")
+	@Length(max = 16, message = "birth长度超过限制")
 	private String birth;
 	/**
 	 * 用户电话
 	 */
+	@NotNull(message = "mobile不能为空")
+	@Length(max = 16, message = "mobile长度超过限制")
 	private String mobile;
 	/**
 	 * 用户IP
@@ -64,14 +82,20 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 用户城市（根据用户IP匹配的用户城市）
 	 */
+	@NotNull(message = "clientCity不能为空")
+	@Length(max = 32, message = "clientCity长度超过限制")
 	private String clientCity;
 	/**
 	 * 媒体编码
 	 */
+	@NotNull(message = "media不能为空")
+	@Length(max = 32, message = "media长度超过限制")
 	private String media;
 	/**
 	 * 用户代理
 	 */
+	@NotNull(message = "ua不能为空")
+	@Length(max = 512, message = "ua长度超过限制")
 	private String ua;
 	/**
 	 * 用户身份证
@@ -266,13 +290,4 @@ public class VinsunRecordsDto implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "TbInsuranceVinsunRecords{" + ", id=" + id + ", appKey=" + appKey + ", channel=" + channel
-				+ ", requestTime=" + requestTime + ", sign=" + sign + ", mchId=" + mchId + ", spBillno=" + spBillno
-				+ ", name=" + name + ", sex=" + sex + ", birth=" + birth + ", mobile=" + mobile + ", clientIp="
-				+ clientIp + ", clientCity=" + clientCity + ", media=" + media + ", ua=" + ua + ", userCard=" + userCard
-				+ ", remark=" + remark + ", status=" + status + ", result=" + result + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "}";
-	}
 }

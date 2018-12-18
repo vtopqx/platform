@@ -44,10 +44,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
             <mvc:mapping path="/**" />
-            
-            <mvc:exclude-mapping path="/api/*" />
-            <mvc:exclude-mapping path="/app/*" />
-			<bean class="cn.innovation.platform.gateway.common.intercepter.RcsoaplusSignIntercepter">
+			<bean class="cn.innovation.platform.gateway.common.intercepter.GateWaySignIntercepter">
 				<property name="openSign" value="${isOpenSign}" />
 			</bean>
 		</mvc:interceptor>

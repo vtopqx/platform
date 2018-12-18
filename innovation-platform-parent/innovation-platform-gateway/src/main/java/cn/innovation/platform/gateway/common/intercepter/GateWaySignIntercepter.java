@@ -1,7 +1,5 @@
 package cn.innovation.platform.gateway.common.intercepter;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -25,17 +23,16 @@ import com.xiaoleilu.hutool.util.StrUtil;
 import cn.innovation.platform.common.enums.SystemStatusEnum;
 import cn.innovation.platform.common.exception.ParamsSignValidErrorException;
 import cn.innovation.platform.common.exception.ServiceException;
-import cn.innovation.platform.common.utils.RcsoaplusSignHelper;
-import cn.innovation.platform.upms.common.model.ApplicationRegisterInfo;
-import cn.innovation.platform.upms.common.model.TbAppInfo;
-import cn.innovation.platform.upms.service.IApplicationRegisterInfoService;
+import cn.innovation.platform.common.utils.SignUtils;
 import cn.innovation.platform.upms.service.ITbAppInfoService;
 
 /**
- * @author 刘利民
- * 验证接口签名拦截器
+ * @ClassName: GateWaySignIntercepter 
+ * @Description: 验证接口签名拦截器
+ * @author mqx 
+ * @date 2018年12月17日 下午9:25:48
  */
-public class RcsoaplusSignIntercepter implements HandlerInterceptor {
+public class GateWaySignIntercepter implements HandlerInterceptor {
 
     private static final Log logger = LogFactory.get();
     
@@ -49,7 +46,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServiceException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
         	//设置允许跨域访问
             response.setHeader("Access-Control-Allow-Origin", "*");
@@ -67,7 +64,7 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
             StringBuilder paramsb = new StringBuilder();
             Map<String, String[]> stringMap = request.getParameterMap();
             Map<String, Object> params = new HashMap<>();
-            for (Map.Entry entry : stringMap.entrySet()) {
+            for (Map.Entry<String, String[]> entry : stringMap.entrySet()) {
                 String key = entry.getKey().toString();
                 String[] value = (String[])(entry.getValue());
                 params.put(key, value[0]);
@@ -85,35 +82,31 @@ public class RcsoaplusSignIntercepter implements HandlerInterceptor {
                     //获取redis缓存中注册信息
                     String appSecret = "";
 					//开始验证参数
-                    String consumerKey = params.getOrDefault("consumerKey", "").toString();
-                    if (StrUtil.isBlank(consumerKey)) {
-                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "consumerKey不能为空");
+                    String appKey = params.getOrDefault("appKey", "").toString();
+                    if (StrUtil.isBlank(appKey)) {
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "appKey不能为空");
 					} else {
 						// 验证consumerKey是否正确
 						long startTime = System.currentTimeMillis();
-						appSecret = appInfoService.getApplicationAccount(consumerKey);
+						appSecret = appInfoService.getApplicationAccount(appKey);
 						long endTime = System.currentTimeMillis();
 						logger.debug("调用upms服务获取应用创新平台权限，耗时{}",(endTime - startTime));
 						
 						if (StringUtils.isEmpty(appSecret)) {
-							throw new ServiceException(SystemStatusEnum.CODE_401.value(), "consumerKey验证不通过");
+							throw new ServiceException(SystemStatusEnum.CODE_401.value(), "appKey验证不通过");
 						}
 					}
-                    String signature = params.getOrDefault("signature", "").toString();
+                    String signature = params.getOrDefault("sign", "").toString();
                     if (StrUtil.isBlank(signature)) {
-                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "signature不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "sign不能为空");
                     }
-                    String requestId = params.getOrDefault("requestId", "").toString();
+                    String requestId = params.getOrDefault("requestTime", "").toString();
                     if (StrUtil.isBlank(requestId)) {
-                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "requestId不能为空");
-                    }
-                    String version = params.getOrDefault("version", "").toString();
-                    if (StrUtil.isBlank(version)) {
-                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "version不能为空");
+                        throw new ServiceException(SystemStatusEnum.CODE_400.value(), "requestTime不能为空");
                     }
                     //通过密钥进行签名验证
-                    String sig = RcsoaplusSignHelper.genSig(params, appSecret.trim());
-                    String sig2 = params.get("signature").toString();
+                    String sig = SignUtils.genSig(params, appSecret.trim());
+                    String sig2 = params.get("sign").toString();
                     //检查是否开启签名验证，true代表开启，false代表关闭
                     if (isOpenSign && !sig.equals(sig2)) {
                         logger.error("签名错误");

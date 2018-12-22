@@ -2,8 +2,6 @@ package cn.innovation.platform.common.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +13,15 @@ import java.util.Map;
  * @date 2018年12月16日 下午9:46:35
  */
 public class StringUtils {
+	
+	/**
+	 * @Description: 判断是否为空
+	 * @param data
+	 * @return
+	 */
+	public static boolean isNotEmpty(String data) {
+		return (data != null && data.trim().length()>0) ? true : false;
+	}
 
 	/**
 	 * @Description: 判断是否为空
@@ -62,13 +69,13 @@ public class StringUtils {
 		return requestUrl;
 	}
 	
-	private static String concatParams(Map<String, Object> params) throws UnsupportedEncodingException {
+	public static String concatParamsUtf(Map<String, Object> params) throws UnsupportedEncodingException {
         Object[] key_arr = params.keySet().toArray();
         Arrays.sort(key_arr);
         String str = "";
 
         for (Object key : key_arr) {
-            if (key.equals("signature")) {
+            if (key.equals("sign")) {
                 continue;
             }
             String val = params.get(key).toString();
@@ -79,6 +86,25 @@ public class StringUtils {
 
         return str.replaceFirst("&", "");
     }
-	 
+	
+	/**
+	 * @Description: 连接参数
+	 * @param params 参数集合
+	 * @return
+	 */
+	public static String concatParams(Map<String, Object> params) {
+		Object[] key_arr = params.keySet().toArray();
+		Arrays.sort(key_arr);
+		String str = "";
+		for (Object key : key_arr) {
+			if (key.equals("sign")) {
+				continue;
+			}
+			String val = params.get(key).toString();
+			key = key.toString();
+			str += "&" + key + "=" + val;
+		}
+		return str.replaceFirst("&", "");
+	}
 	 
 }

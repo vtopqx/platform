@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum SendStatusEnum {
 	processing("0", "发送中"), success("1", "发送成功"), failure("-1", "发送失败"), disable("-2", "不满足发送条件"), mobileError("-3",
-			"号码不合法"), noBalance("-4", "发送成功但不结算");
+			"号码不合法"), noBalance("-4", "发送成功但不结算"), delayBalance("-5", "发送成功延迟结算");
 
 	private String id;
 	private String desc;

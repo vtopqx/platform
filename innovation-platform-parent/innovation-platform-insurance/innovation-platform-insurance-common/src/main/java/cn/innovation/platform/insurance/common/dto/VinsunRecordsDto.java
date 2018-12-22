@@ -30,6 +30,8 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 渠道
 	 */
+	@NotNull(message = "channel不能为空")
+	@Length(max = 32, message = "channel长度超过限制")
 	private String channel;
 	/**
 	 * 请求时间，格式：yyyyMMddHHmmss
@@ -82,20 +84,14 @@ public class VinsunRecordsDto implements Serializable {
 	/**
 	 * 用户城市（根据用户IP匹配的用户城市）
 	 */
-	@NotNull(message = "clientCity不能为空")
-	@Length(max = 32, message = "clientCity长度超过限制")
 	private String clientCity;
 	/**
 	 * 媒体编码
 	 */
-	@NotNull(message = "media不能为空")
-	@Length(max = 32, message = "media长度超过限制")
 	private String media;
 	/**
 	 * 用户代理
 	 */
-	@NotNull(message = "ua不能为空")
-	@Length(max = 512, message = "ua长度超过限制")
 	private String ua;
 	/**
 	 * 用户身份证

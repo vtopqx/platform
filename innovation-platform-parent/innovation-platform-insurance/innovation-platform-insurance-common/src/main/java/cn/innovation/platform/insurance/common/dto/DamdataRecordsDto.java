@@ -30,6 +30,8 @@ public class DamdataRecordsDto implements Serializable {
 	/**
 	 * 渠道
 	 */
+	@NotNull(message = "channel不能为空")
+	@Length(max = 32, message = "channel长度超过限制")
 	private String channel;
 	/**
 	 * 请求时间，格式：yyyyMMddHHmmss
@@ -97,7 +99,6 @@ public class DamdataRecordsDto implements Serializable {
 	/**
 	 * 正在申请的信用卡(默认值:其他)
 	 */
-	@NotNull(message = "applyCredit不能为空")
 	@Length(max = 32, message = "applyCredit长度超过限制")
 	private String applyCredit;
 	/**

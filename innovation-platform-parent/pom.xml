@@ -40,6 +40,15 @@
                 <isOpenSign>true</isOpenSign>
                 <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
                 <message.handle.duration>180</message.handle.duration>
+                <city.mobileUrl>http://mobsec-dianhua.baidu.com/dianhua_api/open/location</city.mobileUrl>
+                
+                <!-- 赠险参数 -->
+                <insurance.damdataUrl>http://www.damdata.cn/api/thdpy/ty2</insurance.damdataUrl>
+                <insurance.damdataSecret>25461A273D9A48EB8F8E7539737F4C0B</insurance.damdataSecret>
+                <insurance.vinsunUrl>http://vinsun.axhao.com/api.aspx?cmd=submit_3dorder</insurance.vinsunUrl>
+                <insurance.vinsunMchId>nengxi01</insurance.vinsunMchId>
+                <insurance.vinsunMedia>nengxi01-vinsun-01a</insurance.vinsunMedia>
+                <insurance.vinsunSecret>5879f7605c11fd17b4e1e2558064ea4c</insurance.vinsunSecret>
                 
                 <!-- 数据库 -->
                 <jdbc.initialSize>2</jdbc.initialSize>
@@ -72,6 +81,15 @@
                 <isOpenSign>true</isOpenSign>
                 <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
                 <message.handle.duration>180</message.handle.duration>
+                <city.mobileUrl>http://mobsec-dianhua.baidu.com/dianhua_api/open/location</city.mobileUrl>
+                
+                <!-- 赠险参数 -->
+                <insurance.damdataUrl>http://www.damdata.cn/api/thdpy/ty2</insurance.damdataUrl>
+                <insurance.damdataSecret>25461A273D9A48EB8F8E7539737F4C0B</insurance.damdataSecret>
+                <insurance.vinsunUrl>http://vinsun.axhao.com/api.aspx?cmd=submit_3dorder</insurance.vinsunUrl>
+                <insurance.vinsunMchId>nengxi01</insurance.vinsunMchId>
+                <insurance.vinsunMedia>nengxi01-vinsun-01a</insurance.vinsunMedia>
+                <insurance.vinsunSecret>5879f7605c11fd17b4e1e2558064ea4c</insurance.vinsunSecret>
                
                 <!-- 数据库 -->
                 <jdbc.initialSize>2</jdbc.initialSize>
@@ -105,6 +123,15 @@
                 <isOpenSign>true</isOpenSign>
                 <dubbo.registry.address>94.191.31.64:2181</dubbo.registry.address>
                 <message.handle.duration>180</message.handle.duration>
+                <city.mobileUrl>http://mobsec-dianhua.baidu.com/dianhua_api/open/location</city.mobileUrl>
+                
+                <!-- 赠险参数 -->
+                <insurance.damdataUrl>http://www.damdata.cn/api/thdpy/ty2</insurance.damdataUrl>
+                <insurance.damdataSecret>25461A273D9A48EB8F8E7539737F4C0B</insurance.damdataSecret>
+                <insurance.vinsunUrl>http://vinsun.axhao.com/api.aspx?cmd=submit_3dorder</insurance.vinsunUrl>
+                <insurance.vinsunMchId>nengxi01</insurance.vinsunMchId>
+                <insurance.vinsunMedia>nengxi01-vinsun-01a</insurance.vinsunMedia>
+                <insurance.vinsunSecret>5879f7605c11fd17b4e1e2558064ea4c</insurance.vinsunSecret>
                 
                 <!-- 数据库 -->
                 <jdbc.initialSize>2</jdbc.initialSize>

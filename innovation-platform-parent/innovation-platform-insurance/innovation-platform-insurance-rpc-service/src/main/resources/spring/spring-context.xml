@@ -21,8 +21,13 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<bean id="insuranceApiHelper" class="cn.innovation.platform.insurance.common.utils.InsuranceApiHelper">
+		<constructor-arg name="mobileUrl" value="${city.mobileUrl}" />
 		<constructor-arg name="damdataUrl" value="${insurance.damdataUrl}" />
+		<constructor-arg name="damdataSecret" value="${insurance.damdataSecret}" />
 		<constructor-arg name="vinsunUrl" value="${insurance.vinsunUrl}" />
+		<constructor-arg name="vinsunMchId" value="${insurance.vinsunMchId}" />
+		<constructor-arg name="vinsunMedia" value="${insurance.vinsunMedia}" />
+		<constructor-arg name="vinsunSecret" value="${insurance.vinsunSecret}" />
 	</bean>
 
 	<import resource="classpath:spring/spring-dubbo-provider.xml" />

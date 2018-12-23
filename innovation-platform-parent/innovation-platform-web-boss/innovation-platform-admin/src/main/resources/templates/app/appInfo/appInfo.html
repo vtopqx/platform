@@ -48,6 +48,7 @@
 		var editFlag = [[${@permission.hasPermi('app:appInfo:edit')}]];
 		var removeFlag = [[${@permission.hasPermi('app:appInfo:remove')}]];
 		var datas = [[${@dict.getType('sys_normal_disable')}]];
+		var channels = [[${@dict.getType('channel_type')}]];
 		var prefix = ctx + "app/appInfo";
 
 		$(function() {
@@ -58,7 +59,8 @@
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
 		        sortName: "updateTime",
-		        modalName: "应用信息",
+		        sortOrder: "desc",
+		        modalName: "下游渠道信息",
 		        search: false,
 		        showExport: false,
 		        columns: [{
@@ -75,14 +77,22 @@
 		            sortable: true
 		        },
 		        {
+		            field: 'channelCode',
+		            title: '渠道码',
+		            sortable: true
+		        },
+		        {
 		            field: 'channel',
 		            title: '渠道',
 		            sortable: true
 		        },
 		        {
-		            field: 'subChannel',
-		            title: '子渠道',
-		            sortable: true
+		            field: 'channelType',
+		            title: '渠道类型',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	return $.table.selectDictLabel(channels, value);
+		            }
 		        },
 		        {
 		            field: 'mobile',
@@ -96,6 +106,11 @@
 		            formatter: function(value, row, index) {
 		            	return $.table.selectDictLabel(datas, value);
 		            }
+		        },
+		        {
+		            field: 'apiList',
+		            title: '上游渠道',
+		            sortable: true
 		        },
 		        {
 		            field: 'updateTime',

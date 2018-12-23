@@ -7,9 +7,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import cn.innovation.platform.common.utils.StringUtils;
+
 /**
  * @ClassName: DamdataRecordsDto
- * @Description: 大坝保险申请记录
+ * @Description: 大坝保险申请记录传输对象
  * @author mqx
  * @date 2018年12月16日 下午6:06:26
  */
@@ -117,6 +119,11 @@ public class DamdataRecordsDto implements Serializable {
 	 * 数据更新时间
 	 */
 	private Date updateTime;
+
+	/**
+	 * 数据编号
+	 */
+	private Integer historyId;
 
 	public Integer getId() {
 		return id;
@@ -231,6 +238,9 @@ public class DamdataRecordsDto implements Serializable {
 	}
 
 	public String getApplyCredit() {
+		if (!StringUtils.isNotEmpty(applyCredit)) {
+			return "其他";
+		}
 		return applyCredit;
 	}
 
@@ -268,6 +278,24 @@ public class DamdataRecordsDto implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getHistoryId() {
+		return historyId;
+	}
+
+	public void setHistoryId(Integer historyId) {
+		this.historyId = historyId;
+	}
+	
+	@Override
+	public String toString() {
+		return "DamdataRecordsDto{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
+				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", name=" + name
+				+ ", sex=" + sex + ", birthDay=" + birthDay + ", mobile=" + mobile + ", age=" + age + ", referer="
+				+ referer + ", ip=" + ip + ", userAgent=" + userAgent + ", hadCredit=" + hadCredit + ", applyCredit="
+				+ applyCredit + ", status=" + status + ", result=" + result + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "}";
 	}
 
 }

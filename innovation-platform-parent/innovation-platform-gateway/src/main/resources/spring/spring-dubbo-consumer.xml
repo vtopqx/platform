@@ -17,10 +17,11 @@
 	
 	<!-- 应用注册信息 -->
 	<dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.ITbAppInfoService" check="false" />
+	<dubbo:reference id="apiInfoService" interface="cn.innovation.platform.upms.service.ITbApiInfoService" check="false" />
 	
 	<!-- 保险服务 -->
 	<dubbo:reference id="damdataRecordsService" interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" check="false" />
 	<dubbo:reference id="vinsunRecordsService" interface="cn.innovation.platform.insurance.service.IVinsunRecordsService" check="false" />
-	
+	<dubbo:reference id="historyRecordsService" interface="cn.innovation.platform.insurance.service.IHistoryRecordsService" check="false" />
 		
 </beans>

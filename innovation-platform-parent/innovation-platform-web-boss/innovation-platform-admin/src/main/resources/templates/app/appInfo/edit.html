@@ -6,16 +6,25 @@
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
 		<form class="form-horizontal m" id="form-app-edit" th:object="${appInfo}">
 			<input id="id" name="id" type="hidden" th:field="*{id}"/>
+			<input id="appSecret" name="appSecret" type="hidden" th:field="*{appSecret}"/>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道：</label>
+				<label class="col-sm-3 control-label">渠道码：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="channel" id="channel" th:field="*{channel}">
+					<input class="form-control" type="text" name="channelCode" id="channelCode" th:field="*{channelCode}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label ">子渠道：</label>
+				<label class="col-sm-3 control-label ">渠道：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="subChannel" id="subChannel" th:field="*{subChannel}"/>
+					<input class="form-control" type="text" name="channel" id="channel" th:field="*{channel}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">渠道类型：</label>
+				<div class="col-sm-8">
+					<select id="channelType" name="channelType" class="form-control m-b" th:with="type=${@dict.getType('channel_type')}">
+	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{channelType}"></option>
+	                </select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -43,6 +52,14 @@
 				<label class="col-sm-3 control-label">公司名称：</label>
 				<div class="col-sm-8">
 					<textarea id="company" name="company" class="form-control">[[*{company}]]</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">上游渠道：</label>
+				<div class="col-sm-8">
+					<label th:each="api:${apis}" class="check-box">
+						<input name="apiList" type="checkbox" th:value="${api.apiCode}" th:text="${api.apiName}" th:checked="${api.flag}" th:disabled="${api.status == '1'}">
+					</label>
 				</div>
 			</div>
 		</form>

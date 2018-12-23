@@ -65,6 +65,7 @@
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
 		        sortName: "updateTime",
+		        sortOrder: "desc",
 		        modalName: "大坝保险申请记录",
 		        search: false,
 		        showExport: false,
@@ -73,7 +74,11 @@
 		        },
 		        {
 		            field: 'id',
-		            title: '编号'
+		            title: '序号'
+		        },
+		        {
+		            field: 'historyId',
+		            title: '数据编号'
 		        },
 		        {
 		            field: 'appKey',

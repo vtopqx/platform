@@ -9,14 +9,16 @@ import java.util.Date;
  * 畅思保险申请记录表 tb_insurance_vinsun_records
  * 
  * @author mqx
- * @date 2018-12-16
+ * @date 2018-12-22
  */
 public class InsuranceVinsunRecords extends BaseEntity
 {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	/** 主键ID */
 	private Integer id;
+	/** 数据编号 */
+	private Integer historyId;
 	/** 应用Key */
 	private String appKey;
 	/** 渠道 */
@@ -49,7 +51,7 @@ public class InsuranceVinsunRecords extends BaseEntity
 	private String userCard;
 	/** 备注 */
 	private String remark;
-	/** 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件) */
+	/** 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算) */
 	private String status;
 	/** 返回值 */
 	private String result;
@@ -66,6 +68,15 @@ public class InsuranceVinsunRecords extends BaseEntity
 	public Integer getId() 
 	{
 		return id;
+	}
+	public void setHistoryId(Integer historyId) 
+	{
+		this.historyId = historyId;
+	}
+
+	public Integer getHistoryId() 
+	{
+		return historyId;
 	}
 	public void setAppKey(String appKey) 
 	{
@@ -251,6 +262,7 @@ public class InsuranceVinsunRecords extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
+            .append("historyId", getHistoryId())
             .append("appKey", getAppKey())
             .append("channel", getChannel())
             .append("requestTime", getRequestTime())

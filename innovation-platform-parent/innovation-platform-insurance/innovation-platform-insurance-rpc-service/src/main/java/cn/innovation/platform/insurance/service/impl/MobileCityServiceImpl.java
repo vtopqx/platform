@@ -15,13 +15,14 @@ import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 
+import cn.innovation.platform.common.constant.GlobalConstant;
 import cn.innovation.platform.insurance.common.utils.InsuranceApiHelper;
 import cn.innovation.platform.insurance.service.IMobileCityService;
 
 /**
- * @ClassName: MobileCityServiceImpl 
+ * @ClassName: MobileCityServiceImpl
  * @Description: 号码归属地查询接口实现
- * @author mqx 
+ * @author mqx
  * @date 2018年12月22日 下午12:49:22
  */
 @Service("mobileCityService")
@@ -41,7 +42,7 @@ public class MobileCityServiceImpl implements IMobileCityService {
 			sbf.append("?").append("tel=").append(mobile);
 			String sendUrl = sbf.toString();
 			logger.info("[号码归属地],根据号码获取归属地开始!请求参数:{}", sendUrl);
-			String result = HttpRequest.get(sendUrl).execute().body();
+			String result = HttpRequest.get(sendUrl).timeout(GlobalConstant.API_REQUEST_TIMEOUT).execute().body();
 			logger.info("[号码归属地],根据号码获取归属地完成!号码:{},耗时:{},返回:{}", mobile, (System.currentTimeMillis() - snycTime),
 					result);
 			// 获取归属地省份
@@ -52,7 +53,7 @@ public class MobileCityServiceImpl implements IMobileCityService {
 				String mbStr = JSONUtil.parseObj(response).getStr(mobile);
 				String detail = JSONUtil.parseObj(mbStr).getStr("detail");
 				String area = JSONUtil.parseObj(detail).getStr("area");
-//				province = JSONUtil.parseObj(detail).getStr("province");
+				// province = JSONUtil.parseObj(detail).getStr("province");
 				JSONArray array = JSONUtil.parseArray(area);
 				city = array.getJSONObject(0).getStr("city");
 			}
@@ -66,7 +67,5 @@ public class MobileCityServiceImpl implements IMobileCityService {
 		}
 		return city;
 	}
-
-	
 
 }

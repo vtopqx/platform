@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="InsuranceVinsunRecords" id="InsuranceVinsunRecordsResult">
         <result property="id"    column="id"    />
+        <result property="historyId"    column="history_id"    />
         <result property="appKey"    column="app_key"    />
         <result property="channel"    column="channel"    />
         <result property="requestTime"    column="request_time"    />
@@ -29,13 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectInsuranceVinsunRecordsVo">
-        select id, app_key, channel, request_time, sign, mch_id, sp_billno, name, sex, birth, mobile, client_ip, client_city, media, ua, user_card, remark, status, result, create_time, update_time from tb_insurance_vinsun_records
+        select id,history_id, app_key, channel, request_time, sign, mch_id, sp_billno, name, sex, birth, mobile, client_ip, client_city, media, ua, user_card, remark, status, result, create_time, update_time from tb_insurance_vinsun_records
     </sql>
 	
     <select id="selectInsuranceVinsunRecordsList" parameterType="InsuranceVinsunRecords" resultMap="InsuranceVinsunRecordsResult">
         <include refid="selectInsuranceVinsunRecordsVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
+            <if test="historyId != null "> and history_id = #{historyId}</if>
              <if test="appKey != null  and appKey != '' "> and app_key = #{appKey}</if>
              <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
              <if test="requestTime != null  and requestTime != '' "> and request_time = #{requestTime}</if>
@@ -68,6 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into tb_insurance_vinsun_records
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">id,</if>
+			<if test="historyId != null  ">history_id,</if>
 			<if test="appKey != null  and appKey != ''  ">app_key,</if>
 			<if test="channel != null  and channel != ''  ">channel,</if>
 			<if test="requestTime != null  and requestTime != ''  ">request_time,</if>
@@ -91,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">#{id},</if>
+			<if test="historyId != null  ">#{historyId},</if>
 			<if test="appKey != null  and appKey != ''  ">#{appKey},</if>
 			<if test="channel != null  and channel != ''  ">#{channel},</if>
 			<if test="requestTime != null  and requestTime != ''  ">#{requestTime},</if>
@@ -117,6 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateInsuranceVinsunRecords" parameterType="InsuranceVinsunRecords">
         update tb_insurance_vinsun_records
         <trim prefix="SET" suffixOverrides=",">
+        	<if test="historyId != null  ">history_id = #{historyId},</if>
             <if test="appKey != null  and appKey != ''  ">app_key = #{appKey},</if>
             <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
             <if test="requestTime != null  and requestTime != ''  ">request_time = #{requestTime},</if>

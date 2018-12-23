@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * @ClassName: SytemRunApplication 
- * @Description: 启动程序
+ * @Description: 启动后台管理程序
  * @author mqx 
  * @date 2018年12月2日 下午8:45:48
  */

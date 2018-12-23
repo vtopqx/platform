@@ -14,9 +14,10 @@ public interface ITbAppInfoService extends IService<TbAppInfo> {
 
 	/**
 	 * @Description: 查询应用注册信息
-	 * @param appKey 应用Key
+	 * @param appKey
+	 *            应用Key
 	 * @return
 	 */
-	public String getApplicationAccount(String appKey);
+	public TbAppInfo getAppInfo(String appKey);
 
 }

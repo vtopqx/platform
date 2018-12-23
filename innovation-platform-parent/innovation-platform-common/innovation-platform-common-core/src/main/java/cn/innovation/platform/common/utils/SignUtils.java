@@ -7,18 +7,30 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
-
 /**
- * @ClassName: SignUtils 
+ * @ClassName: SignUtils
  * @Description: 签名工具类
- * @author mqx 
+ * @author admin
  * @date 2018年12月17日 下午8:52:42
  */
 public class SignUtils {
 
-	private static final Log logger = LogFactory.get();
+	/**
+	 * @Description: 计算签名示例
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		// 组装参数
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", "test");
+		params.put("sex", "1");
+		//签名密钥
+		String appSecret = "12345";
+		// 计算签名
+		String sig = genSig(params, appSecret);
+		System.out.println("sig=====>" + sig);
+	}
 
 	private static String concatParams(Map<String, Object> params) throws UnsupportedEncodingException {
 		Object[] key_arr = params.keySet().toArray();
@@ -66,14 +78,5 @@ public class SignUtils {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		String sig = byte2hex(md.digest(byte2hex(stringBuffer.toString().getBytes("UTF-8")).getBytes()));
 		return sig;
-	}
-
-	public static void main(String[] args) throws Exception {
-		Map<String, Object> params = new HashMap<>();
-		params.put("name", "kkk");
-		params.put("sex", "1");
-		String sig = genSig(params, "111111111111111111111111");
-		logger.debug("sig=====>{}", sig);
-		System.out.println("sig=====>" + sig);
 	}
 }

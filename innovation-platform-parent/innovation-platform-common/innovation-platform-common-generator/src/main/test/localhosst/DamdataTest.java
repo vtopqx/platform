@@ -1,7 +1,5 @@
 package localhosst;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,19 +21,18 @@ public class DamdataTest {
 
 	public static void main(String[] args) {
 		try {
-			String sendUrl = "http://localhost:9001/services/api/insurance/thdpy";
-			String secret = "b7d5bae95d6de271851e45357aa0f3e6";
+//			String sendUrl = "http://localhost:9001/services/api/insurance/thdpy";
+			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
+			String secret = "44a54ce509d56d1f930b9d00b09c9ec5";
 			// 参数
 			Map<String, Object> map = new HashMap<String, Object>();
 			 //1、定义转换格式
-		    SimpleDateFormat formatter  = new SimpleDateFormat("yyyyMMddHHmmss");
-		    String once = formatter.format(new Date());
-			map.put("appKey", "448");
-			map.put("channel", "ty2");
-			map.put("requestTime", once);
+			map.put("appKey", "4");
+			map.put("channel", "test_b");
+			map.put("requestTime", System.currentTimeMillis());
 			map.put("name", "何远翔");
 			map.put("sex", "1");
-			map.put("birthDay", "1983-03-25");
+			map.put("birth", "1983-03-25");
 			map.put("mobile", "13798156379");
 			map.put("age", "35");
 			map.put("referer", "http://www.google.com");

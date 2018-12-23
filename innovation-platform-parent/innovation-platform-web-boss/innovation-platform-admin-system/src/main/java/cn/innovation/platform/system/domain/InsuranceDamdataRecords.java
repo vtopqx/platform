@@ -12,10 +12,12 @@ import java.util.Date;
  * @date 2018-12-13
  */
 public class InsuranceDamdataRecords extends BaseEntity {
-	private static final long serialVersionUID = 1L;
-
+private static final long serialVersionUID = 1L;
+	
 	/** 主键ID */
 	private Integer id;
+	/** 数据编号 */
+	private Integer historyId;
 	/** 应用Key */
 	private String appKey;
 	/** 渠道 */
@@ -38,16 +40,13 @@ public class InsuranceDamdataRecords extends BaseEntity {
 	private String referer;
 	/** 用户IP */
 	private String ip;
-	/**
-	 * 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101
-	 * Firefox/29.0
-	 */
+	/** 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0 */
 	private String userAgent;
 	/** 是否持卡，选值：已有信用卡、无信用卡 */
 	private String hadCredit;
 	/** 正在申请的信用卡(默认值:其他) */
 	private String applyCredit;
-	/** 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件) */
+	/** 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算) */
 	private String status;
 	/** 返回值 */
 	private String result;
@@ -56,166 +55,209 @@ public class InsuranceDamdataRecords extends BaseEntity {
 	/** 数据更新时间 */
 	private Date updateTime;
 
-	public void setId(Integer id) {
+	public void setId(Integer id) 
+	{
 		this.id = id;
 	}
 
-	public Integer getId() {
+	public Integer getId() 
+	{
 		return id;
 	}
+	public void setHistoryId(Integer historyId) 
+	{
+		this.historyId = historyId;
+	}
 
-	public void setAppKey(String appKey) {
+	public Integer getHistoryId() 
+	{
+		return historyId;
+	}
+	public void setAppKey(String appKey) 
+	{
 		this.appKey = appKey;
 	}
 
-	public String getAppKey() {
+	public String getAppKey() 
+	{
 		return appKey;
 	}
-
-	public void setChannel(String channel) {
+	public void setChannel(String channel) 
+	{
 		this.channel = channel;
 	}
 
-	public String getChannel() {
+	public String getChannel() 
+	{
 		return channel;
 	}
-
-	public void setRequestTime(String requestTime) {
+	public void setRequestTime(String requestTime) 
+	{
 		this.requestTime = requestTime;
 	}
 
-	public String getRequestTime() {
+	public String getRequestTime() 
+	{
 		return requestTime;
 	}
-
-	public void setSign(String sign) {
+	public void setSign(String sign) 
+	{
 		this.sign = sign;
 	}
 
-	public String getSign() {
+	public String getSign() 
+	{
 		return sign;
 	}
-
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
-
-	public void setSex(String sex) {
+	public void setSex(String sex) 
+	{
 		this.sex = sex;
 	}
 
-	public String getSex() {
+	public String getSex() 
+	{
 		return sex;
 	}
-
-	public void setBirthDay(String birthDay) {
+	public void setBirthDay(String birthDay) 
+	{
 		this.birthDay = birthDay;
 	}
 
-	public String getBirthDay() {
+	public String getBirthDay() 
+	{
 		return birthDay;
 	}
-
-	public void setMobile(String mobile) {
+	public void setMobile(String mobile) 
+	{
 		this.mobile = mobile;
 	}
 
-	public String getMobile() {
+	public String getMobile() 
+	{
 		return mobile;
 	}
-
-	public void setAge(String age) {
+	public void setAge(String age) 
+	{
 		this.age = age;
 	}
 
-	public String getAge() {
+	public String getAge() 
+	{
 		return age;
 	}
-
-	public void setReferer(String referer) {
+	public void setReferer(String referer) 
+	{
 		this.referer = referer;
 	}
 
-	public String getReferer() {
+	public String getReferer() 
+	{
 		return referer;
 	}
-
-	public void setIp(String ip) {
+	public void setIp(String ip) 
+	{
 		this.ip = ip;
 	}
 
-	public String getIp() {
+	public String getIp() 
+	{
 		return ip;
 	}
-
-	public void setUserAgent(String userAgent) {
+	public void setUserAgent(String userAgent) 
+	{
 		this.userAgent = userAgent;
 	}
 
-	public String getUserAgent() {
+	public String getUserAgent() 
+	{
 		return userAgent;
 	}
-
-	public void setHadCredit(String hadCredit) {
+	public void setHadCredit(String hadCredit) 
+	{
 		this.hadCredit = hadCredit;
 	}
 
-	public String getHadCredit() {
+	public String getHadCredit() 
+	{
 		return hadCredit;
 	}
-
-	public void setApplyCredit(String applyCredit) {
+	public void setApplyCredit(String applyCredit) 
+	{
 		this.applyCredit = applyCredit;
 	}
 
-	public String getApplyCredit() {
+	public String getApplyCredit() 
+	{
 		return applyCredit;
 	}
-
-	public void setStatus(String status) {
+	public void setStatus(String status) 
+	{
 		this.status = status;
 	}
 
-	public String getStatus() {
+	public String getStatus() 
+	{
 		return status;
 	}
-
-	public void setResult(String result) {
+	public void setResult(String result) 
+	{
 		this.result = result;
 	}
 
-	public String getResult() {
+	public String getResult() 
+	{
 		return result;
 	}
-
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Date createTime) 
+	{
 		this.createTime = createTime;
 	}
 
-	public Date getCreateTime() {
+	public Date getCreateTime() 
+	{
 		return createTime;
 	}
-
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(Date updateTime) 
+	{
 		this.updateTime = updateTime;
 	}
 
-	public Date getUpdateTime() {
+	public Date getUpdateTime() 
+	{
 		return updateTime;
 	}
 
-	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", getId())
-				.append("appKey", getAppKey()).append("channel", getChannel())
-				.append("requestTime", getRequestTime()).append("sign", getSign()).append("name", getName())
-				.append("sex", getSex()).append("birthDay", getBirthDay()).append("mobile", getMobile())
-				.append("age", getAge()).append("referer", getReferer()).append("ip", getIp())
-				.append("userAgent", getUserAgent()).append("hadCredit", getHadCredit())
-				.append("applyCredit", getApplyCredit()).append("status", getStatus()).append("result", getResult())
-				.append("createTime", getCreateTime()).append("updateTime", getUpdateTime()).toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("id", getId())
+            .append("historyId", getHistoryId())
+            .append("appKey", getAppKey())
+            .append("channel", getChannel())
+            .append("requestTime", getRequestTime())
+            .append("sign", getSign())
+            .append("name", getName())
+            .append("sex", getSex())
+            .append("birthDay", getBirthDay())
+            .append("mobile", getMobile())
+            .append("age", getAge())
+            .append("referer", getReferer())
+            .append("ip", getIp())
+            .append("userAgent", getUserAgent())
+            .append("hadCredit", getHadCredit())
+            .append("applyCredit", getApplyCredit())
+            .append("status", getStatus())
+            .append("result", getResult())
+            .append("createTime", getCreateTime())
+            .append("updateTime", getUpdateTime())
+            .toString();
+    }
 }

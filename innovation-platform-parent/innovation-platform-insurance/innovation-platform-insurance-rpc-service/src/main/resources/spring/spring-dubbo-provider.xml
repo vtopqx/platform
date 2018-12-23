@@ -19,6 +19,8 @@
     <!-- 声明需要暴露的账户服务接口 -->
 	<!-- 大坝保险管理 -->
 	<dubbo:service interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" retries="0" ref="damdataRecordsService" />
-	<!-- 大坝保险管理 -->
+	<!-- 畅思保险管理 -->
 	<dubbo:service interface="cn.innovation.platform.insurance.service.IVinsunRecordsService" retries="0" ref="vinsunRecordsService" />
+	<!-- 汇总保险管理 -->
+	<dubbo:service interface="cn.innovation.platform.insurance.service.IHistoryRecordsService" retries="0" ref="historyRecordsService" />
 </beans>

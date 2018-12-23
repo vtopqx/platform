@@ -20,6 +20,7 @@ import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 
+import cn.innovation.platform.common.constant.GlobalConstant;
 import cn.innovation.platform.common.enums.SendStatusEnum;
 import cn.innovation.platform.common.utils.Base64Utils;
 import cn.innovation.platform.common.utils.MD5Utils;
@@ -211,7 +212,8 @@ public class VinsunRecordsServiceImpl extends ServiceImpl<VinsunRecordsMapper, V
 			long startTime = System.currentTimeMillis();
 			String requestUrl = insuranceApiHelper.getVinsunUrl() + "&" + sbf.toString();
 			logger.info("[赠险](畅思保险):接口请求开始!发送参数:{}", requestUrl);
-			resultData = HttpRequest.post(requestUrl).charset("UTF-8").execute().body();
+			resultData = HttpRequest.post(requestUrl).charset("UTF-8").timeout(GlobalConstant.API_REQUEST_TIMEOUT)
+					.execute().body();
 			logger.info("[赠险](畅思保险):接口请求完成!耗时:{},流水号:{},返回:{}", (System.currentTimeMillis() - startTime), reqeustId,
 					resultData);
 		} catch (Exception e) {

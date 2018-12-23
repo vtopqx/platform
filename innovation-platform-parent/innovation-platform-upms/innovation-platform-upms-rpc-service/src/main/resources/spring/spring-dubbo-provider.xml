@@ -18,8 +18,8 @@
 
     <!-- 声明需要暴露的账户服务接口 -->
     <dubbo:service interface="cn.innovation.platform.upms.service.IApplicationRegisterInfoService" retries="0" ref="applicationRegisterInfoService" />
-
 	<!-- 应用管理 -->
 	<dubbo:service interface="cn.innovation.platform.upms.service.ITbAppInfoService" retries="0" ref="appInfoService" />
-
+	<!-- API管理 -->
+	<dubbo:service interface="cn.innovation.platform.upms.service.ITbApiInfoService" retries="0" ref="apiInfoService" />
 </beans>

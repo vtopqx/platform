@@ -19,6 +19,15 @@ public class StringUtils {
 	 * @param data
 	 * @return
 	 */
+	public static boolean isNotEmpty(Object data) {
+		return (data != null) ? true : false;
+	}
+	
+	/**
+	 * @Description: 判断是否为空
+	 * @param data
+	 * @return
+	 */
 	public static boolean isNotEmpty(String data) {
 		return (data != null && data.trim().length()>0) ? true : false;
 	}

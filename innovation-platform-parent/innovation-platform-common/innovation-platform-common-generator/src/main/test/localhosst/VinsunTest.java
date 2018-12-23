@@ -30,13 +30,13 @@ public class VinsunTest {
 	public static void main(String[] args) {
 		try {
 			// 接口地址
-			String sendUrl = "http://localhost:9001/services/api/insurance/axhao";
+			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
 			// 应用Key
-			String appKey = "448";
+			String appKey = "5";
 			// 渠道
-			String channel = "ty2";
+			String channel = "test_c";
 			// 加密秘钥
-			String appSecret = "b7d5bae95d6de271851e45357aa0f3e6";
+			String appSecret = "8c078eec5c0296524e27328252892334";
 
 			// 参数组装
 			Map<String, Object> map = new HashMap<String, Object>();

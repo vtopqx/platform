@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName: TbAppInfo
- * @Description: 应用注册信息表
+ * @Description: 下游渠道信息
  * @author mqx
  * @date 2018年12月11日 下午10:43:09
  */
@@ -18,55 +18,71 @@ public class TbAppInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键ID
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
+    /**
+     * 主键ID
+     */
+	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
-	/**
-	 * 渠道
-	 */
-	private String channel;
-	/**
-	 * 子渠道
-	 */
-	@TableField("sub_channel")
-	private String subChannel;
-	/**
-	 * 应用密码
-	 */
+    /**
+     * 应用密码
+     */
 	@TableField("app_secret")
 	private String appSecret;
-	/**
-	 * 状态(0:禁用,1:启用)
-	 */
+    /**
+     * 渠道码
+     */
+	@TableField("channel_code")
+	private String channelCode;
+    /**
+     * 渠道
+     */
+	private String channel;
+    /**
+     * 渠道类型(1:赠险,2:贷款)
+     */
+	@TableField("channel_type")
+	private Integer channelType;
+    /**
+     * 子渠道
+     */
+	@TableField("sub_channel")
+	private String subChannel;
+    /**
+     * 对接上游API列表,多个以逗号分隔
+     */
+	@TableField("api_list")
+	private String apiList;
+    /**
+     * 状态(0:正常,1:停用)
+     */
 	private Integer status;
-	/**
-	 * 接口版本
-	 */
+    /**
+     * 接口版本
+     */
 	private String version;
-	/**
-	 * 联系人
-	 */
+    /**
+     * 联系人
+     */
 	private String contacts;
-	/**
-	 * 公司名称
-	 */
+    /**
+     * 公司名称
+     */
 	private String company;
-	/**
-	 * 联系号码
-	 */
+    /**
+     * 联系号码
+     */
 	private String mobile;
-	/**
-	 * 数据创建时间
-	 */
+    /**
+     * 数据创建时间
+     */
 	@TableField("create_time")
 	private Date createTime;
-	/**
-	 * 数据更新时间
-	 */
+    /**
+     * 数据更新时间
+     */
 	@TableField("update_time")
 	private Date updateTime;
+
 
 	public Integer getId() {
 		return id;
@@ -74,6 +90,22 @@ public class TbAppInfo implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getAppSecret() {
+		return appSecret;
+	}
+
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
+	}
+
+	public String getChannelCode() {
+		return channelCode;
+	}
+
+	public void setChannelCode(String channelCode) {
+		this.channelCode = channelCode;
 	}
 
 	public String getChannel() {
@@ -84,6 +116,14 @@ public class TbAppInfo implements Serializable {
 		this.channel = channel;
 	}
 
+	public Integer getChannelType() {
+		return channelType;
+	}
+
+	public void setChannelType(Integer channelType) {
+		this.channelType = channelType;
+	}
+
 	public String getSubChannel() {
 		return subChannel;
 	}
@@ -92,12 +132,12 @@ public class TbAppInfo implements Serializable {
 		this.subChannel = subChannel;
 	}
 
-	public String getAppSecret() {
-		return appSecret;
+	public String getApiList() {
+		return apiList;
 	}
 
-	public void setAppSecret(String appSecret) {
-		this.appSecret = appSecret;
+	public void setApiList(String apiList) {
+		this.apiList = apiList;
 	}
 
 	public Integer getStatus() {
@@ -158,9 +198,21 @@ public class TbAppInfo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TbAppInfo{" + ", id=" + id + ", channel=" + channel + ", subChannel=" + subChannel + ", appSecret="
-				+ appSecret + ", status=" + status + ", version=" + version + ", contacts="
-				+ contacts + ", company=" + company + ", mobile=" + mobile + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "}";
+		return "TbAppInfo{" +
+			", id=" + id +
+			", appSecret=" + appSecret +
+			", channelCode=" + channelCode +
+			", channel=" + channel +
+			", channelType=" + channelType +
+			", subChannel=" + subChannel +
+			", apiList=" + apiList +
+			", status=" + status +
+			", version=" + version +
+			", contacts=" + contacts +
+			", company=" + company +
+			", mobile=" + mobile +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
+			"}";
 	}
 }

@@ -18,103 +18,107 @@ import java.io.Serializable;
 @TableName("tb_insurance_vinsun_records")
 public class VinsunRecords implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键ID
-     */
-	@TableId(value="id", type= IdType.AUTO)
+	/**
+	 * 主键ID
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
-    /**
-     * 应用Key
-     */
+	/**
+	 * 数据编号
+	 */
+	@TableField("history_id")
+	private Integer historyId;
+	/**
+	 * 应用Key
+	 */
 	@TableField("app_key")
 	private String appKey;
-    /**
-     * 渠道
-     */
+	/**
+	 * 渠道
+	 */
 	private String channel;
-    /**
-     * 请求时间，格式：yyyyMMddHHmmss
-     */
+	/**
+	 * 请求时间，格式：yyyyMMddHHmmss
+	 */
 	@TableField("request_time")
 	private String requestTime;
-    /**
-     * MD5签名
-     */
+	/**
+	 * MD5签名
+	 */
 	private String sign;
-    /**
-     * 商户ID
-     */
+	/**
+	 * 商户ID
+	 */
 	@TableField("mch_id")
 	private String mchId;
-    /**
-     * 商户订单号
-     */
+	/**
+	 * 商户订单号
+	 */
 	@TableField("sp_billno")
 	private String spBillno;
-    /**
-     * 用户名称
-     */
+	/**
+	 * 用户名称
+	 */
 	private String name;
-    /**
-     * 用户性别，1=男，0=女
-     */
+	/**
+	 * 用户性别，1=男，0=女
+	 */
 	private String sex;
-    /**
-     * 用户生日（如：1987-01-26）
-     */
+	/**
+	 * 用户生日（如：1987-01-26）
+	 */
 	private String birth;
-    /**
-     * 用户电话
-     */
+	/**
+	 * 用户电话
+	 */
 	private String mobile;
-    /**
-     * 用户IP
-     */
+	/**
+	 * 用户IP
+	 */
 	@TableField("client_ip")
 	private String clientIp;
-    /**
-     * 用户城市（根据用户IP匹配的用户城市）
-     */
+	/**
+	 * 用户城市（根据用户IP匹配的用户城市）
+	 */
 	@TableField("client_city")
 	private String clientCity;
-    /**
-     * 媒体编码
-     */
+	/**
+	 * 媒体编码
+	 */
 	private String media;
-    /**
-     * 用户代理
-     */
+	/**
+	 * 用户代理
+	 */
 	private String ua;
-    /**
-     * 用户身份证
-     */
+	/**
+	 * 用户身份证
+	 */
 	@TableField("user_card")
 	private String userCard;
-    /**
-     * 备注
-     */
+	/**
+	 * 备注
+	 */
 	private String remark;
-    /**
-     * 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件)
-     */
+	/**
+	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
+	 */
 	private String status;
-    /**
-     * 返回值
-     */
+	/**
+	 * 返回值
+	 */
 	private String result;
-    /**
-     * 数据创建时间
-     */
+	/**
+	 * 数据创建时间
+	 */
 	@TableField("create_time")
 	private Date createTime;
-    /**
-     * 数据更新时间
-     */
+	/**
+	 * 数据更新时间
+	 */
 	@TableField("update_time")
 	private Date updateTime;
-
 
 	public Integer getId() {
 		return id;
@@ -122,6 +126,14 @@ public class VinsunRecords implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getHistoryId() {
+		return historyId;
+	}
+
+	public void setHistoryId(Integer historyId) {
+		this.historyId = historyId;
 	}
 
 	public String getAppKey() {
@@ -286,28 +298,11 @@ public class VinsunRecords implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TbInsuranceVinsunRecords{" +
-			", id=" + id +
-			", appKey=" + appKey +
-			", channel=" + channel +
-			", requestTime=" + requestTime +
-			", sign=" + sign +
-			", mchId=" + mchId +
-			", spBillno=" + spBillno +
-			", name=" + name +
-			", sex=" + sex +
-			", birth=" + birth +
-			", mobile=" + mobile +
-			", clientIp=" + clientIp +
-			", clientCity=" + clientCity +
-			", media=" + media +
-			", ua=" + ua +
-			", userCard=" + userCard +
-			", remark=" + remark +
-			", status=" + status +
-			", result=" + result +
-			", createTime=" + createTime +
-			", updateTime=" + updateTime +
-			"}";
+		return "TbInsuranceVinsunRecords{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
+				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", mchId=" + mchId
+				+ ", spBillno=" + spBillno + ", name=" + name + ", sex=" + sex + ", birth=" + birth + ", mobile="
+				+ mobile + ", clientIp=" + clientIp + ", clientCity=" + clientCity + ", media=" + media + ", ua=" + ua
+				+ ", userCard=" + userCard + ", remark=" + remark + ", status=" + status + ", result=" + result
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "}";
 	}
 }

@@ -25,7 +25,11 @@ public class DamdataRecords implements Serializable {
 	 */
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
-
+	/**
+	 * 数据编号
+	 */
+	@TableField("history_id")
+	private Integer historyId;
 	/**
 	 * 应用Key
 	 */
@@ -90,7 +94,7 @@ public class DamdataRecords implements Serializable {
 	@TableField("apply_credit")
 	private String applyCredit;
 	/**
-	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2不符合发送条件)
+	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
 	 */
 	private String status;
 	/**
@@ -114,6 +118,14 @@ public class DamdataRecords implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getHistoryId() {
+		return historyId;
+	}
+
+	public void setHistoryId(Integer historyId) {
+		this.historyId = historyId;
 	}
 
 	public String getAppKey() {
@@ -262,7 +274,7 @@ public class DamdataRecords implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TbInsuranceDamdataRecords{" + ", id=" + id + ", appKey=" + appKey
+		return "DamdataRecords{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
 				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", name=" + name
 				+ ", sex=" + sex + ", birthDay=" + birthDay + ", mobile=" + mobile + ", age=" + age + ", referer="
 				+ referer + ", ip=" + ip + ", userAgent=" + userAgent + ", hadCredit=" + hadCredit + ", applyCredit="

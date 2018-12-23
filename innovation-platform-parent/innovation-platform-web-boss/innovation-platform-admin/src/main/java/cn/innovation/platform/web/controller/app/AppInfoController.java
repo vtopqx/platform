@@ -22,6 +22,7 @@ import cn.innovation.platform.common.utils.TokenProcessor;
 import cn.innovation.platform.framework.web.base.BaseController;
 import cn.innovation.platform.framework.web.page.TableDataInfo;
 import cn.innovation.platform.system.domain.AppInfo;
+import cn.innovation.platform.system.service.IApiInfoService;
 import cn.innovation.platform.system.service.IAppInfoService;
 
 /**
@@ -37,6 +38,9 @@ public class AppInfoController extends BaseController {
 
 	@Autowired
 	private IAppInfoService appInfoService;
+
+	@Autowired
+	private IApiInfoService apiInfoService;
 
 	@RequiresPermissions("app:appInfo:view")
 	@GetMapping()
@@ -72,7 +76,8 @@ public class AppInfoController extends BaseController {
 	 * 新增应用注册
 	 */
 	@GetMapping("/add")
-	public String add() {
+	public String add(ModelMap mmap) {
+		mmap.put("apis", apiInfoService.selectApiAll());
 		return prefix + "/add";
 	}
 
@@ -83,7 +88,7 @@ public class AppInfoController extends BaseController {
 	@Log(title = "应用注册", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(HttpServletRequest request,AppInfo appInfo) {
+	public AjaxResult addSave(HttpServletRequest request, AppInfo appInfo) {
 		appInfo.setAppSecret(TokenProcessor.getInstance().generateToken(request));
 		return toAjax(appInfoService.insertAppInfo(appInfo));
 	}
@@ -95,6 +100,7 @@ public class AppInfoController extends BaseController {
 	public String edit(@PathVariable("id") Integer id, ModelMap mmap) {
 		AppInfo appInfo = appInfoService.selectAppInfoById(id);
 		mmap.put("appInfo", appInfo);
+		mmap.put("apis", apiInfoService.selectApiInfoByCodes(appInfo.getApiList()));
 		return prefix + "/edit";
 	}
 

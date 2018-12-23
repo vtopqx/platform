@@ -6,9 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="AppInfo" id="AppInfoResult">
         <result property="id"    column="id"    />
-        <result property="channel"    column="channel"    />
-        <result property="subChannel"    column="sub_channel"    />
         <result property="appSecret"    column="app_secret"    />
+        <result property="channelCode"    column="channel_code"    />
+        <result property="channel"    column="channel"    />
+        <result property="channelType"    column="channel_type"    />
+        <result property="subChannel"    column="sub_channel"    />
+        <result property="apiList"    column="api_list"    />
         <result property="status"    column="status"    />
         <result property="version"    column="version"    />
         <result property="contacts"    column="contacts"    />
@@ -19,16 +22,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectAppInfoVo">
-        select id, channel, sub_channel, app_secret, status, version, contacts, company, mobile, create_time, update_time from tb_app_info
+        select id, app_secret, channel_code, channel, channel_type, sub_channel, api_list, status, version, contacts, company, mobile, create_time, update_time from tb_app_info
     </sql>
 	
     <select id="selectAppInfoList" parameterType="AppInfo" resultMap="AppInfoResult">
         <include refid="selectAppInfoVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
-             <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
-             <if test="subChannel != null  and subChannel != '' "> and sub_channel = #{subChannel}</if>
              <if test="appSecret != null  and appSecret != '' "> and app_secret = #{appSecret}</if>
+             <if test="channelCode != null  and channelCode != '' "> and channel_code = #{channelCode}</if>
+             <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
+             <if test="channelType != null "> and channel_type = #{channelType}</if>
+             <if test="subChannel != null  and subChannel != '' "> and sub_channel = #{subChannel}</if>
+             <if test="apiList != null  and apiList != '' "> and api_list = #{apiList}</if>
              <if test="status != null "> and status = #{status}</if>
              <if test="version != null  and version != '' "> and version = #{version}</if>
              <if test="contacts != null  and contacts != '' "> and contacts = #{contacts}</if>
@@ -48,9 +54,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into tb_app_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">id,</if>
-			<if test="channel != null  and channel != ''  ">channel,</if>
-			<if test="subChannel != null  and subChannel != ''  ">sub_channel,</if>
 			<if test="appSecret != null  and appSecret != ''  ">app_secret,</if>
+			<if test="channelCode != null  and channelCode != ''  ">channel_code,</if>
+			<if test="channel != null  and channel != ''  ">channel,</if>
+			<if test="channelType != null  ">channel_type,</if>
+			<if test="subChannel != null  and subChannel != ''  ">sub_channel,</if>
+			<if test="apiList != null  and apiList != ''  ">api_list,</if>
 			<if test="status != null  ">status,</if>
 			<if test="version != null  and version != ''  ">version,</if>
 			<if test="contacts != null  and contacts != ''  ">contacts,</if>
@@ -61,9 +70,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">#{id},</if>
-			<if test="channel != null  and channel != ''  ">#{channel},</if>
-			<if test="subChannel != null  and subChannel != ''  ">#{subChannel},</if>
 			<if test="appSecret != null  and appSecret != ''  ">#{appSecret},</if>
+			<if test="channelCode != null  and channelCode != ''  ">#{channelCode},</if>
+			<if test="channel != null  and channel != ''  ">#{channel},</if>
+			<if test="channelType != null  ">#{channelType},</if>
+			<if test="subChannel != null  and subChannel != ''  ">#{subChannel},</if>
+			<if test="apiList != null  and apiList != ''  ">#{apiList},</if>
 			<if test="status != null  ">#{status},</if>
 			<if test="version != null  and version != ''  ">#{version},</if>
 			<if test="contacts != null  and contacts != ''  ">#{contacts},</if>
@@ -77,9 +89,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateAppInfo" parameterType="AppInfo">
         update tb_app_info
         <trim prefix="SET" suffixOverrides=",">
-            <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
-            <if test="subChannel != null  and subChannel != ''  ">sub_channel = #{subChannel},</if>
             <if test="appSecret != null  and appSecret != ''  ">app_secret = #{appSecret},</if>
+            <if test="channelCode != null  and channelCode != ''  ">channel_code = #{channelCode},</if>
+            <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
+            <if test="channelType != null  ">channel_type = #{channelType},</if>
+            <if test="subChannel != null  and subChannel != ''  ">sub_channel = #{subChannel},</if>
+            <if test="apiList != null  and apiList != ''  ">api_list = #{apiList},</if>
             <if test="status != null  ">status = #{status},</if>
             <if test="version != null  and version != ''  ">version = #{version},</if>
             <if test="contacts != null  and contacts != ''  ">contacts = #{contacts},</if>

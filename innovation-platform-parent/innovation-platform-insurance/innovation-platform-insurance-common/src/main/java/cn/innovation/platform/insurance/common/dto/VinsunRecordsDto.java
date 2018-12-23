@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 /**
  * @ClassName: VinsunRecordsDto
- * @Description: 畅思保险申请记录
+ * @Description: 畅思保险申请记录传输对象
  * @author mqx
  * @date 2018年12月16日 下午6:06:57
  */
@@ -117,6 +117,11 @@ public class VinsunRecordsDto implements Serializable {
 	 * 数据更新时间
 	 */
 	private Date updateTime;
+
+	/**
+	 * 数据编号
+	 */
+	private Integer historyId;
 
 	public Integer getId() {
 		return id;
@@ -284,6 +289,24 @@ public class VinsunRecordsDto implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getHistoryId() {
+		return historyId;
+	}
+
+	public void setHistoryId(Integer historyId) {
+		this.historyId = historyId;
+	}
+	
+	@Override
+	public String toString() {
+		return "VinsunRecordsDto{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
+				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", mchId=" + mchId
+				+ ", spBillno=" + spBillno + ", name=" + name + ", sex=" + sex + ", birth=" + birth + ", mobile="
+				+ mobile + ", clientIp=" + clientIp + ", clientCity=" + clientCity + ", media=" + media + ", ua=" + ua
+				+ ", userCard=" + userCard + ", remark=" + remark + ", status=" + status + ", result=" + result
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "}";
 	}
 
 }

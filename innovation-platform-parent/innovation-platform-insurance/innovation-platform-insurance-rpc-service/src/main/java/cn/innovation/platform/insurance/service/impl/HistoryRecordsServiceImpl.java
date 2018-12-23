@@ -37,6 +37,7 @@ import cn.innovation.platform.insurance.common.utils.InsuranceApiHelper;
 import cn.innovation.platform.insurance.mapper.HistoryRecordsMapper;
 import cn.innovation.platform.insurance.service.IDamdataRecordsService;
 import cn.innovation.platform.insurance.service.IHistoryRecordsService;
+import cn.innovation.platform.insurance.service.IMobileCityService;
 import cn.innovation.platform.insurance.service.IVinsunRecordsService;
 
 /**
@@ -57,6 +58,8 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 	private IDamdataRecordsService damdataRecordsService;
 	@Resource
 	private IVinsunRecordsService vinsunRecordsService;
+	@Resource
+	private IMobileCityService mobileCityService;
 	@Resource
 	private RedisTemplate<String, String> redisTemplate;
 
@@ -86,9 +89,22 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 				logger.info("[赠险]:数据检查完成!流水号:{},重复提交了数据!", reqeustId);
 				result = new BaseResult(SystemStatusEnum.CODE_202.value(), SystemStatusEnum.CODE_202.remark());
 			} else {
+				BeanUtil.copyProperties(dto, records);
+				records.setUpdateTime(new Date());
+				// 查询号码归属地
+				String city = mobileCityService.getCityByMobile(dto.getMobile());
+				if (StringUtils.isNotEmpty(city)) {
+					dto.setClientCity(city);
+					records.setClientCity(city);
+				} else {
+					logger.info("[赠险]:归属地查询完成!流水号:{},非法号码!号码:{}", reqeustId, dto.getMobile());
+					// 状态为非法号码
+					records.setStatus(SendStatusEnum.mobileError.getId());
+					this.insert(records);
+					return new BaseResult(SystemStatusEnum.CODE_400.value(), SystemStatusEnum.CODE_400.remark());
+				}
 				// 状态为发送中
 				records.setStatus(SendStatusEnum.processing.getId());
-				records.setUpdateTime(new Date());
 				boolean isSave = this.insert(records);
 
 				// 调用接口分发

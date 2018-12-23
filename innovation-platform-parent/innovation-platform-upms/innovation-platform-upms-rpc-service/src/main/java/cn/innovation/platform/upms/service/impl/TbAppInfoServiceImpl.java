@@ -58,20 +58,20 @@ public class TbAppInfoServiceImpl extends ServiceImpl<TbAppInfoMapper, TbAppInfo
 			EntityWrapper<TbAppInfo> wrapper = new EntityWrapper<TbAppInfo>();
 			wrapper.where("id = {0}", appKey);
 			wrapper.and(" status=0 ");
-			TbAppInfo info = this.selectOne(wrapper);
+			appInfo = this.selectOne(wrapper);
 			// 重新放到redis中
-			if (StringUtils.isNotEmpty(info)) {
+			if (StringUtils.isNotEmpty(appInfo)) {
 				Map<String, String> appMap = new HashMap<String, String>();
 				appMap.put("appKey", appKey);
-				appMap.put("apiList", info.getApiList());
-				appMap.put("channelCode", info.getChannelCode());
-				appMap.put("appSecret", info.getAppSecret());
+				appMap.put("apiList", appInfo.getApiList());
+				appMap.put("channelCode", appInfo.getChannelCode());
+				appMap.put("appSecret", appInfo.getAppSecret());
 				//存如redis
 				ops.set(appInfoKey, JSONUtil.toJsonStr(appMap));
 			}
 		}
 		long endTime = System.currentTimeMillis();
-		logger.info("[应用接口]查询应用平台权限，耗时{}", (endTime - startTime));
+		logger.info("[应用接口]查询应用平台权限，耗时{},返回:{}", (endTime - startTime),appInfo);
 		return appInfo;
 	}
 

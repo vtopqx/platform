@@ -30,7 +30,6 @@ import cn.innovation.platform.insurance.common.enums.VinsunCodeEnum;
 import cn.innovation.platform.insurance.common.model.VinsunRecords;
 import cn.innovation.platform.insurance.common.utils.InsuranceApiHelper;
 import cn.innovation.platform.insurance.mapper.VinsunRecordsMapper;
-import cn.innovation.platform.insurance.service.IMobileCityService;
 import cn.innovation.platform.insurance.service.IVinsunRecordsService;
 
 /**
@@ -47,9 +46,6 @@ public class VinsunRecordsServiceImpl extends ServiceImpl<VinsunRecordsMapper, V
 
 	@Resource
 	private InsuranceApiHelper insuranceApiHelper;
-
-	@Resource
-	private IMobileCityService mobileCityService;
 
 	@Override
 	public Map<String, String> addApply(VinsunRecordsDto dto) {
@@ -86,24 +82,8 @@ public class VinsunRecordsServiceImpl extends ServiceImpl<VinsunRecordsMapper, V
 				map.put("code", VinsunCodeEnum.CODE_1010.value());
 				return map;
 			}
-			boolean isNotCity = false;
 			if (isNotApply) {
-				// 查询号码归属地
-				String city = mobileCityService.getCityByMobile(dto.getMobile());
-				if (StringUtils.isNotEmpty(city)) {
-					dto.setClientCity(city);
-					BeanUtil.copyProperties(dto, records);
-				} else {
-					isNotCity = true;
-					logger.info("[赠险](畅思保险):归属地查询完成!流水号:{},非法号码!号码:{}", reqeustId, dto.getMobile());
-					// 状态为非法号码
-					records.setStatus(SendStatusEnum.processing.getId());
-					this.insert(records);
-					map.put("code", VinsunCodeEnum.CODE_1005.value());
-					return map;
-				}
-			}
-			if (!isNotCity) {
+				BeanUtil.copyProperties(dto, records);
 				// 状态为发送中
 				records.setCreateTime(new Date());
 				records.setUpdateTime(new Date());

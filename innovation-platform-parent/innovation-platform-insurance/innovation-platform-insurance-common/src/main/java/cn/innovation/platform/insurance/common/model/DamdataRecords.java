@@ -20,97 +20,107 @@ public class DamdataRecords implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键ID
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
+    /**
+     * 主键ID
+     */
+	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
-	/**
-	 * 数据编号
-	 */
+    /**
+     * 数据编号
+     */
 	@TableField("history_id")
 	private Integer historyId;
-	/**
-	 * 应用Key
-	 */
+    /**
+     * 应用Key
+     */
 	@TableField("app_key")
 	private String appKey;
-	/**
-	 * 渠道
-	 */
+    /**
+     * 渠道
+     */
 	private String channel;
-	/**
-	 * 请求时间，格式：yyyyMMddHHmmss
-	 */
+    /**
+     * 请求时间，格式：yyyyMMddHHmmss
+     */
 	@TableField("request_time")
 	private String requestTime;
-	/**
-	 * 签名（加密后的值填此处）
-	 */
+    /**
+     * 签名（加密后的值填此处）
+     */
 	private String sign;
-	/**
-	 * 用户名，必须是2到8位的中文字符
-	 */
+    /**
+     * 用户名，必须是2到8位的中文字符
+     */
 	private String name;
-	/**
-	 * 用户性别，1=男，0=女
-	 */
+    /**
+     * 用户性别，1=男，0=女
+     */
 	private String sex;
-	/**
-	 * 出生日期，格式：yyyy-MM-dd
-	 */
+    /**
+     * 出生日期，格式：yyyy-MM-dd
+     */
 	@TableField("birth_day")
 	private String birthDay;
-	/**
-	 * 手机号码
-	 */
+    /**
+     * 手机号码
+     */
 	private String mobile;
-	/**
-	 * 用户年龄
-	 */
+    /**
+     * 用户年龄
+     */
 	private String age;
-	/**
-	 * 用户来源地址，如：http://www.google.com
-	 */
+    /**
+     * 用户来源地址，如：http://www.google.com
+     */
 	private String referer;
-	/**
-	 * 用户IP
-	 */
+    /**
+     * 用户IP
+     */
 	private String ip;
-	/**
-	 * 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101
-	 * Firefox/29.0
-	 */
+    /**
+     * 号码归属地(省份)
+     */
+	@TableField("client_province")
+	private String clientProvince;
+    /**
+     * 号码归属地(地市)
+     */
+	@TableField("client_city")
+	private String clientCity;
+    /**
+     * 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0
+     */
 	@TableField("user_agent")
 	private String userAgent;
-	/**
-	 * 是否持卡，选值：已有信用卡、无信用卡
-	 */
+    /**
+     * 是否持卡，选值：已有信用卡、无信用卡
+     */
 	@TableField("had_credit")
 	private String hadCredit;
-	/**
-	 * 正在申请的信用卡(默认值:其他)
-	 */
+    /**
+     * 正在申请的信用卡(默认值:其他)
+     */
 	@TableField("apply_credit")
 	private String applyCredit;
-	/**
-	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
-	 */
+    /**
+     * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
+     */
 	private String status;
-	/**
-	 * 返回值
-	 */
+    /**
+     * 返回值
+     */
 	private String result;
-	/**
-	 * 数据创建时间
-	 */
+    /**
+     * 数据创建时间
+     */
 	@TableField("create_time")
 	private Date createTime;
-	/**
-	 * 数据更新时间
-	 */
+    /**
+     * 数据更新时间
+     */
 	@TableField("update_time")
 	private Date updateTime;
+
 
 	public Integer getId() {
 		return id;
@@ -216,6 +226,22 @@ public class DamdataRecords implements Serializable {
 		this.ip = ip;
 	}
 
+	public String getClientProvince() {
+		return clientProvince;
+	}
+
+	public void setClientProvince(String clientProvince) {
+		this.clientProvince = clientProvince;
+	}
+
+	public String getClientCity() {
+		return clientCity;
+	}
+
+	public void setClientCity(String clientCity) {
+		this.clientCity = clientCity;
+	}
+
 	public String getUserAgent() {
 		return userAgent;
 	}
@@ -274,11 +300,29 @@ public class DamdataRecords implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DamdataRecords{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
-				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", name=" + name
-				+ ", sex=" + sex + ", birthDay=" + birthDay + ", mobile=" + mobile + ", age=" + age + ", referer="
-				+ referer + ", ip=" + ip + ", userAgent=" + userAgent + ", hadCredit=" + hadCredit + ", applyCredit="
-				+ applyCredit + ", status=" + status + ", result=" + result + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "}";
+		return "TbInsuranceDamdataRecords{" +
+			", id=" + id +
+			", historyId=" + historyId +
+			", appKey=" + appKey +
+			", channel=" + channel +
+			", requestTime=" + requestTime +
+			", sign=" + sign +
+			", name=" + name +
+			", sex=" + sex +
+			", birthDay=" + birthDay +
+			", mobile=" + mobile +
+			", age=" + age +
+			", referer=" + referer +
+			", ip=" + ip +
+			", clientProvince=" + clientProvince +
+			", clientCity=" + clientCity +
+			", userAgent=" + userAgent +
+			", hadCredit=" + hadCredit +
+			", applyCredit=" + applyCredit +
+			", status=" + status +
+			", result=" + result +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
+			"}";
 	}
 }

@@ -15,6 +15,7 @@ public class VisumControllerDemo {
 
     public static void main(String[] args) {
     	try {
+    		long startTime = System.currentTimeMillis();
     		String mch_secret = "5879f7605c11fd17b4e1e2558064ea4c";
     		
     		String mch_id = "nengxi01";
@@ -54,6 +55,7 @@ public class VisumControllerDemo {
     		String url = "http://vinsun.axhao.com/api.aspx?cmd=submit_3dorder&"+sbf.toString();
     		System.out.println("url:"+url);
     		String resultData = HttpRequest.post(url).charset("UTF-8").execute().body();
+    		System.out.println("time:"+(System.currentTimeMillis()-startTime));
     		System.out.println("resultData:"+resultData);
     		
 		} catch (Exception e) {

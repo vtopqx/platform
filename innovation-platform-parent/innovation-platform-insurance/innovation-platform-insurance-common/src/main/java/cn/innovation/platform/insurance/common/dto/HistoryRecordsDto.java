@@ -92,6 +92,11 @@ public class HistoryRecordsDto implements Serializable {
 	 * 用户IP
 	 */
 	private String clientIp;
+	
+	/**
+     * 号码归属地(省份)
+     */
+	private String clientProvince;
 	/**
 	 * 用户城市（根据用户IP匹配的用户城市）
 	 */
@@ -353,6 +358,14 @@ public class HistoryRecordsDto implements Serializable {
 		this.age = age;
 	}
 	
+	public String getClientProvince() {
+		return clientProvince;
+	}
+
+	public void setClientProvince(String clientProvince) {
+		this.clientProvince = clientProvince;
+	}
+
 	@Override
 	public String toString() {
 		return "HistoryRecordsDto{" +
@@ -370,6 +383,7 @@ public class HistoryRecordsDto implements Serializable {
 			", birth=" + birth +
 			", mobile=" + mobile +
 			", clientIp=" + clientIp +
+			", clientProvince=" + clientProvince +
 			", clientCity=" + clientCity +
 			", media=" + media +
 			", userAgent=" + userAgent +

@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.innovation.platform.insurance.common.model.HistoryRecords">
-        <id column="id" property="id" />
+         <id column="id" property="id" />
         <result column="app_key" property="appKey" />
         <result column="channel" property="channel" />
         <result column="request_time" property="requestTime" />
@@ -14,9 +14,11 @@
         <result column="sp_billno" property="spBillno" />
         <result column="name" property="name" />
         <result column="sex" property="sex" />
+        <result column="age" property="age" />
         <result column="birth" property="birth" />
         <result column="mobile" property="mobile" />
         <result column="client_ip" property="clientIp" />
+        <result column="client_province" property="clientProvince" />
         <result column="client_city" property="clientCity" />
         <result column="media" property="media" />
         <result column="user_agent" property="userAgent" />
@@ -33,7 +35,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, app_key AS appKey, channel, request_time AS requestTime, sign, api_code AS apiCode, mch_id AS mchId, sp_billno AS spBillno, name, sex, birth, mobile, client_ip AS clientIp, client_city AS clientCity, media, user_agent AS userAgent, user_card AS userCard, had_credit AS hadCredit, apply_credit AS applyCredit, referer, remark, status, result, create_time AS createTime, update_time AS updateTime
+        id, app_key AS appKey, channel, request_time AS requestTime, sign, api_code AS apiCode, mch_id AS mchId, sp_billno AS spBillno, name, sex, age, birth, mobile, client_ip AS clientIp, client_province AS clientProvince, client_city AS clientCity, media, user_agent AS userAgent, user_card AS userCard, had_credit AS hadCredit, apply_credit AS applyCredit, referer, remark, status, result, create_time AS createTime, update_time AS updateTime
     </sql>
+
 
 </mapper>

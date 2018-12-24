@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="mobile"    column="mobile"    />
         <result property="clientIp"    column="client_ip"    />
         <result property="clientCity"    column="client_city"    />
+        <result property="clientProvince"    column="client_province"    />
         <result property="media"    column="media"    />
         <result property="ua"    column="ua"    />
         <result property="userCard"    column="user_card"    />
@@ -30,14 +31,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectInsuranceVinsunRecordsVo">
-        select id,history_id, app_key, channel, request_time, sign, mch_id, sp_billno, name, sex, birth, mobile, client_ip, client_city, media, ua, user_card, remark, status, result, create_time, update_time from tb_insurance_vinsun_records
+        select id, history_id, app_key, channel, request_time, sign, mch_id, sp_billno, name, sex, birth, mobile, client_ip, client_city, client_province, media, ua, user_card, remark, status, result, create_time, update_time from tb_insurance_vinsun_records
     </sql>
 	
     <select id="selectInsuranceVinsunRecordsList" parameterType="InsuranceVinsunRecords" resultMap="InsuranceVinsunRecordsResult">
         <include refid="selectInsuranceVinsunRecordsVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
-            <if test="historyId != null "> and history_id = #{historyId}</if>
+             <if test="historyId != null "> and history_id = #{historyId}</if>
              <if test="appKey != null  and appKey != '' "> and app_key = #{appKey}</if>
              <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
              <if test="requestTime != null  and requestTime != '' "> and request_time = #{requestTime}</if>
@@ -50,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="mobile != null  and mobile != '' "> and mobile = #{mobile}</if>
              <if test="clientIp != null  and clientIp != '' "> and client_ip = #{clientIp}</if>
              <if test="clientCity != null  and clientCity != '' "> and client_city = #{clientCity}</if>
+             <if test="clientProvince != null  and clientProvince != '' "> and client_province = #{clientProvince}</if>
              <if test="media != null  and media != '' "> and media = #{media}</if>
              <if test="ua != null  and ua != '' "> and ua = #{ua}</if>
              <if test="userCard != null  and userCard != '' "> and user_card = #{userCard}</if>
@@ -83,6 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="mobile != null  and mobile != ''  ">mobile,</if>
 			<if test="clientIp != null  and clientIp != ''  ">client_ip,</if>
 			<if test="clientCity != null  and clientCity != ''  ">client_city,</if>
+			<if test="clientProvince != null  and clientProvince != ''  ">client_province,</if>
 			<if test="media != null  and media != ''  ">media,</if>
 			<if test="ua != null  and ua != ''  ">ua,</if>
 			<if test="userCard != null  and userCard != ''  ">user_card,</if>
@@ -107,6 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="mobile != null  and mobile != ''  ">#{mobile},</if>
 			<if test="clientIp != null  and clientIp != ''  ">#{clientIp},</if>
 			<if test="clientCity != null  and clientCity != ''  ">#{clientCity},</if>
+			<if test="clientProvince != null  and clientProvince != ''  ">#{clientProvince},</if>
 			<if test="media != null  and media != ''  ">#{media},</if>
 			<if test="ua != null  and ua != ''  ">#{ua},</if>
 			<if test="userCard != null  and userCard != ''  ">#{userCard},</if>
@@ -121,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateInsuranceVinsunRecords" parameterType="InsuranceVinsunRecords">
         update tb_insurance_vinsun_records
         <trim prefix="SET" suffixOverrides=",">
-        	<if test="historyId != null  ">history_id = #{historyId},</if>
+            <if test="historyId != null  ">history_id = #{historyId},</if>
             <if test="appKey != null  and appKey != ''  ">app_key = #{appKey},</if>
             <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
             <if test="requestTime != null  and requestTime != ''  ">request_time = #{requestTime},</if>
@@ -134,6 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="mobile != null  and mobile != ''  ">mobile = #{mobile},</if>
             <if test="clientIp != null  and clientIp != ''  ">client_ip = #{clientIp},</if>
             <if test="clientCity != null  and clientCity != ''  ">client_city = #{clientCity},</if>
+            <if test="clientProvince != null  and clientProvince != ''  ">client_province = #{clientProvince},</if>
             <if test="media != null  and media != ''  ">media = #{media},</if>
             <if test="ua != null  and ua != ''  ">ua = #{ua},</if>
             <if test="userCard != null  and userCard != ''  ">user_card = #{userCard},</if>

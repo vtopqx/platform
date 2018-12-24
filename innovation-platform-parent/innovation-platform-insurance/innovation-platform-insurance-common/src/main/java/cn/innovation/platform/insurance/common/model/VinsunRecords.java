@@ -18,291 +18,324 @@ import java.io.Serializable;
 @TableName("tb_insurance_vinsun_records")
 public class VinsunRecords implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	 private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键ID
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
-	/**
-	 * 数据编号
-	 */
-	@TableField("history_id")
-	private Integer historyId;
-	/**
-	 * 应用Key
-	 */
-	@TableField("app_key")
-	private String appKey;
-	/**
-	 * 渠道
-	 */
-	private String channel;
-	/**
-	 * 请求时间，格式：yyyyMMddHHmmss
-	 */
-	@TableField("request_time")
-	private String requestTime;
-	/**
-	 * MD5签名
-	 */
-	private String sign;
-	/**
-	 * 商户ID
-	 */
-	@TableField("mch_id")
-	private String mchId;
-	/**
-	 * 商户订单号
-	 */
-	@TableField("sp_billno")
-	private String spBillno;
-	/**
-	 * 用户名称
-	 */
-	private String name;
-	/**
-	 * 用户性别，1=男，0=女
-	 */
-	private String sex;
-	/**
-	 * 用户生日（如：1987-01-26）
-	 */
-	private String birth;
-	/**
-	 * 用户电话
-	 */
-	private String mobile;
-	/**
-	 * 用户IP
-	 */
-	@TableField("client_ip")
-	private String clientIp;
-	/**
-	 * 用户城市（根据用户IP匹配的用户城市）
-	 */
-	@TableField("client_city")
-	private String clientCity;
-	/**
-	 * 媒体编码
-	 */
-	private String media;
-	/**
-	 * 用户代理
-	 */
-	private String ua;
-	/**
-	 * 用户身份证
-	 */
-	@TableField("user_card")
-	private String userCard;
-	/**
-	 * 备注
-	 */
-	private String remark;
-	/**
-	 * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
-	 */
-	private String status;
-	/**
-	 * 返回值
-	 */
-	private String result;
-	/**
-	 * 数据创建时间
-	 */
-	@TableField("create_time")
-	private Date createTime;
-	/**
-	 * 数据更新时间
-	 */
-	@TableField("update_time")
-	private Date updateTime;
+	    /**
+	     * 主键ID
+	     */
+		@TableId(value="id", type= IdType.AUTO)
+		private Integer id;
+	    /**
+	     * 数据编号
+	     */
+		@TableField("history_id")
+		private Integer historyId;
+	    /**
+	     * 应用Key
+	     */
+		@TableField("app_key")
+		private String appKey;
+	    /**
+	     * 渠道
+	     */
+		private String channel;
+	    /**
+	     * 请求时间，格式：yyyyMMddHHmmss
+	     */
+		@TableField("request_time")
+		private String requestTime;
+	    /**
+	     * MD5签名
+	     */
+		private String sign;
+	    /**
+	     * 商户ID
+	     */
+		@TableField("mch_id")
+		private String mchId;
+	    /**
+	     * 商户订单号
+	     */
+		@TableField("sp_billno")
+		private String spBillno;
+	    /**
+	     * 用户名称
+	     */
+		private String name;
+	    /**
+	     * 用户性别，1=男，0=女
+	     */
+		private String sex;
+	    /**
+	     * 用户生日（如：1987-01-26）
+	     */
+		private String birth;
+	    /**
+	     * 用户电话
+	     */
+		private String mobile;
+	    /**
+	     * 用户IP
+	     */
+		@TableField("client_ip")
+		private String clientIp;
+	    /**
+	     * 用户城市（根据用户IP匹配的用户城市）
+	     */
+		@TableField("client_city")
+		private String clientCity;
+	    /**
+	     * 号码归属地(省份)
+	     */
+		@TableField("client_province")
+		private String clientProvince;
+	    /**
+	     * 媒体编码
+	     */
+		private String media;
+	    /**
+	     * 用户代理
+	     */
+		private String ua;
+	    /**
+	     * 用户身份证
+	     */
+		@TableField("user_card")
+		private String userCard;
+	    /**
+	     * 备注
+	     */
+		private String remark;
+	    /**
+	     * 状态(0:发送中,1:发送成功,-1:发送失败,-2:不符合发送条件,-3:号码不合法,-4:发送成功但不结算,-5:发送成功延迟结算)
+	     */
+		private String status;
+	    /**
+	     * 返回值
+	     */
+		private String result;
+	    /**
+	     * 数据创建时间
+	     */
+		@TableField("create_time")
+		private Date createTime;
+	    /**
+	     * 数据更新时间
+	     */
+		@TableField("update_time")
+		private Date updateTime;
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+		public Integer getId() {
+			return id;
+		}
 
-	public Integer getHistoryId() {
-		return historyId;
-	}
+		public void setId(Integer id) {
+			this.id = id;
+		}
 
-	public void setHistoryId(Integer historyId) {
-		this.historyId = historyId;
-	}
+		public Integer getHistoryId() {
+			return historyId;
+		}
 
-	public String getAppKey() {
-		return appKey;
-	}
+		public void setHistoryId(Integer historyId) {
+			this.historyId = historyId;
+		}
 
-	public void setAppKey(String appKey) {
-		this.appKey = appKey;
-	}
+		public String getAppKey() {
+			return appKey;
+		}
 
-	public String getChannel() {
-		return channel;
-	}
+		public void setAppKey(String appKey) {
+			this.appKey = appKey;
+		}
 
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
+		public String getChannel() {
+			return channel;
+		}
 
-	public String getRequestTime() {
-		return requestTime;
-	}
+		public void setChannel(String channel) {
+			this.channel = channel;
+		}
 
-	public void setRequestTime(String requestTime) {
-		this.requestTime = requestTime;
-	}
+		public String getRequestTime() {
+			return requestTime;
+		}
 
-	public String getSign() {
-		return sign;
-	}
+		public void setRequestTime(String requestTime) {
+			this.requestTime = requestTime;
+		}
 
-	public void setSign(String sign) {
-		this.sign = sign;
-	}
+		public String getSign() {
+			return sign;
+		}
 
-	public String getMchId() {
-		return mchId;
-	}
+		public void setSign(String sign) {
+			this.sign = sign;
+		}
 
-	public void setMchId(String mchId) {
-		this.mchId = mchId;
-	}
+		public String getMchId() {
+			return mchId;
+		}
 
-	public String getSpBillno() {
-		return spBillno;
-	}
+		public void setMchId(String mchId) {
+			this.mchId = mchId;
+		}
 
-	public void setSpBillno(String spBillno) {
-		this.spBillno = spBillno;
-	}
+		public String getSpBillno() {
+			return spBillno;
+		}
 
-	public String getName() {
-		return name;
-	}
+		public void setSpBillno(String spBillno) {
+			this.spBillno = spBillno;
+		}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+		public String getName() {
+			return name;
+		}
 
-	public String getSex() {
-		return sex;
-	}
+		public void setName(String name) {
+			this.name = name;
+		}
 
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+		public String getSex() {
+			return sex;
+		}
 
-	public String getBirth() {
-		return birth;
-	}
+		public void setSex(String sex) {
+			this.sex = sex;
+		}
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+		public String getBirth() {
+			return birth;
+		}
 
-	public String getMobile() {
-		return mobile;
-	}
+		public void setBirth(String birth) {
+			this.birth = birth;
+		}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+		public String getMobile() {
+			return mobile;
+		}
 
-	public String getClientIp() {
-		return clientIp;
-	}
+		public void setMobile(String mobile) {
+			this.mobile = mobile;
+		}
 
-	public void setClientIp(String clientIp) {
-		this.clientIp = clientIp;
-	}
+		public String getClientIp() {
+			return clientIp;
+		}
 
-	public String getClientCity() {
-		return clientCity;
-	}
+		public void setClientIp(String clientIp) {
+			this.clientIp = clientIp;
+		}
 
-	public void setClientCity(String clientCity) {
-		this.clientCity = clientCity;
-	}
+		public String getClientCity() {
+			return clientCity;
+		}
 
-	public String getMedia() {
-		return media;
-	}
+		public void setClientCity(String clientCity) {
+			this.clientCity = clientCity;
+		}
 
-	public void setMedia(String media) {
-		this.media = media;
-	}
+		public String getClientProvince() {
+			return clientProvince;
+		}
 
-	public String getUa() {
-		return ua;
-	}
+		public void setClientProvince(String clientProvince) {
+			this.clientProvince = clientProvince;
+		}
 
-	public void setUa(String ua) {
-		this.ua = ua;
-	}
+		public String getMedia() {
+			return media;
+		}
 
-	public String getUserCard() {
-		return userCard;
-	}
+		public void setMedia(String media) {
+			this.media = media;
+		}
 
-	public void setUserCard(String userCard) {
-		this.userCard = userCard;
-	}
+		public String getUa() {
+			return ua;
+		}
 
-	public String getRemark() {
-		return remark;
-	}
+		public void setUa(String ua) {
+			this.ua = ua;
+		}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+		public String getUserCard() {
+			return userCard;
+		}
 
-	public String getStatus() {
-		return status;
-	}
+		public void setUserCard(String userCard) {
+			this.userCard = userCard;
+		}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+		public String getRemark() {
+			return remark;
+		}
 
-	public String getResult() {
-		return result;
-	}
+		public void setRemark(String remark) {
+			this.remark = remark;
+		}
 
-	public void setResult(String result) {
-		this.result = result;
-	}
+		public String getStatus() {
+			return status;
+		}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+		public void setStatus(String status) {
+			this.status = status;
+		}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+		public String getResult() {
+			return result;
+		}
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+		public void setResult(String result) {
+			this.result = result;
+		}
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+		public Date getCreateTime() {
+			return createTime;
+		}
 
-	@Override
-	public String toString() {
-		return "TbInsuranceVinsunRecords{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
-				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", mchId=" + mchId
-				+ ", spBillno=" + spBillno + ", name=" + name + ", sex=" + sex + ", birth=" + birth + ", mobile="
-				+ mobile + ", clientIp=" + clientIp + ", clientCity=" + clientCity + ", media=" + media + ", ua=" + ua
-				+ ", userCard=" + userCard + ", remark=" + remark + ", status=" + status + ", result=" + result
-				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "}";
-	}
+		public void setCreateTime(Date createTime) {
+			this.createTime = createTime;
+		}
+
+		public Date getUpdateTime() {
+			return updateTime;
+		}
+
+		public void setUpdateTime(Date updateTime) {
+			this.updateTime = updateTime;
+		}
+
+		@Override
+		public String toString() {
+			return "TbInsuranceVinsunRecords{" +
+				", id=" + id +
+				", historyId=" + historyId +
+				", appKey=" + appKey +
+				", channel=" + channel +
+				", requestTime=" + requestTime +
+				", sign=" + sign +
+				", mchId=" + mchId +
+				", spBillno=" + spBillno +
+				", name=" + name +
+				", sex=" + sex +
+				", birth=" + birth +
+				", mobile=" + mobile +
+				", clientIp=" + clientIp +
+				", clientCity=" + clientCity +
+				", clientProvince=" + clientProvince +
+				", media=" + media +
+				", ua=" + ua +
+				", userCard=" + userCard +
+				", remark=" + remark +
+				", status=" + status +
+				", result=" + result +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				"}";
+		}
 }

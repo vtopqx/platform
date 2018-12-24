@@ -18,6 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="age"    column="age"    />
         <result property="referer"    column="referer"    />
         <result property="ip"    column="ip"    />
+        <result property="clientProvince"    column="client_province"    />
+        <result property="clientCity"    column="client_city"    />
         <result property="userAgent"    column="user_agent"    />
         <result property="hadCredit"    column="had_credit"    />
         <result property="applyCredit"    column="apply_credit"    />
@@ -28,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectInsuranceDamdataRecordsVo">
-        select id,history_id, app_key, channel, request_time, sign, name, sex, birth_day, mobile, age, referer, ip, user_agent, had_credit, apply_credit, status, result, create_time, update_time from tb_insurance_damdata_records
+        select id, history_id, app_key, channel, request_time, sign, name, sex, birth_day, mobile, age, referer, ip, client_province, client_city, user_agent, had_credit, apply_credit, status, result, create_time, update_time from tb_insurance_damdata_records
     </sql>
 	
     <select id="selectInsuranceDamdataRecordsList" parameterType="InsuranceDamdataRecords" resultMap="InsuranceDamdataRecordsResult">
@@ -47,6 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="age != null  and age != '' "> and age = #{age}</if>
              <if test="referer != null  and referer != '' "> and referer = #{referer}</if>
              <if test="ip != null  and ip != '' "> and ip = #{ip}</if>
+             <if test="clientProvince != null  and clientProvince != '' "> and client_province = #{clientProvince}</if>
+             <if test="clientCity != null  and clientCity != '' "> and client_city = #{clientCity}</if>
              <if test="userAgent != null  and userAgent != '' "> and user_agent = #{userAgent}</if>
              <if test="hadCredit != null  and hadCredit != '' "> and had_credit = #{hadCredit}</if>
              <if test="applyCredit != null  and applyCredit != '' "> and apply_credit = #{applyCredit}</if>
@@ -78,6 +82,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="age != null  and age != ''  ">age,</if>
 			<if test="referer != null  and referer != ''  ">referer,</if>
 			<if test="ip != null  and ip != ''  ">ip,</if>
+			<if test="clientProvince != null  and clientProvince != ''  ">client_province,</if>
+			<if test="clientCity != null  and clientCity != ''  ">client_city,</if>
 			<if test="userAgent != null  and userAgent != ''  ">user_agent,</if>
 			<if test="hadCredit != null  and hadCredit != ''  ">had_credit,</if>
 			<if test="applyCredit != null  and applyCredit != ''  ">apply_credit,</if>
@@ -100,6 +106,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="age != null  and age != ''  ">#{age},</if>
 			<if test="referer != null  and referer != ''  ">#{referer},</if>
 			<if test="ip != null  and ip != ''  ">#{ip},</if>
+			<if test="clientProvince != null  and clientProvince != ''  ">#{clientProvince},</if>
+			<if test="clientCity != null  and clientCity != ''  ">#{clientCity},</if>
 			<if test="userAgent != null  and userAgent != ''  ">#{userAgent},</if>
 			<if test="hadCredit != null  and hadCredit != ''  ">#{hadCredit},</if>
 			<if test="applyCredit != null  and applyCredit != ''  ">#{applyCredit},</if>
@@ -113,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateInsuranceDamdataRecords" parameterType="InsuranceDamdataRecords">
         update tb_insurance_damdata_records
         <trim prefix="SET" suffixOverrides=",">
-        	<if test="historyId != null  ">history_id = #{historyId},</if>
+            <if test="historyId != null  ">history_id = #{historyId},</if>
             <if test="appKey != null  and appKey != ''  ">app_key = #{appKey},</if>
             <if test="channel != null  and channel != ''  ">channel = #{channel},</if>
             <if test="requestTime != null  and requestTime != ''  ">request_time = #{requestTime},</if>
@@ -125,6 +133,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="age != null  and age != ''  ">age = #{age},</if>
             <if test="referer != null  and referer != ''  ">referer = #{referer},</if>
             <if test="ip != null  and ip != ''  ">ip = #{ip},</if>
+            <if test="clientProvince != null  and clientProvince != ''  ">client_province = #{clientProvince},</if>
+            <if test="clientCity != null  and clientCity != ''  ">client_city = #{clientCity},</if>
             <if test="userAgent != null  and userAgent != ''  ">user_agent = #{userAgent},</if>
             <if test="hadCredit != null  and hadCredit != ''  ">had_credit = #{hadCredit},</if>
             <if test="applyCredit != null  and applyCredit != ''  ">apply_credit = #{applyCredit},</if>

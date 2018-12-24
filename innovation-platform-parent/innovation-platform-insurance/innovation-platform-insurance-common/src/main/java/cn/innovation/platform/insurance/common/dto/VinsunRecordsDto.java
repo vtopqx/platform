@@ -81,6 +81,11 @@ public class VinsunRecordsDto implements Serializable {
 	 * 用户IP
 	 */
 	private String clientIp;
+	
+	/**
+     * 号码归属地(省份)
+     */
+	private String clientProvince;
 	/**
 	 * 用户城市（根据用户IP匹配的用户城市）
 	 */
@@ -299,14 +304,41 @@ public class VinsunRecordsDto implements Serializable {
 		this.historyId = historyId;
 	}
 	
+	public String getClientProvince() {
+		return clientProvince;
+	}
+
+	public void setClientProvince(String clientProvince) {
+		this.clientProvince = clientProvince;
+	}
+
 	@Override
 	public String toString() {
-		return "VinsunRecordsDto{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
-				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", mchId=" + mchId
-				+ ", spBillno=" + spBillno + ", name=" + name + ", sex=" + sex + ", birth=" + birth + ", mobile="
-				+ mobile + ", clientIp=" + clientIp + ", clientCity=" + clientCity + ", media=" + media + ", ua=" + ua
-				+ ", userCard=" + userCard + ", remark=" + remark + ", status=" + status + ", result=" + result
-				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "}";
+		return "VinsunRecordsDto{" +
+			", id=" + id +
+			", historyId=" + historyId +
+			", appKey=" + appKey +
+			", channel=" + channel +
+			", requestTime=" + requestTime +
+			", sign=" + sign +
+			", mchId=" + mchId +
+			", spBillno=" + spBillno +
+			", name=" + name +
+			", sex=" + sex +
+			", birth=" + birth +
+			", mobile=" + mobile +
+			", clientIp=" + clientIp +
+			", clientCity=" + clientCity +
+			", clientProvince=" + clientProvince +
+			", media=" + media +
+			", ua=" + ua +
+			", userCard=" + userCard +
+			", remark=" + remark +
+			", status=" + status +
+			", result=" + result +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
+			"}";
 	}
 
 }

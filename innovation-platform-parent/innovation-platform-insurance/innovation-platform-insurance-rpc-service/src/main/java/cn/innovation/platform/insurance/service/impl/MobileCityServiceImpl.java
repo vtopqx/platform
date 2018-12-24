@@ -35,7 +35,8 @@ public class MobileCityServiceImpl implements IMobileCityService {
 
 	@Override
 	public String getCityByMobile(String mobile) {
-		String city = null;
+		String city = "";
+		String province = "";
 		long snycTime = System.currentTimeMillis();
 		try {
 			StringBuffer sbf = new StringBuffer(insuranceApiHelper.getMobileUrl());
@@ -53,7 +54,7 @@ public class MobileCityServiceImpl implements IMobileCityService {
 				String mbStr = JSONUtil.parseObj(response).getStr(mobile);
 				String detail = JSONUtil.parseObj(mbStr).getStr("detail");
 				String area = JSONUtil.parseObj(detail).getStr("area");
-				// province = JSONUtil.parseObj(detail).getStr("province");
+				province = JSONUtil.parseObj(detail).getStr("province");
 				JSONArray array = JSONUtil.parseArray(area);
 				city = array.getJSONObject(0).getStr("city");
 			}
@@ -65,7 +66,7 @@ public class MobileCityServiceImpl implements IMobileCityService {
 			logger.error("[号码归属地],根据号码获取归属地异常!号码:{},耗时:{},异常信息:{}", mobile, (System.currentTimeMillis() - snycTime),
 					stackTraceString);
 		}
-		return city;
+		return province + "," + city;
 	}
 
 }

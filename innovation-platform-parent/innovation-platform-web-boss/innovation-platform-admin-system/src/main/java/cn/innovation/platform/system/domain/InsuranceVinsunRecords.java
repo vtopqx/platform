@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class InsuranceVinsunRecords extends BaseEntity
 {
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/** 主键ID */
 	private Integer id;
@@ -43,6 +43,8 @@ private static final long serialVersionUID = 1L;
 	private String clientIp;
 	/** 用户城市（根据用户IP匹配的用户城市） */
 	private String clientCity;
+	/** 号码归属地(省份) */
+	private String clientProvince;
 	/** 媒体编码 */
 	private String media;
 	/** 用户代理 */
@@ -186,6 +188,15 @@ private static final long serialVersionUID = 1L;
 	{
 		return clientCity;
 	}
+	public void setClientProvince(String clientProvince) 
+	{
+		this.clientProvince = clientProvince;
+	}
+
+	public String getClientProvince() 
+	{
+		return clientProvince;
+	}
 	public void setMedia(String media) 
 	{
 		this.media = media;
@@ -275,6 +286,7 @@ private static final long serialVersionUID = 1L;
             .append("mobile", getMobile())
             .append("clientIp", getClientIp())
             .append("clientCity", getClientCity())
+            .append("clientProvince", getClientProvince())
             .append("media", getMedia())
             .append("ua", getUa())
             .append("userCard", getUserCard())

@@ -124,6 +124,16 @@ public class DamdataRecordsDto implements Serializable {
 	 * 数据编号
 	 */
 	private Integer historyId;
+	
+	/**
+     * 号码归属地(省份)
+     */
+	private String clientProvince;
+	/**
+	 * 用户城市（根据用户IP匹配的用户城市）
+	 */
+	private String clientCity;
+	
 
 	public Integer getId() {
 		return id;
@@ -288,14 +298,48 @@ public class DamdataRecordsDto implements Serializable {
 		this.historyId = historyId;
 	}
 	
+	public String getClientProvince() {
+		return clientProvince;
+	}
+
+	public void setClientProvince(String clientProvince) {
+		this.clientProvince = clientProvince;
+	}
+
+	public String getClientCity() {
+		return clientCity;
+	}
+
+	public void setClientCity(String clientCity) {
+		this.clientCity = clientCity;
+	}
+
 	@Override
 	public String toString() {
-		return "DamdataRecordsDto{" + ", id=" + id + ", historyId=" + historyId + ", appKey=" + appKey
-				+ ", channel=" + channel + ", requestTime=" + requestTime + ", sign=" + sign + ", name=" + name
-				+ ", sex=" + sex + ", birthDay=" + birthDay + ", mobile=" + mobile + ", age=" + age + ", referer="
-				+ referer + ", ip=" + ip + ", userAgent=" + userAgent + ", hadCredit=" + hadCredit + ", applyCredit="
-				+ applyCredit + ", status=" + status + ", result=" + result + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "}";
+		return "DamdataRecordsDto{" +
+			", id=" + id +
+			", historyId=" + historyId +
+			", appKey=" + appKey +
+			", channel=" + channel +
+			", requestTime=" + requestTime +
+			", sign=" + sign +
+			", name=" + name +
+			", sex=" + sex +
+			", birthDay=" + birthDay +
+			", mobile=" + mobile +
+			", age=" + age +
+			", referer=" + referer +
+			", ip=" + ip +
+			", clientProvince=" + clientProvince +
+			", clientCity=" + clientCity +
+			", userAgent=" + userAgent +
+			", hadCredit=" + hadCredit +
+			", applyCredit=" + applyCredit +
+			", status=" + status +
+			", result=" + result +
+			", createTime=" + createTime +
+			", updateTime=" + updateTime +
+			"}";
 	}
 
 }

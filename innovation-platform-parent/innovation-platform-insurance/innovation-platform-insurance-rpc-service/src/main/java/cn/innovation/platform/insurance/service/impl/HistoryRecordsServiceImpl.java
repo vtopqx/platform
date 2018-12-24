@@ -92,10 +92,13 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 				BeanUtil.copyProperties(dto, records);
 				records.setUpdateTime(new Date());
 				// 查询号码归属地
-				String city = mobileCityService.getCityByMobile(dto.getMobile());
-				if (StringUtils.isNotEmpty(city)) {
-					dto.setClientCity(city);
-					records.setClientCity(city);
+				String address = mobileCityService.getCityByMobile(dto.getMobile());
+				if (StringUtils.isNotEmpty(address)) {
+					String[] infos = address.split(",");
+					dto.setClientProvince(infos[0]);
+					dto.setClientCity(infos[1]);
+					records.setClientProvince(infos[0]);
+					records.setClientCity(infos[1]);
 				} else {
 					logger.info("[赠险]:归属地查询完成!流水号:{},非法号码!号码:{}", reqeustId, dto.getMobile());
 					// 状态为非法号码

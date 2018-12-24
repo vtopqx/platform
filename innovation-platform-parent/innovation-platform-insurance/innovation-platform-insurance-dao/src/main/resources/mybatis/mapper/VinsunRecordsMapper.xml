@@ -4,7 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.innovation.platform.insurance.common.model.VinsunRecords">
-        <id column="id" property="id" />
+       <id column="id" property="id" />
+        <result column="history_id" property="historyId" />
         <result column="app_key" property="appKey" />
         <result column="channel" property="channel" />
         <result column="request_time" property="requestTime" />
@@ -17,6 +18,7 @@
         <result column="mobile" property="mobile" />
         <result column="client_ip" property="clientIp" />
         <result column="client_city" property="clientCity" />
+        <result column="client_province" property="clientProvince" />
         <result column="media" property="media" />
         <result column="ua" property="ua" />
         <result column="user_card" property="userCard" />
@@ -29,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, app_key AS appKey, channel, request_time AS requestTime, sign, mch_id AS mchId, sp_billno AS spBillno, name, sex, birth, mobile, client_ip AS clientIp, client_city AS clientCity, media, ua, user_card AS userCard, remark, status, result, create_time AS createTime, update_time AS updateTime
+        id, history_id AS historyId, app_key AS appKey, channel, request_time AS requestTime, sign, mch_id AS mchId, sp_billno AS spBillno, name, sex, birth, mobile, client_ip AS clientIp, client_city AS clientCity, client_province AS clientProvince, media, ua, user_card AS userCard, remark, status, result, create_time AS createTime, update_time AS updateTime
     </sql>
 
 </mapper>

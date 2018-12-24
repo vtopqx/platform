@@ -40,6 +40,10 @@ private static final long serialVersionUID = 1L;
 	private String referer;
 	/** 用户IP */
 	private String ip;
+	/** 号码归属地(省份) */
+	private String clientProvince;
+	/** 号码归属地(地市) */
+	private String clientCity;
 	/** 用户头信息，如：Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0 */
 	private String userAgent;
 	/** 是否持卡，选值：已有信用卡、无信用卡 */
@@ -172,6 +176,24 @@ private static final long serialVersionUID = 1L;
 	{
 		return ip;
 	}
+	public void setClientProvince(String clientProvince) 
+	{
+		this.clientProvince = clientProvince;
+	}
+
+	public String getClientProvince() 
+	{
+		return clientProvince;
+	}
+	public void setClientCity(String clientCity) 
+	{
+		this.clientCity = clientCity;
+	}
+
+	public String getClientCity() 
+	{
+		return clientCity;
+	}
 	public void setUserAgent(String userAgent) 
 	{
 		this.userAgent = userAgent;
@@ -251,6 +273,8 @@ private static final long serialVersionUID = 1L;
             .append("age", getAge())
             .append("referer", getReferer())
             .append("ip", getIp())
+            .append("clientProvince", getClientProvince())
+            .append("clientCity", getClientCity())
             .append("userAgent", getUserAgent())
             .append("hadCredit", getHadCredit())
             .append("applyCredit", getApplyCredit())

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class InsuranceHistoryRecords extends BaseEntity
 {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	/** 主键ID */
 	private Integer id;
@@ -43,7 +43,9 @@ public class InsuranceHistoryRecords extends BaseEntity
 	private String mobile;
 	/** 用户IP */
 	private String clientIp;
-	/** 用户城市（根据用户IP匹配的用户城市） */
+	/** 号码归属地(省份) */
+	private String clientProvince;
+	/** 号码归属地(地市) */
 	private String clientCity;
 	/** 媒体编码 */
 	private String media;
@@ -194,6 +196,15 @@ public class InsuranceHistoryRecords extends BaseEntity
 	{
 		return clientIp;
 	}
+	public void setClientProvince(String clientProvince) 
+	{
+		this.clientProvince = clientProvince;
+	}
+
+	public String getClientProvince() 
+	{
+		return clientProvince;
+	}
 	public void setClientCity(String clientCity) 
 	{
 		this.clientCity = clientCity;
@@ -319,6 +330,7 @@ public class InsuranceHistoryRecords extends BaseEntity
             .append("birth", getBirth())
             .append("mobile", getMobile())
             .append("clientIp", getClientIp())
+            .append("clientProvince", getClientProvince())
             .append("clientCity", getClientCity())
             .append("media", getMedia())
             .append("userAgent", getUserAgent())
@@ -332,5 +344,5 @@ public class InsuranceHistoryRecords extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .toString();
-    }	
+    }
 }

@@ -39,6 +39,9 @@ public class MobileCityServiceImpl implements IMobileCityService {
 		String province = "";
 		long snycTime = System.currentTimeMillis();
 		try {
+			if (mobile.length() < 11) {
+				return null;
+			}
 			StringBuffer sbf = new StringBuffer(insuranceApiHelper.getMobileUrl());
 			sbf.append("?").append("tel=").append(mobile);
 			String sendUrl = sbf.toString();
@@ -52,11 +55,15 @@ public class MobileCityServiceImpl implements IMobileCityService {
 				JSONObject jsonObject = JSONUtil.parseObj(result);
 				String response = jsonObject.getStr("response");
 				String mbStr = JSONUtil.parseObj(response).getStr(mobile);
-				String detail = JSONUtil.parseObj(mbStr).getStr("detail");
-				String area = JSONUtil.parseObj(detail).getStr("area");
-				province = JSONUtil.parseObj(detail).getStr("province");
-				JSONArray array = JSONUtil.parseArray(area);
-				city = array.getJSONObject(0).getStr("city");
+				if (!StringUtils.isEmpty(mbStr) && !mbStr.equals("null")) {
+					String detail = JSONUtil.parseObj(mbStr).getStr("detail");
+					String area = JSONUtil.parseObj(detail).getStr("area");
+					province = JSONUtil.parseObj(detail).getStr("province");
+					JSONArray array = JSONUtil.parseArray(area);
+					city = array.getJSONObject(0).getStr("city");
+				}else{
+					return null;
+				}
 			}
 		} catch (Exception e) {
 			StringWriter sw = new StringWriter();

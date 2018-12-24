@@ -26,7 +26,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectApiInfoVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
-             <if test="apiCode != null  and apiCode != '' "> and api_code = #{apiCode}</if>
+             <if test="apiCode != null  and apiCode != '' "> 
+              	and api_code like concat('%', #{apiCode}, '%')
+             </if>
              <if test="apiName != null  and apiName != '' "> and api_name = #{apiName}</if>
              <if test="apiSort != null "> and api_sort = #{apiSort}</if>
              <if test="channelType != null "> and channel_type = #{channelType}</if>

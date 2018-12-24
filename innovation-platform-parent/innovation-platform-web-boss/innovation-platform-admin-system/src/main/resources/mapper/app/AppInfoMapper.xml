@@ -30,7 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="id != null "> and id = #{id}</if>
              <if test="appSecret != null  and appSecret != '' "> and app_secret = #{appSecret}</if>
-             <if test="channelCode != null  and channelCode != '' "> and channel_code = #{channelCode}</if>
+             <if test="channelCode != null  and channelCode != '' "> 
+             	and channel_code like concat('%', #{channelCode}, '%')
+             </if>
              <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
              <if test="channelType != null "> and channel_type = #{channelType}</if>
              <if test="subChannel != null  and subChannel != '' "> and sub_channel = #{subChannel}</if>

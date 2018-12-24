@@ -15,10 +15,10 @@
 								渠道：<input type="text" name="channel"/>
 							</li>
 							<li>
-								号码：<input type="text" name="mobile"/>
+								姓名：<input type="text" name="name"/>
 							</li>
 							<li>
-								应用Key：<input type="text" name="appKey"/>
+								号码：<input type="text" name="mobile"/>
 							</li>
 							<li>
 								状态：<select name="status" th:with="type=${@dict.getType('interface_status')}">
@@ -26,6 +26,10 @@
 									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
 								</select>
 							</li>
+							<li>
+								平台：<input type="text" name="appKey"/>
+							</li>
+						
 							<li class="select-time">
 								<label>时间： </label>
 								<input type="text" class="time-input" id="updateTime" placeholder="时间" name="updateTime"/>
@@ -77,7 +81,7 @@
 		        },
 		        {
 		            field: 'appKey',
-		            title: '应用Key',
+		            title: '平台',
 		            sortable: true
 		        },
 		        {
@@ -87,7 +91,7 @@
 		        },
 		        {
 		            field: 'name',
-		            title: '名称',
+		            title: '姓名',
 		            sortable: true
 		        },
 		        {

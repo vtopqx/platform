@@ -39,13 +39,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="id != null "> and id = #{id}</if>
              <if test="historyId != null "> and history_id = #{historyId}</if>
              <if test="appKey != null  and appKey != '' "> and app_key = #{appKey}</if>
-             <if test="channel != null  and channel != '' "> and channel = #{channel}</if>
+             <if test="channel != null  and channel != '' "> 
+             	and channel like concat('%', #{channel}, '%')
+             </if>
              <if test="requestTime != null  and requestTime != '' "> and request_time = #{requestTime}</if>
              <if test="sign != null  and sign != '' "> and sign = #{sign}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="name != null  and name != '' "> 
+             	and name like concat('%', #{name}, '%')
+             </if>
              <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
              <if test="birthDay != null  and birthDay != '' "> and birth_day = #{birthDay}</if>
-             <if test="mobile != null  and mobile != '' "> and mobile = #{mobile}</if>
+             <if test="mobile != null  and mobile != '' "> 
+            	 and mobile like concat('%', #{mobile}, '%')
+             </if>
              <if test="age != null  and age != '' "> and age = #{age}</if>
              <if test="referer != null  and referer != '' "> and referer = #{referer}</if>
              <if test="ip != null  and ip != '' "> and ip = #{ip}</if>

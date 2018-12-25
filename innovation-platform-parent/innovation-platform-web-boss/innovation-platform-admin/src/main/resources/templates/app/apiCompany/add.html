@@ -4,31 +4,11 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
-		<form class="form-horizontal m" id="form-app-add">
+		<form class="form-horizontal m" id="form-apiCompany-add">
 			<div class="form-group">
 				<label class="col-sm-3 control-label">公司名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="company" id="company">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道类型：</label>
-				<div class="col-sm-8" style="height:34px;">
-					<select id="channelType" name="channelType" class="form-control m-b" th:with="type=${@dict.getType('channel_type')}">
-	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-	                </select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道(如:XY_PA)：</label>
-				<div class="col-sm-8">
-					<input class="form-control" type="text" name="channelCode" id="channelCode">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label ">渠道名称：</label>
-				<div class="col-sm-8">
-					<input class="form-control" type="text" name="channel" id="channel"/>
+					<input class="form-control" type="text" name="name" id="name">
 				</div>
 			</div>
 			<div class="form-group">
@@ -53,28 +33,20 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">上游渠道：</label>
+				<label class="col-sm-3 control-label">备注：</label>
 				<div class="col-sm-8">
-					<label th:each="api:${apis}" class="check-box">
-						<input name="apiList" type="checkbox" th:value="${api.apiCode}" th:text="${api.apiName}" th:disabled="${api.status == '1'}">
-					</label>
+					<textarea id="remark" name="remark" class="form-control"></textarea>
 				</div>
 			</div>
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
 	<script type="text/javascript">
-		var prefix = ctx + "app/appInfo";
+		var prefix = ctx + "app/apiCompany";
 	    
-		$("#form-app-add").validate({
+		$("#form-apiCompany-add").validate({
 			rules:{
-				company:{
-        			required:true,
-        		},
-				channelCode:{
-        			required:true,
-        		},
-				channel:{
+        		name:{
         			required:true,
         		},
         		contacts:{
@@ -89,7 +61,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(prefix + "/add", $('#form-app-add').serialize());
+	        	$.operate.save(prefix + "/add", $('#form-apiCompany-add').serialize());
 	        }
 	    }
 	</script>

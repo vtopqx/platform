@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.innovation.platform.common.constant.Constants;
 import cn.innovation.platform.common.support.Convert;
 import cn.innovation.platform.common.utils.StringUtils;
 import cn.innovation.platform.system.domain.ApiInfo;
@@ -93,7 +94,9 @@ public class ApiInfoServiceImpl implements IApiInfoService {
 	 */
 	@Override
 	public List<ApiInfo> selectApiAll() {
-		return selectApiInfoList(new ApiInfo());
+		ApiInfo apiInfo = new ApiInfo();
+		apiInfo.setStatus(Constants.ENABLE);
+		return selectApiInfoList(apiInfo);
 	}
 
 	/**

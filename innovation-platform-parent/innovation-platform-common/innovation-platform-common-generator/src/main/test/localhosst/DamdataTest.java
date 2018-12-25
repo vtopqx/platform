@@ -23,6 +23,7 @@ public class DamdataTest {
 		try {
 //			String sendUrl = "http://localhost:9001/services/api/insurance/thdpy";
 			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
+//			String sendUrl = "http://www.nengxi.net/services/api/insurance/apply";
 			String secret = "44a54ce509d56d1f930b9d00b09c9ec5";
 			// 参数
 			Map<String, Object> map = new HashMap<String, Object>();

@@ -4,33 +4,12 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
-		<form class="form-horizontal m" id="form-app-edit" th:object="${appInfo}">
+		<form class="form-horizontal m" id="form-api-edit" th:object="${apiCompany}">
 			<input id="id" name="id" type="hidden" th:field="*{id}"/>
-			<input id="appSecret" name="appSecret" type="hidden" th:field="*{appSecret}"/>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">公司名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="company" id="company" th:field="*{company}"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道类型：</label>
-				<div class="col-sm-8" style="height:34px;">
-					<select id="channelType" name="channelType" class="form-control m-b" th:with="type=${@dict.getType('channel_type')}">
-	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{channelType}"></option>
-	                </select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道(如:XY_PA)：</label>
-				<div class="col-sm-8">
-					<input class="form-control" type="text" name="channelCode" id="channelCode" th:field="*{channelCode}">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label ">渠道名称：</label>
-				<div class="col-sm-8">
-					<input class="form-control" type="text" name="channel" id="channel" th:field="*{channel}"/>
+					<input class="form-control" type="text" name="name" id="name" th:field="*{name}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -55,28 +34,20 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">上游渠道：</label>
+				<label class="col-sm-3 control-label">备注：</label>
 				<div class="col-sm-8">
-					<label th:each="api:${apis}" class="check-box">
-						<input name="apiList" type="checkbox" th:value="${api.apiCode}" th:text="${api.apiName}" th:checked="${api.flag}" th:disabled="${api.status == '1'}">
-					</label>
+					<textarea id="remark" name="remark" class="form-control">[[*{remark}]]</textarea>
 				</div>
 			</div>
 		</form>
 	</div>
 	<div th:include="include::footer"></div>
 	<script type="text/javascript">
-		var prefix = ctx + "app/appInfo";
+		var prefix = ctx + "app/apiCompany";
 		
-		$("#form-app-edit").validate({
+		$("#form-api-edit").validate({
 			rules:{
-				company:{
-        			required:true,
-        		},
-				channelCode:{
-        			required:true,
-        		},
-				channel:{
+        		name:{
         			required:true,
         		},
         		contacts:{
@@ -91,7 +62,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	        	$.operate.save(prefix + "/edit", $('#form-app-edit').serialize());
+	        	$.operate.save(prefix + "/edit", $('#form-api-edit').serialize());
 	        }
 	    }
 	</script>

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.innovation.platform.common.annotation.Log;
 import cn.innovation.platform.common.enums.BusinessType;
 import cn.innovation.platform.system.domain.ApiInfo;
+import cn.innovation.platform.system.service.IApiCompanyService;
 import cn.innovation.platform.system.service.IApiInfoService;
 import cn.innovation.platform.framework.web.base.BaseController;
 import cn.innovation.platform.framework.web.page.TableDataInfo;
 import cn.innovation.platform.common.base.AjaxResult;
 import cn.innovation.platform.common.utils.ExcelUtil;
+import cn.innovation.platform.common.utils.StringUtils;
 
 /**
  * 上游渠道 信息操作处理
@@ -32,6 +34,9 @@ public class ApiInfoController extends BaseController {
 
 	@Autowired
 	private IApiInfoService apiInfoService;
+	
+	@Autowired
+	private IApiCompanyService apiCompanyService;
 
 	@RequiresPermissions("app:apiInfo:view")
 	@GetMapping()
@@ -67,7 +72,8 @@ public class ApiInfoController extends BaseController {
 	 * 新增上游渠道
 	 */
 	@GetMapping("/add")
-	public String add() {
+	public String add(ModelMap mmap) {
+		mmap.put("apiCompany", apiCompanyService.selectApiCompanyAll(null));
 		return prefix + "/add";
 	}
 
@@ -79,6 +85,13 @@ public class ApiInfoController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(ApiInfo apiInfo) {
+		String selectVal = apiInfo.getCompany();
+		if (StringUtils.isNotEmpty(selectVal)) {
+			String[] array = selectVal.split(",");
+			apiInfo.setCompanyId(Integer.valueOf(array[0]));
+			apiInfo.setCompany(array[1]);
+		}
+		
 		return toAjax(apiInfoService.insertApiInfo(apiInfo));
 	}
 
@@ -89,6 +102,7 @@ public class ApiInfoController extends BaseController {
 	public String edit(@PathVariable("id") Integer id, ModelMap mmap) {
 		ApiInfo apiInfo = apiInfoService.selectApiInfoById(id);
 		mmap.put("apiInfo", apiInfo);
+		mmap.put("apiCompany", apiCompanyService.selectApiCompanyAll(apiInfo.getCompanyId().toString()));
 		return prefix + "/edit";
 	}
 

@@ -20,6 +20,16 @@ public class Constants {
 	 * 通用失败标识
 	 */
 	public static final String FAIL = "1";
+	
+	/**
+	 * 状态(停用)
+	 */
+	public static final int ENABLE = 0;
+
+	/**
+	 * 状态(启用)
+	 */
+	public static final int DISENABLE = 1;
 
 	/**
 	 * 登录成功

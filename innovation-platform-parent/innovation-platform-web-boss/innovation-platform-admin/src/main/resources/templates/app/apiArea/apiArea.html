@@ -12,6 +12,9 @@
 					<div class="select-list">
 						<ul>
 							<li>
+								公司名称：<input type="text" name="companyName"/>
+							</li>
+							<li>
 								渠道：<input type="text" name="apiCode"/>
 							</li>
 							<li>
@@ -24,13 +27,13 @@
 			</div>
 			
 			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="app:apiInfo:add">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="app:apiArea:add">
 	                <i class="fa fa-plus"></i> 新增
 	            </a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="app:apiInfo:edit">
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="app:apiArea:edit">
 		            <i class="fa fa-edit"></i> 修改
 		        </a>
-				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="app:apiInfo:remove">
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="app:apiArea:remove">
 		            <i class="fa fa-remove"></i> 删除
 		        </a>
 	        </div>
@@ -42,11 +45,11 @@
 	</div>
 	<div th:include="include :: footer"></div>
 	<script th:inline="javascript">
-		var editFlag = [[${@permission.hasPermi('app:apiInfo:edit')}]];
-		var removeFlag = [[${@permission.hasPermi('app:apiInfo:remove')}]];
+		var editFlag = [[${@permission.hasPermi('app:apiArea:edit')}]];
+		var removeFlag = [[${@permission.hasPermi('app:apiArea:remove')}]];
 		var datas = [[${@dict.getType('sys_normal_disable')}]];
 		var channels = [[${@dict.getType('channel_type')}]];
-		var prefix = ctx + "app/apiInfo";
+		var prefix = ctx + "app/apiArea";
 		
 		$(function() {
 		    var options = {
@@ -55,7 +58,8 @@
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
-		        modalName: "上游渠道信息",
+		        modalName: "上游渠道城市配置",
+		        sortName: "companyId",
 		        search: false,
 		        showExport: false,
 		        columns: [{
@@ -67,45 +71,24 @@
 		            sortable: true
 		        },
 		        {
+		            field: 'companyName',
+		            title: '公司名称',
+		            sortable: true
+		        },
+		        {
 		            field: 'apiCode',
 		            title: '渠道',
 		            sortable: true
 		        },
 		        {
-		            field: 'apiName',
-		            title: '渠道名称',
+		            field: 'province',
+		            title: '省份',
+		            align: 'center'
+		        },
+		        {
+		            field: 'citys',
+		            title: '城市列表',
 		            sortable: true
-		        },
-		        {
-		            field: 'channelType',
-		            title: '渠道类型',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	return $.table.selectDictLabel(channels, value);
-		            }
-		        },
-		        {
-		            field: 'apiSort',
-		            title: '显示顺序',
-		            sortable: true
-		        },
-		        {
-		            field: 'ageLimit',
-		            title: '年龄限制',
-		            sortable: true
-		        },
-		        {
-		            field: 'mobile',
-		            title: '联系号码',
-		            sortable: true
-		        },
-		        {
-		            field: 'status',
-		            title: '状态',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	return $.table.selectDictLabel(datas, value);
-		            }
 		        },
 		        {
 		            field: 'updateTime',

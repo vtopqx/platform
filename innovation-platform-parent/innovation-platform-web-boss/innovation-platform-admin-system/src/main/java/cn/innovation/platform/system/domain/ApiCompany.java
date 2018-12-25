@@ -6,43 +6,34 @@ import cn.innovation.platform.common.base.BaseEntity;
 import java.util.Date;
 
 /**
- * 上游渠道表 tb_api_info
+ * 上游渠道公司表 tb_api_company
  * 
  * @author mqx
- * @date 2018-12-22
+ * @date 2018-12-25
  */
-public class ApiInfo extends BaseEntity
+public class ApiCompany extends BaseEntity
 {
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/** 主键ID */
 	private Integer id;
-	/** 上游渠道编码 */
-	private String apiCode;
-	/** 上游渠道名称 */
-	private String apiName;
-	/** 显示顺序 */
-	private Integer apiSort;
-	/** 渠道类型(1:赠险,2:贷款) */
-	private Integer channelType;
+	/** 公司名称 */
+	private String name;
 	/** 状态(0:正常,1:停用) */
 	private Integer status;
 	/** 联系人 */
 	private String contacts;
-	/** 公司名称 */
-	private String company;
-	/** 公司ID */
-	private Integer companyId;
 	/** 联系号码 */
 	private String mobile;
-	/** 年龄限制 */
-	private String ageLimit;
+	/** 备注 */
+	private String remark;
 	/** 数据创建时间 */
 	private Date createTime;
 	/** 数据更新时间 */
 	private Date updateTime;
 	
 	private boolean flag;
+	private String selectValue;
 
 	public void setId(Integer id) 
 	{
@@ -53,41 +44,14 @@ private static final long serialVersionUID = 1L;
 	{
 		return id;
 	}
-	public void setApiCode(String apiCode) 
+	public void setName(String name) 
 	{
-		this.apiCode = apiCode;
+		this.name = name;
 	}
 
-	public String getApiCode() 
+	public String getName() 
 	{
-		return apiCode;
-	}
-	public void setApiName(String apiName) 
-	{
-		this.apiName = apiName;
-	}
-
-	public String getApiName() 
-	{
-		return apiName;
-	}
-	public void setApiSort(Integer apiSort) 
-	{
-		this.apiSort = apiSort;
-	}
-
-	public Integer getApiSort() 
-	{
-		return apiSort;
-	}
-	public void setChannelType(Integer channelType) 
-	{
-		this.channelType = channelType;
-	}
-
-	public Integer getChannelType() 
-	{
-		return channelType;
+		return name;
 	}
 	public void setStatus(Integer status) 
 	{
@@ -107,24 +71,6 @@ private static final long serialVersionUID = 1L;
 	{
 		return contacts;
 	}
-	public void setCompany(String company) 
-	{
-		this.company = company;
-	}
-
-	public String getCompany() 
-	{
-		return company;
-	}
-	public void setCompanyId(Integer companyId) 
-	{
-		this.companyId = companyId;
-	}
-
-	public Integer getCompanyId() 
-	{
-		return companyId;
-	}
 	public void setMobile(String mobile) 
 	{
 		this.mobile = mobile;
@@ -134,14 +80,14 @@ private static final long serialVersionUID = 1L;
 	{
 		return mobile;
 	}
-	public void setAgeLimit(String ageLimit) 
+	public void setRemark(String remark) 
 	{
-		this.ageLimit = ageLimit;
+		this.remark = remark;
 	}
 
-	public String getAgeLimit() 
+	public String getRemark() 
 	{
-		return ageLimit;
+		return remark;
 	}
 	public void setCreateTime(Date createTime) 
 	{
@@ -170,19 +116,22 @@ private static final long serialVersionUID = 1L;
 		this.flag = flag;
 	}
 
+	public String getSelectValue() {
+		return selectValue;
+	}
+
+	public void setSelectValue(String selectValue) {
+		this.selectValue = selectValue;
+	}
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
-            .append("apiCode", getApiCode())
-            .append("apiName", getApiName())
-            .append("apiSort", getApiSort())
-            .append("channelType", getChannelType())
+            .append("name", getName())
             .append("status", getStatus())
             .append("contacts", getContacts())
-            .append("company", getCompany())
-            .append("companyId", getCompanyId())
             .append("mobile", getMobile())
-            .append("ageLimit", getAgeLimit())
+            .append("remark", getRemark())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .toString();

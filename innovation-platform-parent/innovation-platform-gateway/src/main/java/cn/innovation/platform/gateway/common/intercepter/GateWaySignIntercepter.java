@@ -26,8 +26,8 @@ import cn.innovation.platform.common.exception.ParamsSignValidErrorException;
 import cn.innovation.platform.common.exception.ServiceException;
 import cn.innovation.platform.common.utils.SignUtils;
 import cn.innovation.platform.upms.common.model.TbAppInfo;
-import cn.innovation.platform.upms.service.ITbApiInfoService;
-import cn.innovation.platform.upms.service.ITbAppInfoService;
+import cn.innovation.platform.upms.service.IApiInfoService;
+import cn.innovation.platform.upms.service.IAppInfoService;
 
 /**
  * @ClassName: GateWaySignIntercepter
@@ -40,10 +40,10 @@ public class GateWaySignIntercepter implements HandlerInterceptor {
 	private static final Log logger = LogFactory.get();
 
 	@Resource
-	private ITbAppInfoService appInfoService;
+	private IAppInfoService appInfoService;
 
 	@Resource
-	private ITbApiInfoService apiInfoService;
+	private IApiInfoService apiInfoService;
 
 	private Boolean isOpenSign;
 

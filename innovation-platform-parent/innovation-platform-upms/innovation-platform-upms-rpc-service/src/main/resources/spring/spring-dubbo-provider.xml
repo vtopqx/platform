@@ -17,9 +17,10 @@
     <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000"/>
 
     <!-- 声明需要暴露的账户服务接口 -->
-    <dubbo:service interface="cn.innovation.platform.upms.service.IApplicationRegisterInfoService" retries="0" ref="applicationRegisterInfoService" />
-	<!-- 应用管理 -->
-	<dubbo:service interface="cn.innovation.platform.upms.service.ITbAppInfoService" retries="0" ref="appInfoService" />
-	<!-- API管理 -->
-	<dubbo:service interface="cn.innovation.platform.upms.service.ITbApiInfoService" retries="0" ref="apiInfoService" />
+	<!-- 下游渠道服务 -->
+	<dubbo:service interface="cn.innovation.platform.upms.service.IAppInfoService" retries="0" ref="appInfoService" />
+	<!-- 上游渠道服务 -->
+	<dubbo:service interface="cn.innovation.platform.upms.service.IApiInfoService" retries="0" ref="apiInfoService" />
+	<!-- 上游渠道城市地域服务 -->
+	<dubbo:service interface="cn.innovation.platform.upms.service.IApiAreaService" retries="0" ref="apiAreaService" />
 </beans>

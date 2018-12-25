@@ -10,7 +10,7 @@ import cn.innovation.platform.upms.common.model.TbAppInfo;
  * @author mqx
  * @date 2018年12月11日 下午10:46:39
  */
-public interface ITbAppInfoService extends IService<TbAppInfo> {
+public interface IAppInfoService extends IService<TbAppInfo> {
 
 	/**
 	 * @Description: 查询应用注册信息

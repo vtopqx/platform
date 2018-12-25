@@ -75,24 +75,21 @@
 		
 		$("#form-api-edit").validate({
 			rules:{
-				company:{
-        			required:true,
-        		},
 				apiCode:{
-        			required:true,
+        			required:true
         		},
         		apiName:{
+        			required:true
+        		},
+        		apiSort:{
         			required:true,
+        			digits:true
         		},
         		contacts:{
-        			required:false,
+        			required:true
         		},
         		mobile:{
-					required:false
-					digits:true
-				},
-				apiSort:{
-					required:true,
+					required:false,
 					digits:true
 				}
 			}

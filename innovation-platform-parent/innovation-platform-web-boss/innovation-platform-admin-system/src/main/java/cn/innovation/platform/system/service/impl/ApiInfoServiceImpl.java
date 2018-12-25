@@ -12,6 +12,7 @@ import cn.innovation.platform.common.utils.StringUtils;
 import cn.innovation.platform.system.domain.ApiInfo;
 import cn.innovation.platform.system.mapper.ApiInfoMapper;
 import cn.innovation.platform.system.service.IApiInfoService;
+import cn.innovation.platform.system.service.RedisService;
 
 /**
  * 上游渠道 服务层实现
@@ -23,6 +24,9 @@ import cn.innovation.platform.system.service.IApiInfoService;
 public class ApiInfoServiceImpl implements IApiInfoService {
 	@Autowired
 	private ApiInfoMapper apiInfoMapper;
+
+	@Autowired
+	private RedisService redisService;
 
 	/**
 	 * 查询上游渠道信息
@@ -71,8 +75,17 @@ public class ApiInfoServiceImpl implements IApiInfoService {
 	 */
 	@Override
 	public int updateApiInfo(ApiInfo apiInfo) {
-		apiInfo.setUpdateTime(new Date());
-		return apiInfoMapper.updateApiInfo(apiInfo);
+		int result = apiInfoMapper.updateApiInfo(apiInfo);
+		if (result > 0) {
+			// 禁用时删除缓存
+			if (apiInfo.getStatus().toString().equals(Constants.DISENABLE)) {
+				redisService.remove(Constants.REDIS_APIINFO_PREFIX + apiInfo.getId());
+			} else {
+				// 存入redis
+				redisService.set(Constants.REDIS_APIINFO_PREFIX + apiInfo.getId(), apiInfo);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -84,7 +97,14 @@ public class ApiInfoServiceImpl implements IApiInfoService {
 	 */
 	@Override
 	public int deleteApiInfoByIds(String ids) {
-		return apiInfoMapper.deleteApiInfoByIds(Convert.toStrArray(ids));
+		int result = apiInfoMapper.deleteApiInfoByIds(Convert.toStrArray(ids));
+		if (result > 0) {
+			String[] idArray = Convert.toStrArray(ids);
+			for (String id : idArray) {
+				redisService.remove(Constants.REDIS_APIINFO_PREFIX + id);
+			}
+		}
+		return result;
 	}
 
 	/**

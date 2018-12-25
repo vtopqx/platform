@@ -15,7 +15,12 @@
 
     <!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
     <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000"/>
-
+    
+    <!-- 平台服务管理 -->
+    <dubbo:reference id="apiInfoService" interface="cn.innovation.platform.upms.service.IApiInfoService" check="false" />
+    <dubbo:reference id="apiAreaService" interface="cn.innovation.platform.upms.service.IApiAreaService" check="false" />
+    <dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.IAppInfoService" check="false" />
+    
     <!-- 声明需要暴露的账户服务接口 -->
 	<!-- 大坝保险管理 -->
 	<dubbo:service interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" retries="0" ref="damdataRecordsService" />

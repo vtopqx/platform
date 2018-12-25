@@ -13,4 +13,10 @@ public class GlobalConstant {
 
 	// 请求外部接口超时设置(默认1秒)
 	public static final int API_REQUEST_TIMEOUT = 1000;
+	
+	//状态(启用)
+	public static final int ENABLE = 0;
+
+	//状态(停用)
+	public static final int DISENABLE = 1;
 }

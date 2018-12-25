@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xiaoleilu.hutool.bean.BeanUtil;
-import com.xiaoleilu.hutool.json.JSONObject;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
@@ -39,6 +38,12 @@ import cn.innovation.platform.insurance.service.IDamdataRecordsService;
 import cn.innovation.platform.insurance.service.IHistoryRecordsService;
 import cn.innovation.platform.insurance.service.IMobileCityService;
 import cn.innovation.platform.insurance.service.IVinsunRecordsService;
+import cn.innovation.platform.upms.common.model.TbApiArea;
+import cn.innovation.platform.upms.common.model.TbApiInfo;
+import cn.innovation.platform.upms.common.model.TbAppInfo;
+import cn.innovation.platform.upms.service.IApiAreaService;
+import cn.innovation.platform.upms.service.IApiInfoService;
+import cn.innovation.platform.upms.service.IAppInfoService;
 
 /**
  * @ClassName: HistoryRecordsServiceImpl
@@ -61,7 +66,13 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 	@Resource
 	private IMobileCityService mobileCityService;
 	@Resource
-	private RedisTemplate<String, String> redisTemplate;
+	private RedisTemplate<String, TbAppInfo> redisTemplate;
+	@Resource
+	private IApiInfoService apiInfoService;
+	@Resource
+	private IApiAreaService apiAreaService;
+	@Resource
+	private IAppInfoService appInfoService;
 
 	@Override
 	public BaseResult addApply(HistoryRecordsDto dto) {
@@ -86,7 +97,7 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 			wrapper.and(findParam.toString());
 			List<HistoryRecords> list = this.selectList(wrapper);
 			if (list != null && list.size() > 0) {
-				logger.info("[赠险]:数据检查完成!流水号:{},重复提交了数据!", reqeustId);
+				logger.info("[赠险]:数据检查数据是否已申请完成!流水号:{},重复提交了数据!", reqeustId);
 				result = new BaseResult(SystemStatusEnum.CODE_202.value(), SystemStatusEnum.CODE_202.remark());
 			} else {
 				BeanUtil.copyProperties(dto, records);
@@ -118,8 +129,13 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 					String apiCode = apiMap.get("api").toString();
 					result = (BaseResult) apiMap.get("data");
 					if (status.equals("1")) {
+						// 推送成功
 						records.setStatus(SendStatusEnum.success.getId());
+					} else if (status.equals("-1") || status.equals("-2")) {
+						// 不满足发送条件
+						records.setStatus(SendStatusEnum.disable.getId());
 					} else {
+						// 推送失败
 						records.setStatus(SendStatusEnum.failure.getId());
 					}
 					// 更新处理状态
@@ -151,7 +167,7 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 	 *            参数对象
 	 * @return
 	 */
-	private Map<String, Object> sendToApi(HistoryRecordsDto dto) {
+	private Map<String, Object> sendToApi(HistoryRecordsDto dto) throws Exception {
 		long startTime = System.currentTimeMillis();
 		String api = "";
 		boolean isSuccess = false;
@@ -160,12 +176,13 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 		Map<String, Object> map = new HashMap<String, Object>();
 		BaseResult result = null;
 		// 先查询redis中是否存在API
-		ValueOperations<String, String> ops = redisTemplate.opsForValue();
-		String appInfoStr = ops.get(RedisConstant.REDIS_APPINFO_PREFIX + dto.getAppKey());
+		ValueOperations<String, TbAppInfo> ops = redisTemplate.opsForValue();
+		TbAppInfo appInfo = ops.get(RedisConstant.REDIS_APPINFO_PREFIX + dto.getAppKey());
 		String apiList = "";
-		if (StringUtils.isNotEmpty(appInfoStr)) {
-			JSONObject jsonObject = JSONUtil.parseObj(appInfoStr);
-			apiList = jsonObject.getStr("apiList");
+		if (StringUtils.isNotEmpty(appInfo)) {
+			// JSONObject jsonObject = JSONUtil.parseObj(appInfoStr);
+			// apiList = jsonObject.getStr("apiList");
+			apiList = appInfo.getApiList();
 		}
 		// 数据异常直接返回
 		if (!StringUtils.isNotEmpty(apiList)) {
@@ -177,9 +194,67 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 			return map;
 		}
 		String[] apiArray = apiList.split(",");
-		logger.info("[赠险]:数据分发,获取上游渠道接口完成!流水号:{},接口:{}", reqeustId, apiArray);
+		logger.info("[赠险]:数据分发,获取上游渠道接口列表完成!流水号:{},接口:{}", reqeustId, apiArray);
+		boolean allowRule = false;
 		for (int i = 0; i < apiArray.length; i++) {
 			api = apiArray[i];
+			long fiterTime = System.currentTimeMillis();
+			// 查询API是否有年龄限制
+			TbApiInfo apiInfo = apiInfoService.getApiInfo(reqeustId, api);
+			if (!StringUtils.isNotEmpty(apiInfo.getAgeLimit())) {
+				int age = 0;
+				String[] ageArray = apiInfo.getAgeLimit().split(",");
+				if (StringUtils.isNotEmpty(dto.getAge())) {
+					age = Integer.valueOf(dto.getAge());
+				} else {
+					age = StringUtils.getAge(dto.getUserCard(), dto.getBirth());
+				}
+				// 不满足发送条件
+				if (age < Integer.valueOf(ageArray[0]) || age > Integer.valueOf(ageArray[1])) {
+					logger.info("[赠险]:数据分发,年龄限制判断不符合规则!流水号:{}", reqeustId);
+					new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
+					map.put("api", api);
+					map.put("status", "-1");
+					map.put("data", result);
+					return map;
+				}
+			}
+			// 查询API是否有地域限制
+			List<TbApiArea> areaList = apiAreaService.getApiArea(reqeustId, apiInfo.getCompanyId(), api);
+			if (areaList != null && areaList.size() > 0) {
+				for (TbApiArea area : areaList) {
+					String cityStr = area.getCitys();
+					String apiCode = area.getApiCode();
+					// 判断是否精确到具体的API做地市控制
+					boolean isFilterCity = false;
+					// 如果API为空则表示该公司下所有接口都统一风格
+					if (!StringUtils.isNotEmpty(apiCode)) {
+						isFilterCity = true;
+					} else {
+						if (apiCode.equals(api)) {
+							isFilterCity = true;
+						}
+					}
+					// 判断是否包含城市
+					if (isFilterCity) {
+						if (cityStr.contains(dto.getClientCity().trim())) {
+							allowRule = true;
+							break;
+						}
+					}
+				}
+				// 如果不满足地域信息直接返回
+				if (!allowRule) {
+					logger.info("[赠险]:数据分发,城市地域判断不符合规则!流水号:{},城市:{}", reqeustId, dto.getClientCity());
+					new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
+					map.put("api", api);
+					map.put("status", "-2");
+					map.put("data", result);
+					return map;
+				}
+			}
+			logger.info("[赠险]:数据分发,数据验证完成!流水号:{},耗时:{}", reqeustId, (System.currentTimeMillis() - fiterTime));
+			//开始轮询调用上游渠道接口
 			if (api.toLowerCase().contains(ApiConstant.API_DB)) {
 				long dbTime = System.currentTimeMillis();
 				logger.info("[赠险]:数据分发,当前调用大坝接口!流水号:{}", reqeustId);

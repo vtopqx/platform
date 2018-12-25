@@ -22,12 +22,12 @@ public class Constants {
 	public static final String FAIL = "1";
 	
 	/**
-	 * 状态(停用)
+	 * 状态(启用)
 	 */
 	public static final int ENABLE = 0;
 
 	/**
-	 * 状态(启用)
+	 * 状态(停用)
 	 */
 	public static final int DISENABLE = 1;
 
@@ -75,5 +75,10 @@ public class Constants {
 	 * redis缓存下游渠道(appKey和密钥)
 	 */
 	public static String REDIS_APPINFO_PREFIX = "REDIS_APPINFO:";
+	
+	/**
+	 * redis缓存上游渠道(appKey和密钥)
+	 */
+	public static String REDIS_APIINFO_PREFIX = "REDIS_APIINFO:";
 
 }

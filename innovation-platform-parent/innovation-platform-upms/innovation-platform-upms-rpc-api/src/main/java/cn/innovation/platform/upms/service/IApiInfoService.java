@@ -10,6 +10,12 @@ import cn.innovation.platform.upms.common.model.TbApiInfo;
  * @author mqx
  * @date 2018年12月23日 下午1:12:07
  */
-public interface ITbApiInfoService extends IService<TbApiInfo> {
+public interface IApiInfoService extends IService<TbApiInfo> {
 
+	/**
+	 * @Description: 根据ApiCode查询上游渠道信息
+	 * @param apiCode 渠道码
+	 * @return
+	 */
+	public TbApiInfo getApiInfo(String requestId, String apiCode);
 }

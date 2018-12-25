@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class TbApiInfo implements Serializable {
 
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
@@ -57,9 +57,19 @@ public class TbApiInfo implements Serializable {
      */
 	private String company;
     /**
+     * 公司ID
+     */
+	@TableField("company_id")
+	private Integer companyId;
+    /**
      * 联系号码
      */
 	private String mobile;
+    /**
+     * 年龄限制
+     */
+	@TableField("age_limit")
+	private String ageLimit;
     /**
      * 数据创建时间
      */
@@ -136,12 +146,28 @@ public class TbApiInfo implements Serializable {
 		this.company = company;
 	}
 
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
 	public String getMobile() {
 		return mobile;
 	}
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getAgeLimit() {
+		return ageLimit;
+	}
+
+	public void setAgeLimit(String ageLimit) {
+		this.ageLimit = ageLimit;
 	}
 
 	public Date getCreateTime() {
@@ -171,7 +197,9 @@ public class TbApiInfo implements Serializable {
 			", status=" + status +
 			", contacts=" + contacts +
 			", company=" + company +
+			", companyId=" + companyId +
 			", mobile=" + mobile +
+			", ageLimit=" + ageLimit +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";

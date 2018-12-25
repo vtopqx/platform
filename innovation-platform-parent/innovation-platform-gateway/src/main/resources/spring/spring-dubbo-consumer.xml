@@ -12,12 +12,9 @@
 	<!-- 使用zookeeper注册中心暴露发现服务地址 -->
 	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
 
-	<!-- 创新平台应用注册服务 -->
-	<dubbo:reference id="applicationRegisterInfoService" interface="cn.innovation.platform.upms.service.IApplicationRegisterInfoService" check="false" />
-	
 	<!-- 应用注册信息 -->
-	<dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.ITbAppInfoService" check="false" />
-	<dubbo:reference id="apiInfoService" interface="cn.innovation.platform.upms.service.ITbApiInfoService" check="false" />
+	<dubbo:reference id="appInfoService" interface="cn.innovation.platform.upms.service.IAppInfoService" check="false" />
+	<dubbo:reference id="apiInfoService" interface="cn.innovation.platform.upms.service.IApiInfoService" check="false" />
 	
 	<!-- 保险服务 -->
 	<dubbo:reference id="damdataRecordsService" interface="cn.innovation.platform.insurance.service.IDamdataRecordsService" check="false" />

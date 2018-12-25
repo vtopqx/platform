@@ -1,14 +1,10 @@
 package cn.innovation.platform.system.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.xiaoleilu.hutool.json.JSONUtil;
 
 import cn.innovation.platform.common.constant.Constants;
 import cn.innovation.platform.common.support.Convert;
@@ -79,19 +75,12 @@ public class AppInfoServiceImpl implements IAppInfoService {
 	public int updateAppInfo(AppInfo appInfo) {
 		int result = appInfoMapper.updateAppInfo(appInfo);
 		if (result > 0) {
-			//禁用时删除缓存
-			if (appInfo.getStatus().toString().equals("1")) {
+			// 禁用时删除缓存
+			if (appInfo.getStatus().toString().equals(Constants.DISENABLE)) {
 				redisService.remove(Constants.REDIS_APPINFO_PREFIX + appInfo.getId());
 			} else {
-				// 设置缓存
-				Map<String, String> appMap = new HashMap<String, String>();
-				appMap.put("appKey", appInfo.getId().toString());
-				appMap.put("apiList", appInfo.getApiList());
-				appMap.put("channelCode", appInfo.getChannelCode());
-				appMap.put("appSecret", appInfo.getAppSecret());
-
 				// 存入redis
-				redisService.set(Constants.REDIS_APPINFO_PREFIX + appInfo.getId(), JSONUtil.toJsonStr(appMap));
+				redisService.set(Constants.REDIS_APPINFO_PREFIX + appInfo.getId(), appInfo);
 			}
 		}
 		return result;
@@ -106,11 +95,14 @@ public class AppInfoServiceImpl implements IAppInfoService {
 	 */
 	@Override
 	public int deleteAppInfoByIds(String ids) {
-		String[] idArray = Convert.toStrArray(ids);
-		for (String id : idArray) {
-			redisService.remove(Constants.REDIS_APPINFO_PREFIX + id);
+		int result = appInfoMapper.deleteAppInfoByIds(Convert.toStrArray(ids));
+		if (result > 0) {
+			String[] idArray = Convert.toStrArray(ids);
+			for (String id : idArray) {
+				redisService.remove(Constants.REDIS_APPINFO_PREFIX + id);
+			}
 		}
-		return appInfoMapper.deleteAppInfoByIds(Convert.toStrArray(ids));
+		return result;
 	}
 
 }

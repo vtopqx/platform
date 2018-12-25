@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xiaoleilu.hutool.bean.BeanUtil;
+import com.xiaoleilu.hutool.json.JSONObject;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
@@ -40,7 +41,6 @@ import cn.innovation.platform.insurance.service.IMobileCityService;
 import cn.innovation.platform.insurance.service.IVinsunRecordsService;
 import cn.innovation.platform.upms.common.model.TbApiArea;
 import cn.innovation.platform.upms.common.model.TbApiInfo;
-import cn.innovation.platform.upms.common.model.TbAppInfo;
 import cn.innovation.platform.upms.service.IApiAreaService;
 import cn.innovation.platform.upms.service.IApiInfoService;
 import cn.innovation.platform.upms.service.IAppInfoService;
@@ -66,7 +66,7 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 	@Resource
 	private IMobileCityService mobileCityService;
 	@Resource
-	private RedisTemplate<String, TbAppInfo> redisTemplate;
+	private RedisTemplate<String, String> redisTemplate;
 	@Resource
 	private IApiInfoService apiInfoService;
 	@Resource
@@ -176,13 +176,12 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 		Map<String, Object> map = new HashMap<String, Object>();
 		BaseResult result = null;
 		// 先查询redis中是否存在API
-		ValueOperations<String, TbAppInfo> ops = redisTemplate.opsForValue();
-		TbAppInfo appInfo = ops.get(RedisConstant.REDIS_APPINFO_PREFIX + dto.getAppKey());
+		ValueOperations<String, String> ops = redisTemplate.opsForValue();
+		String appInfoJson = ops.get(RedisConstant.REDIS_APPINFO_PREFIX + dto.getAppKey());
 		String apiList = "";
-		if (StringUtils.isNotEmpty(appInfo)) {
-			// JSONObject jsonObject = JSONUtil.parseObj(appInfoStr);
-			// apiList = jsonObject.getStr("apiList");
-			apiList = appInfo.getApiList();
+		if (StringUtils.isNotEmpty(appInfoJson)) {
+			JSONObject jsonObject = JSONUtil.parseObj(appInfoJson);
+			apiList = jsonObject.getStr("apiList");
 		}
 		// 数据异常直接返回
 		if (!StringUtils.isNotEmpty(apiList)) {
@@ -198,10 +197,11 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 		boolean allowRule = false;
 		for (int i = 0; i < apiArray.length; i++) {
 			api = apiArray[i];
+			logger.info("[赠险]:数据分发,当前轮询接口:{},流水号:{}",api, reqeustId);
 			long fiterTime = System.currentTimeMillis();
 			// 查询API是否有年龄限制
 			TbApiInfo apiInfo = apiInfoService.getApiInfo(reqeustId, api);
-			if (!StringUtils.isNotEmpty(apiInfo.getAgeLimit())) {
+			if (StringUtils.isNotEmpty(apiInfo.getAgeLimit())) {
 				int age = 0;
 				String[] ageArray = apiInfo.getAgeLimit().split(",");
 				if (StringUtils.isNotEmpty(dto.getAge())) {
@@ -211,12 +211,16 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 				}
 				// 不满足发送条件
 				if (age < Integer.valueOf(ageArray[0]) || age > Integer.valueOf(ageArray[1])) {
-					logger.info("[赠险]:数据分发,年龄限制判断不符合规则!流水号:{}", reqeustId);
-					new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
-					map.put("api", api);
-					map.put("status", "-1");
-					map.put("data", result);
-					return map;
+					logger.info("[赠险]:数据分发,年龄限制判断不符合规则(跳过)!流水号:{},渠道码:{}", reqeustId,api);
+					if (i==(apiArray.length-1)) {
+						result = new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
+						map.put("api", api);
+						map.put("status", "-1");
+						map.put("data", result);
+						return map;
+					}else{
+						continue;
+					}
 				}
 			}
 			// 查询API是否有地域限制
@@ -245,12 +249,16 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 				}
 				// 如果不满足地域信息直接返回
 				if (!allowRule) {
-					logger.info("[赠险]:数据分发,城市地域判断不符合规则!流水号:{},城市:{}", reqeustId, dto.getClientCity());
-					new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
-					map.put("api", api);
-					map.put("status", "-2");
-					map.put("data", result);
-					return map;
+					logger.info("[赠险]:数据分发,城市地域判断不符合规则(跳过)!流水号:{},渠道码:{}", reqeustId, api);
+					if (i==(apiArray.length-1)) {
+						result = new BaseResult(SystemStatusEnum.CODE_415.value(), SystemStatusEnum.CODE_415.remark());
+						map.put("api", api);
+						map.put("status", "-2");
+						map.put("data", result);
+						return map;
+					}else{
+						continue;
+					}
 				}
 			}
 			logger.info("[赠险]:数据分发,数据验证完成!流水号:{},耗时:{}", reqeustId, (System.currentTimeMillis() - fiterTime));

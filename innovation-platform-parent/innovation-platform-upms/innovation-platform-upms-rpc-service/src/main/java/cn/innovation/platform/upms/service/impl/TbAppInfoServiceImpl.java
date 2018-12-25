@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xiaoleilu.hutool.json.JSONObject;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 
@@ -33,7 +35,7 @@ public class TbAppInfoServiceImpl extends ServiceImpl<TbAppInfoMapper, TbAppInfo
 	private static final Log logger = LogFactory.get();
 
 	@Resource
-	private RedisTemplate<String, TbAppInfo> redisTemplate;
+	private RedisTemplate<String, String> redisTemplate;
 
 	@Override
 	public TbAppInfo getAppInfo(String appKey) {
@@ -41,10 +43,10 @@ public class TbAppInfoServiceImpl extends ServiceImpl<TbAppInfoMapper, TbAppInfo
 		TbAppInfo appInfo = new TbAppInfo();
 		try {
 			// 先查询redis中是否存在
-			ValueOperations<String, TbAppInfo> ops = redisTemplate.opsForValue();
+			ValueOperations<String, String> ops = redisTemplate.opsForValue();
 			String appInfoKey = RedisConstant.REDIS_APPINFO_PREFIX + appKey;
-			appInfo = ops.get(appInfoKey);
-			if (!StringUtils.isNotEmpty(appInfo)) {
+			String jsonStr = ops.get(appInfoKey);
+			if (!StringUtils.isNotEmpty(jsonStr)) {
 				// 查询数据库验证
 				EntityWrapper<TbAppInfo> wrapper = new EntityWrapper<TbAppInfo>();
 				wrapper.where("id = {0}", appKey);
@@ -53,7 +55,12 @@ public class TbAppInfoServiceImpl extends ServiceImpl<TbAppInfoMapper, TbAppInfo
 				// 重新放到redis中
 				if (StringUtils.isNotEmpty(appInfo)) {
 					// 存入redis
-					ops.set(appInfoKey, appInfo);
+					ops.set(appInfoKey, JSONUtil.toJsonStr(appInfo));
+				}
+			}else{
+				JSONObject obj = JSONUtil.parseObj(jsonStr);
+				if (StringUtils.isNotEmpty(obj)) {
+					appInfo = obj.toBean(TbAppInfo.class);
 				}
 			}
 			logger.info("[平台接口]查询平台接口权限完成!耗时{},返回:{}", (System.currentTimeMillis() - startTime), appInfo);

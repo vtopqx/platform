@@ -11,8 +11,8 @@ public class GlobalConstant {
 	// 下游渠道调用网关请求超时时间(默认十分钟)
 	public static final long GATEWAY_REQUEST_TIMEOUT = 10 * 60 * 1000;
 
-	// 请求外部接口超时设置(默认1秒)
-	public static final int API_REQUEST_TIMEOUT = 1000;
+	// 请求外部接口超时设置(默认2秒)
+	public static final int API_REQUEST_TIMEOUT = 2000;
 	
 	//状态(启用)
 	public static final int ENABLE = 0;

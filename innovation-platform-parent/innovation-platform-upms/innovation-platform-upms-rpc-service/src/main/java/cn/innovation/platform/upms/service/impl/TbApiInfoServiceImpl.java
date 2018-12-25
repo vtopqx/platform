@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xiaoleilu.hutool.json.JSONObject;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.log.Log;
 import com.xiaoleilu.hutool.log.LogFactory;
 
@@ -34,7 +36,7 @@ public class TbApiInfoServiceImpl extends ServiceImpl<TbApiInfoMapper, TbApiInfo
 	private static final Log logger = LogFactory.get();
 
 	@Resource
-	private RedisTemplate<String, TbApiInfo> redisTemplate;
+	private RedisTemplate<String, String> redisTemplate;
 
 	@Override
 	public TbApiInfo getApiInfo(String requestId, String apiCode) {
@@ -42,17 +44,22 @@ public class TbApiInfoServiceImpl extends ServiceImpl<TbApiInfoMapper, TbApiInfo
 		TbApiInfo apiInfo = null;
 		try {
 			// 先查询redis中是否存在
-			ValueOperations<String, TbApiInfo> ops = redisTemplate.opsForValue();
+			ValueOperations<String, String> ops = redisTemplate.opsForValue();
 			String apiInfoKey = RedisConstant.REDIS_APPINFO_PREFIX + apiCode;
-			apiInfo = ops.get(apiInfoKey);
-			if (!StringUtils.isNotEmpty(apiInfo)) {
+			String json = ops.get(apiInfoKey);
+			if (!StringUtils.isNotEmpty(json)) {
 				EntityWrapper<TbApiInfo> wrapper = new EntityWrapper<TbApiInfo>();
 				wrapper.where("api_code = {0}", apiCode);
 				wrapper.and(" status={0}", GlobalConstant.ENABLE);
 				apiInfo = this.selectOne(wrapper);
 				if (StringUtils.isNotEmpty(apiInfo)) {
 					// 存入redis
-					ops.set(apiInfoKey, apiInfo);
+					ops.set(apiInfoKey, JSONUtil.toJsonStr(apiInfo));
+				}
+			}else{
+				JSONObject obj = JSONUtil.parseObj(json);
+				if (StringUtils.isNotEmpty(obj)) {
+					apiInfo = obj.toBean(TbApiInfo.class);
 				}
 			}
 			logger.info("[平台接口]查询渠道信息完成!流水号{},耗时{},返回:{}", requestId, (System.currentTimeMillis() - startTime),

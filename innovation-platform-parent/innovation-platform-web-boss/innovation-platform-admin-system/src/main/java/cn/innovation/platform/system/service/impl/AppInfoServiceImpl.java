@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xiaoleilu.hutool.json.JSONUtil;
+
 import cn.innovation.platform.common.constant.Constants;
 import cn.innovation.platform.common.support.Convert;
 import cn.innovation.platform.system.domain.AppInfo;
@@ -80,7 +82,7 @@ public class AppInfoServiceImpl implements IAppInfoService {
 				redisService.remove(Constants.REDIS_APPINFO_PREFIX + appInfo.getId());
 			} else {
 				// 存入redis
-				redisService.set(Constants.REDIS_APPINFO_PREFIX + appInfo.getId(), appInfo);
+				redisService.set(Constants.REDIS_APPINFO_PREFIX + appInfo.getId(), JSONUtil.toJsonStr(appInfo));
 			}
 		}
 		return result;

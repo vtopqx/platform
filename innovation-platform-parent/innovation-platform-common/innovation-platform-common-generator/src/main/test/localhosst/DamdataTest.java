@@ -21,9 +21,10 @@ public class DamdataTest {
 
 	public static void main(String[] args) {
 		try {
+			long startTime = System.currentTimeMillis();
 //			String sendUrl = "http://localhost:9001/services/api/insurance/thdpy";
-			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
-//			String sendUrl = "http://www.nengxi.net/services/api/insurance/apply";
+//			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
+			String sendUrl = "http://www.nengxi.net/services/api/insurance/apply";
 			String secret = "44a54ce509d56d1f930b9d00b09c9ec5";
 			// 参数
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -50,6 +51,7 @@ public class DamdataTest {
 					.header(Header.CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE).execute().body();
 
 			System.out.println("result:" + resultData);
+			System.out.println("耗时:"+(System.currentTimeMillis()-startTime));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

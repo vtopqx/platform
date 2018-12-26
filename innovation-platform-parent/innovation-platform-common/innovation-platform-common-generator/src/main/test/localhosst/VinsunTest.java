@@ -29,6 +29,7 @@ public class VinsunTest {
 	 */
 	public static void main(String[] args) {
 		try {
+			long startTime = System.currentTimeMillis();
 			// 接口地址
 			String sendUrl = "http://localhost:9001/services/api/insurance/apply";
 			// 应用Key
@@ -61,6 +62,7 @@ public class VinsunTest {
 					.header(Header.CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE).execute().body();
 
 			System.out.println("result:" + resultData);
+			System.out.println("耗时:"+(System.currentTimeMillis()-startTime));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

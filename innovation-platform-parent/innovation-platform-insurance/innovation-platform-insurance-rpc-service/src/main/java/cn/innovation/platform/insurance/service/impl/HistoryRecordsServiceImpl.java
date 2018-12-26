@@ -301,6 +301,7 @@ public class HistoryRecordsServiceImpl extends ServiceImpl<HistoryRecordsMapper,
 				if (StringUtils.isNotEmpty(resultMap)) {
 					String code = resultMap.get("code");
 					if (code.equals(VinsunCodeEnum.CODE_1001.value())) {
+						resultMap.remove("code");
 						result = new BaseResult(SystemStatusEnum.CODE_200.value(), SystemStatusEnum.CODE_200.remark(),
 								resultMap);
 						isSuccess = true;

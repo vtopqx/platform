@@ -12,7 +12,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								公司名称：<input type="text" name="name"/>
+								供应商名称：<input type="text" name="name"/>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -55,7 +55,7 @@
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
-		        modalName: "上游渠道公司信息",
+		        modalName: "上游渠道供应商信息",
 		        sortName: "id",
 		        sortOrder: "desc",
 		        search: false,
@@ -70,7 +70,7 @@
 		        },
 		        {
 		            field: 'name',
-		            title: '公司名称',
+		            title: '供应商名称',
 		            sortable: true
 		        },
 		        {

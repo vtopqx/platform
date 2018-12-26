@@ -7,7 +7,7 @@
 		<form class="form-horizontal m" id="form-api-edit" th:object="${apiInfo}">
 			<input id="id" name="id" type="hidden" th:field="*{id}"/>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">公司：</label>
+				<label class="col-sm-3 control-label">供应商名称：</label>
 				<div class="col-sm-8" style="height:34px;">
 					<select id="company" name="company" class="form-control m-b">
 	                    <option th:each="company : ${apiCompany}" th:text="${company.name}" th:value="${company.selectValue}" th:selected="${company.flag}"></option>
@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道类型：</label>
+				<label class="col-sm-3 control-label">接口类型：</label>
 				<div class="col-sm-8" style="height:34px;">
 					<select id="channelType"  name="channelType"  class="form-control m-b" th:with="type=${@dict.getType('channel_type')}">
 	                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{channelType}"></option>
@@ -23,13 +23,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">渠道(如:ZX_DB)：</label>
+				<label class="col-sm-3 control-label">接口(如:ZX_DB)：</label>
 				<div class="col-sm-8">
 					<input class="form-control" type="text" name="apiCode" id="apiCode" th:field="*{apiCode}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label ">渠道名称：</label>
+				<label class="col-sm-3 control-label ">接口名称：</label>
 				<div class="col-sm-8">
 					<input class="form-control" type="text" name="apiName" id="apiName" th:field="*{apiName}"/>
 				</div>

@@ -12,10 +12,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								公司名称：<input type="text" name="companyName"/>
+								供应商名称：<input type="text" name="companyName"/>
 							</li>
 							<li>
-								渠道：<input type="text" name="apiCode"/>
+								接口：<input type="text" name="apiCode"/>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -58,7 +58,7 @@
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
-		        modalName: "上游渠道城市配置",
+		        modalName: "上游供应商城市配置",
 		        sortName: "companyId",
 		        search: false,
 		        showExport: false,
@@ -72,12 +72,12 @@
 		        },
 		        {
 		            field: 'companyName',
-		            title: '公司名称',
+		            title: '供应商名称',
 		            sortable: true
 		        },
 		        {
 		            field: 'apiCode',
-		            title: '渠道',
+		            title: '接口',
 		            sortable: true
 		        },
 		        {

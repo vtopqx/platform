@@ -12,7 +12,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								渠道：<input type="text" name="apiCode"/>
+								供应商名称：<input type="text" name="company"/>
+							</li>
+							<li>
+								接口：<input type="text" name="apiCode"/>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -55,7 +58,7 @@
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
-		        modalName: "上游渠道信息",
+		        modalName: "上游供应商接口配置",
 		        search: false,
 		        showExport: false,
 		        columns: [{
@@ -68,22 +71,22 @@
 		        },
 		        {
 		            field: 'company',
-		            title: '公司名称',
+		            title: '供应商名称',
 		            sortable: true
 		        },
 		        {
 		            field: 'apiCode',
-		            title: '渠道',
+		            title: '接口',
 		            sortable: true
 		        },
 		        {
 		            field: 'apiName',
-		            title: '渠道名称',
+		            title: '接口名称',
 		            sortable: true
 		        },
 		        {
 		            field: 'channelType',
-		            title: '渠道类型',
+		            title: '接口类型',
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	return $.table.selectDictLabel(channels, value);

@@ -36,7 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="channelType != null "> and channel_type = #{channelType}</if>
              <if test="status != null "> and status = #{status}</if>
              <if test="contacts != null  and contacts != '' "> and contacts = #{contacts}</if>
-             <if test="company != null  and company != '' "> and company = #{company}</if>
+             <if test="company != null  and company != '' "> 
+             	and company like concat('%', #{company}, '%')
+             </if>
              <if test="companyId != null "> and company_id = #{companyId}</if>
              <if test="mobile != null  and mobile != '' "> and mobile = #{mobile}</if>
              <if test="ageLimit != null  and ageLimit != '' "> and age_limit = #{ageLimit}</if>

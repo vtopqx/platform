@@ -1,6 +1,8 @@
 package cn.innovation.platform.system.service;
 
 import cn.innovation.platform.system.domain.InsuranceHistoryRecords;
+import cn.innovation.platform.system.dto.InsuranceStatisDto;
+
 import java.util.List;
 
 /**
@@ -18,6 +20,14 @@ public interface IInsuranceHistoryRecordsService
      * @return 保险申请记录汇总信息
      */
 	public InsuranceHistoryRecords selectInsuranceHistoryRecordsById(Integer id);
+	
+	/**
+     * 保险申请统计
+     * @param insuranceHistoryRecords 保险申请记录汇总信息
+     * @return 保险申请记录汇总集合
+     */
+	public List<InsuranceStatisDto> selectInsuranceStatis(InsuranceHistoryRecords insuranceHistoryRecords);
+	
 	
 	/**
      * 查询保险申请记录汇总列表

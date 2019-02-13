@@ -84,6 +84,55 @@ $(function() {
 	        }
 	    });
 	}
+	
+	// laydate month-input 时间控件绑定
+	if ($(".month-input").length > 0) {
+	    layui.use('laydate', function() {
+	        var laydate = layui.laydate;
+	        var times = $(".month-input");
+	        for (var i = 0; i < times.length; i++) {
+	            var time = times[i];
+	            laydate.render({
+	                elem: time,
+	                type: 'month',
+	                theme: 'molv',
+	                trigger: 'click',
+	                done: function(value, date) {}
+	            });
+	        }
+	    });
+	}
+	
+	// laydate month-input-value 时间控件绑定
+	if ($(".month-input-value").length > 0) {
+	    layui.use('laydate', function() {
+	        var laydate = layui.laydate;
+	        //获取当前年月
+	        var date = new Date();
+	        var seperator1 = "-";
+	        var year = date.getFullYear();
+	        var month = date.getMonth() + 1;
+	        var strDate = date.getDate();
+	        if (month >= 1 && month <= 9) {
+	            month = "0" + month;
+	        }
+	        var currentMonth = year + seperator1 + month;
+	        
+	        var times = $(".month-input-value");
+	        for (var i = 0; i < times.length; i++) {
+	            var time = times[i];
+	            laydate.render({
+	                elem: time,
+	                type: 'month',
+	                value: currentMonth,
+	                theme: 'molv',
+	                trigger: 'click',
+	                done: function(value, date) {}
+	            });
+	        }
+	    });
+	}
+	
 	// tree 关键字搜索绑定
 	if ($("#keyword").length > 0) {
 		$("#keyword").bind("focus", function focusKey(e) {
@@ -154,7 +203,7 @@ function createMenuItem(dataUrl, menuName) {
         $('.menuTab', topWindow).removeClass('active');
 
         // 添加选项卡对应的iframe
-        var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+        var str1 = '<iframe class="sys_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
         $('.mainContent', topWindow).find('iframe.RuoYi_iframe').hide().parents('.mainContent').append(str1);
 
         // 添加选项卡

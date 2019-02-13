@@ -77,6 +77,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </where>
     </select>
     
+     <select id="selectInsuranceStatis" parameterType="InsuranceHistoryRecords" resultMap="InsuranceHistoryRecordsResult">
+		SELECT
+			client_province,
+			DATE_FORMAT(create_time, '%Y-%m-%d') birth,
+			status,
+			count(1) sp_billno
+		FROM
+			tb_insurance_history_records
+			where client_province is not null 
+			 <if test="channel != null  and channel != '' ">
+             	 and channel = #{channel}
+             </if>	
+             <if test="apiCode != null  and apiCode != '' ">
+             	 and api_code in (select api_code from tb_api_info  where company_id=#{apiCode})
+             </if>	
+		GROUP BY
+			client_province,
+			DATE_FORMAT(create_time, '%Y-%m-%d'),
+			status     
+     </select>
+    
     <select id="selectInsuranceHistoryRecordsById" parameterType="Integer" resultMap="InsuranceHistoryRecordsResult">
         <include refid="selectInsuranceHistoryRecordsVo"/>
         where id = #{id}

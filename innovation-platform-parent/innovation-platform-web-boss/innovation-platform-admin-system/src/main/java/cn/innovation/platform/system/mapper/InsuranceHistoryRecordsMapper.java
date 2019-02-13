@@ -28,6 +28,14 @@ public interface InsuranceHistoryRecordsMapper
 	public List<InsuranceHistoryRecords> selectInsuranceHistoryRecordsList(InsuranceHistoryRecords insuranceHistoryRecords);
 	
 	/**
+     * 查询保险申请记录统计
+     * @param insuranceHistoryRecords 保险申请记录汇总信息
+     * @return 保险申请记录汇总集合
+     */
+	public List<InsuranceHistoryRecords> selectInsuranceStatis(InsuranceHistoryRecords insuranceHistoryRecords);
+	
+	
+	/**
      * 新增保险申请记录汇总
      * 
      * @param insuranceHistoryRecords 保险申请记录汇总信息

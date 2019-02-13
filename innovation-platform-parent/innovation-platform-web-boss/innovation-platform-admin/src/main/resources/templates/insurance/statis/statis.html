@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="post-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								渠道商：
+								<select id="channel" name="channel">
+				                    <option value="">所有</option>
+				                </select>
+							</li>
+							<li>
+								供应商：
+								<select id="company" name="apiCode">
+				                    <option value="">所有</option>
+				                </select>
+							</li>
+							<li class="select-time">
+								<label>时间： </label>
+								<input type="text" class="month-input-value"  readonly="readonly"  id="createTime" placeholder="月份" name="createTime"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="insurance:statis:export">
+		            <i class="fa fa-download"></i> 导出
+		        </a>
+	        </div>
+	        
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var removeFlag = [[${@permission.hasPermi('insurance:history:remove')}]];
+		var datas = [[${@dict.getType('interface_status')}]];
+		var prefix = ctx + "insurance/statis";
+
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        removeUrl: prefix + "/remove",
+		        exportUrl: prefix + "/export",
+		        modalName: "保险申请汇总统计",
+		        search: false,
+		        showExport: true,
+		        rownumbers : true,
+	            pagination : false,
+		        columns: [{
+		            checkbox: true
+		        },
+		        {
+		            field: 'date',
+		            title: '当月日期',
+		            width : 200
+		        },
+		        {
+		            field: 'allTotal',
+		            title: '进件总数'
+		        },
+		        {
+		            field: 'mTotal',
+		            title: '毛名单'
+		        },
+		        {
+		            field: 'bjTotal',
+		            title: '北京'
+		        },
+		        {
+		            field: 'tjTotal',
+		            title: '天津'
+		        },
+		        {
+		            field: 'shTotal',
+		            title: '上海'
+		        },
+		        {
+		            field: 'cqTotal',
+		            title: '重庆'
+		        },
+		        {
+		            field: 'hbTotal',
+		            title: '河北'
+		        },
+		        {
+		            field: 'ahTotal',
+		            title: '安徽'
+		        },
+		        {
+		            field: 'sxTotal',
+		            title: '陕西'
+		        },
+		        {
+		            field: 'scTotal',
+		            title: '四川'
+		        },
+		        {
+		            field: 'jsTotal',
+		            title: '江苏'
+		        },
+		        {
+		            field: 'zjTotal',
+		            title: '浙江'
+		        },
+		        {
+		            field: 'fjTotal',
+		            title: '福建'
+		        },
+		        {
+		            field: 'sdTotal',
+		            title: '山东'
+		        },
+		        {
+		            field: 'henTotal',
+		            title: '河南'
+		        },
+		        {
+		            field: 'hubTotal',
+		            title: '湖北'
+		        },
+		        {
+		            field: 'hunTotal',
+		            title: '湖南'
+		        },
+		        {
+		            field: 'gdTotal',
+		            title: '广东'
+		        },
+		        {
+		            field: 'gxTotal',
+		            title: '广西'
+		        },
+		        {
+		            field: 'hainTotal',
+		            title: '海南'
+		        },
+		        {
+		            field: 'jxTotal',
+		            title: '江西'
+		        },
+		        {
+		            field: 'sanxTotal',
+		            title: '山西'
+		        },
+		        {
+		            field: 'gzTotal',
+		            title: '贵州'
+		        },
+		        {
+		            field: 'ynTotal',
+		            title: '云南'
+		        },
+		        {
+		            field: 'xzTotal',
+		            title: '西藏'
+		        },
+		        {
+		            field: 'lnTotal',
+		            title: '辽宁'
+		        },
+		        {
+		            field: 'jlTotal',
+		            title: '吉林'
+		        },
+		        {
+		            field: 'nmgTotal',
+		            title: '内蒙古'
+		        },
+		        {
+		            field: 'gsTotal',
+		            title: '甘肃'
+		        },
+		        {
+		            field: 'qhTotal',
+		            title: '青海'
+		        },
+		        {
+		            field: 'nxTotal',
+		            title: '宁夏'
+		        },
+		        {
+		            field: 'hljTotal',
+		            title: '黑龙江'
+		        },
+		        {
+		            field: 'xjTotal',
+		            title: '新疆'
+		        },
+		        {
+		            field: 'twTotal',
+		            title: '台湾'
+		        },
+		        {
+		            field: 'xgTotal',
+		            title: '香港'
+		        },
+		        {
+		            field: 'amTotal',
+		            title: '澳门'
+		        }]
+		    };
+		    $.table.init(options);
+		    
+		    //加载下拉框
+			$.ajax({
+			    type:"POST",
+			    url:prefix + "/getApiList",
+			    success:function(data){
+			    	$.each(data,function(n,item) {   
+			    		$("#company").append("<option value='"+item.id+"'>"+item.name+"</option>");
+			        });  
+			    },error:function(){
+			    	　　alertLayer("获取供应商数据失败","error");
+			  　　}
+			});
+		    
+		    //加载下拉框
+			$.ajax({
+			    type:"POST",
+			    url:prefix + "/getAppList",
+			    success:function(data){
+			    	$.each(data,function(n,item) {   
+			    		$("#channel").append("<option value='"+item.channelCode+"'>"+item.channel+"</option>");
+			        });  
+			    },error:function(){
+			    	　　alertLayer("获取渠道商数据失败","error");
+			  　　}
+			});
+		});
+	</script>
+</body>
+</html>

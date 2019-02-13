@@ -298,6 +298,18 @@ li {
 	padding-left: 10px;
 }
 
+.month-input {
+	display: block;
+	width: 100%;
+	padding-left: 10px;
+}
+
+.month-input-value {
+	display: block;
+	width: 100%;
+	padding-left: 10px;
+}
+
 label {
 	font-weight: normal;
 }
